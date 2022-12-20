@@ -65,5 +65,8 @@ fun SetupNavGraph(navController: NavHostController) {
         composable(route = Screen.KioskExercise.route){
             KioskSelection(navController, true)
         }
+        composable(route = Screen.GameHome.route){
+            
+        }
     }
 }

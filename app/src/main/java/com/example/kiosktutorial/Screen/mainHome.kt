@@ -97,9 +97,9 @@ fun Home(navHostController: NavHostController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(200.dp)
-                .background(MaterialTheme.colors.secondary)
+                .background(Color(0xfffed55f))
         ) {
-            val paintD = painterResource(R.drawable.kwunivlogo)
+            val paintD = painterResource(R.drawable._1_kt_wordmark__standard__01)
 //            Image(painter = paintD, contentDescription = "")
 
             Text(

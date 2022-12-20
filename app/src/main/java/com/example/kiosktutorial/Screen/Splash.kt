@@ -8,6 +8,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -55,16 +56,18 @@ fun Splash(alpha: Float) {
         modifier = Modifier
             .alpha(alpha)
             .fillMaxSize()
-            .background(MaterialTheme.colors.background)
+            // .background(MaterialTheme.colors.background)
 
     ) {
-        val paintD = painterResource(R.drawable.kwunivlogo)
+        val nightMode = isSystemInDarkTheme();
+        val paintD = painterResource(if (!nightMode) R.drawable._1_kt_wordmark__standard__01  else R.drawable._2_kt_wordmark__standard__02)
+
         Image(
             painter = paintD,
             contentDescription = "학교 상징 이미지",
             modifier = Modifier
                 .align(alignment = Alignment.Center)
-                .size(200.dp)
+                .size(100.dp)
         )
 
         Text(
@@ -82,16 +85,16 @@ fun Splash(alpha: Float) {
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_NO)
 @Composable
 fun SplashPreview(){
     Splash(1f)
 
 }
 
-//@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
-//@Composable
-//fun SplashDarkPreview() {
-//    Splash(1f)
-//
-//}
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
+@Composable
+fun SplashDarkPreview() {
+    Splash(1f)
+
+}
