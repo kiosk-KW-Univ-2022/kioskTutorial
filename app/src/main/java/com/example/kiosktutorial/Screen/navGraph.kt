@@ -4,9 +4,11 @@ import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.kiosktutorial.R
 import kotlinx.coroutines.delay
 
 sealed class BackPress {
@@ -16,9 +18,13 @@ sealed class BackPress {
 
 @Composable
 fun SetupNavGraph(navController: NavHostController) {
+    val startDest:String =
+        if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M) Screen.Splash.route
+        else Screen.Home.route
+
     NavHost(
         navController = navController,
-        startDestination = Screen.Splash.route
+        startDestination = startDest
     ) {
         composable(route = Screen.Splash.route) {
             AnimationSplashScreen(navController = navController)
@@ -32,7 +38,7 @@ fun SetupNavGraph(navController: NavHostController) {
             var showToast by remember{ mutableStateOf(false)}
 
             if(showToast){
-                Toast.makeText(LocalContext.current, "'뒤로'버튼을 한번 더 누르면 앱이 종료됩니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LocalContext.current, stringResource(R.string.exitToastMessage), Toast.LENGTH_SHORT).show()
                 showToast= false
             }
 
