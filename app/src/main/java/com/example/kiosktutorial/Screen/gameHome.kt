@@ -75,14 +75,11 @@ fun GameSelectionButton(title: String, modifier:Modifier? = null, desc:String? =
 
                 desc?.let{
                     Spacer(modifier= Modifier.height(5.dp))
-
                     Text(
                         text = desc
                         ,   fontSize = 14.sp
                     )
-
                 }
-
             }
     }
 }
