@@ -9,6 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.kiosktutorial.R
+import com.example.kiosktutorial.Screen.Kiosk.KioskTrain
 import kotlinx.coroutines.delay
 
 sealed class BackPress {
@@ -62,6 +63,10 @@ fun SetupNavGraph(navController: NavHostController) {
 
         composable(route = Screen.KioskExerciseSelection.route){
             KioskSelection(navController = navController, bExercise = true)
+        }
+
+        composable(route = Screen.KioskTrain.route){
+            KioskTrain(navController = navController)
         }
 
         composable(route = Screen.KioskTutorial.route){
