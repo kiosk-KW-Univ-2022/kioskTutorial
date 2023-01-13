@@ -7,8 +7,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.foundation.magnifier
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.kiosktutorial.R
+
 
 
 @Composable
@@ -36,7 +38,9 @@ fun GamePlay(name:String){
     }
     else if(name == "ColorGame") //글자 색상 맞추기 게임
     {
-        var num:Int =3; //색깔의 종류
+        var num: Int = 4; //색깔의 종류
+        var colorname = arrayOf("검정","파랑","초록","빨강");//색상 리스트
+
     }
 
 }
@@ -50,7 +54,7 @@ fun GamePlayScreen(navHostController: NavHostController){
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        Box(
+        Box(//위에 설명구문 박스
             modifier = Modifier
                 .fillMaxWidth()
                 .height(200.dp)
@@ -66,13 +70,104 @@ fun GamePlayScreen(navHostController: NavHostController){
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(alignment = Alignment.Center),
-                fontSize = 20.sp
+                fontSize = 30.sp,
+                color = Color.White,
+                fontWeight = FontWeight.Bold
             )
 
         }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp)
+                .background(Color(0x00000000))
 
+        ){
+            val time= 60
+            Text(
+                text="남은시간 $time",
+                textAlign = TextAlign.Center,
+                modifier =  Modifier
+                    .fillMaxWidth()
+                    .align(alignment = Alignment.Center),
+                fontSize = 30.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
         val context = LocalContext.current
         val backgroundColor = Color(0xfffff0a3)
+        Text(text = "검정" ,
+            color = Color.Blue,
+            fontSize =  70.sp,
+            textAlign = TextAlign.Center,
+            fontWeight = FontWeight.Bold
+        )
+
+        Box(modifier = Modifier
+            .fillMaxWidth()
+            .height(10.dp)
+            .background(Color(0x00000000))
+        )
+        //Button들
+        Box(modifier = Modifier
+            .fillMaxWidth()
+            .height(160.dp)
+            .background(Color(0x00000000))
+        ){
+            Row(
+                Modifier.padding(40.dp, 30.dp)
+            ) {
+                Button(modifier = Modifier
+                    .height(80.dp)
+                    .width(130.dp),
+                    onClick = { /*TODO*/ },
+                    colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor)
+                ) {
+                    Text(text = "파랑")
+                }
+                Button(modifier = Modifier
+                    .height(80.dp)
+                    .width(130.dp)
+                    .offset(65.dp),
+                    onClick = { /*TODO*/ },
+                    colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor)
+
+                ) {
+                    Text(text = "검정")
+                }
+            }
+        }
+
+        Box(modifier = Modifier
+            .fillMaxWidth()
+            .height(160.dp)
+            .background(Color(0x00000000))
+        ){
+            Row(
+                Modifier.padding(40.dp)
+            ) {
+                Button(modifier = Modifier
+                    .height(80.dp)
+                    .width(130.dp),
+                    onClick = { /*TODO*/ },
+                    colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor)
+
+                ) {
+                    Text(text = "빨강")
+                }
+                Button(modifier = Modifier
+                    .height(80.dp)
+                    .width(130.dp)
+                    .offset(65.dp),
+                    onClick = { /*TODO*/ },
+                    colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor)
+
+                ) {
+                    Text(text = "초록")
+                }
+            }
+        }
+
 
         var toast:Toast? = null
 
