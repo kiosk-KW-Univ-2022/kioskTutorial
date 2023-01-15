@@ -3,18 +3,19 @@ package com.example.kiosktutorial.Screen
 import android.app.GameManager
 import android.content.res.Configuration.*
 import android.widget.Toast
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.magnifier
+import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -47,6 +48,7 @@ fun GamePlay(name:String){
 
 @Composable
 fun GamePlayScreen(navHostController: NavHostController){
+    val backgroundColor = Color(0xfffed55f)
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -57,15 +59,14 @@ fun GamePlayScreen(navHostController: NavHostController){
         Box(//위에 설명구문 박스
             modifier = Modifier
                 .fillMaxWidth()
-                .height(200.dp)
+                .height(150.dp)
                 .background(Color(0xfffed55f))
         ) {
             val paintD = painterResource(R.drawable._1_kt_wordmark__standard__01)
 //            Image(painter = paintD, contentDescription = "")
 
             Text(
-                text= "아래의 글을 보고 글자 안의\n" +
-                        " 색상을 알맞게 골라주세요 ",
+                text= "\n글자의 색상을 맞춰 주세요.",
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -76,26 +77,48 @@ fun GamePlayScreen(navHostController: NavHostController){
             )
 
         }
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(200.dp)
-                .background(Color(0x00000000))
-
-        ){
-            val time= 60
-            Text(
-                text="남은시간 $time",
-                textAlign = TextAlign.Center,
-                modifier =  Modifier
+        Column(modifier = Modifier
+            .background(backgroundColor)) {
+            Box(
+                modifier = Modifier
                     .fillMaxWidth()
-                    .align(alignment = Alignment.Center),
-                fontSize = 30.sp,
-                fontWeight = FontWeight.Bold
-            )
+                    .height(150.dp)
+                    .background(
+                        shape = RoundedCornerShape(
+                            topStart = CornerSize(20.dp),
+                            topEnd = CornerSize(20.dp),
+                            bottomEnd = CornerSize(0),
+                            bottomStart = CornerSize(0),
+                        ),
+                        color = Color.White
+                    )
+            ){
+                var time= 60
+                var score=0
+                Column(
+                    Modifier.padding(top = 30.dp)
+
+                ) {
+                    Text(
+                        text="남은 시간 $time 초",
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        fontSize = 30.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(text = "맞춘 숫자 : $score",
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                    )
+                }
+
+            }
         }
+
         val context = LocalContext.current
-        val backgroundColor = Color(0xfffff0a3)
+
         Text(text = "검정" ,
             color = Color.Blue,
             fontSize =  70.sp,
@@ -120,20 +143,28 @@ fun GamePlayScreen(navHostController: NavHostController){
                 Button(modifier = Modifier
                     .height(80.dp)
                     .width(130.dp),
+                    border = BorderStroke(3.dp, Color.Black),
                     onClick = { /*TODO*/ },
-                    colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor)
+                    colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
+                    shape = RoundedCornerShape(15.dp)
+
                 ) {
-                    Text(text = "파랑")
+                    Text(text = "파랑",
+                        fontSize = 20.sp
+                    )
                 }
                 Button(modifier = Modifier
                     .height(80.dp)
                     .width(130.dp)
                     .offset(65.dp),
+                    border = BorderStroke(3.dp, Color.Black),
                     onClick = { /*TODO*/ },
-                    colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor)
-
+                    colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
+                    shape = RoundedCornerShape(15.dp)
                 ) {
-                    Text(text = "검정")
+                    Text(text = "검정",
+                        fontSize = 20.sp
+                    )
                 }
             }
         }
@@ -149,21 +180,28 @@ fun GamePlayScreen(navHostController: NavHostController){
                 Button(modifier = Modifier
                     .height(80.dp)
                     .width(130.dp),
+                    border = BorderStroke(3.dp, Color.Black),
                     onClick = { /*TODO*/ },
-                    colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor)
-
+                    colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
+                    shape = RoundedCornerShape(15.dp)
                 ) {
-                    Text(text = "빨강")
+                    Text(
+                        text = "빨강",
+                        fontSize = 20.sp
+                        )
                 }
                 Button(modifier = Modifier
                     .height(80.dp)
                     .width(130.dp)
                     .offset(65.dp),
+                    border = BorderStroke(3.dp, Color.Black),
                     onClick = { /*TODO*/ },
-                    colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor)
-
+                    colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
+                    shape = RoundedCornerShape(15.dp)
                 ) {
-                    Text(text = "초록")
+                    Text(text = "초록",
+                        fontSize = 20.sp
+                    )
                 }
             }
         }
