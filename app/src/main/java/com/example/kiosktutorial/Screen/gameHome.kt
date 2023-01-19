@@ -6,6 +6,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -17,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -35,7 +38,13 @@ fun GameSelectionButton(title: String, modifier:Modifier? = null, desc:String? =
             .clickable(
                 onClick = func
             )
-            .background(MaterialTheme.colors.background)
+            .background( shape =
+            RoundedCornerShape(
+                topStart = CornerSize(20.dp),
+                topEnd = CornerSize(20.dp),
+                bottomEnd = CornerSize(0),
+                bottomStart = CornerSize(0)),
+                color = Color.White)
             .composed{modifier?:Modifier}
 
         ,   Alignment.TopStart
@@ -86,10 +95,12 @@ fun GameSelectionButton(title: String, modifier:Modifier? = null, desc:String? =
 
 @Composable
 fun GameHomeScreen(navHostController: NavHostController){
+    val startPath = Screen.GameHome.route
+    val backgroundYellow = Color(0xfffed55f)
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colors.background),
+            .background(backgroundYellow),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
@@ -97,7 +108,7 @@ fun GameHomeScreen(navHostController: NavHostController){
             modifier = Modifier
                 .fillMaxWidth()
                 .height(200.dp)
-                .background(Color(0xfffed55f))
+                .background(backgroundYellow)
         ) {
             val paintD = painterResource(R.drawable._1_kt_wordmark__standard__01)
 //            Image(painter = paintD, contentDescription = "")
@@ -108,13 +119,13 @@ fun GameHomeScreen(navHostController: NavHostController){
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(alignment = Alignment.Center),
-                fontSize = 20.sp
+                fontSize = 30.sp,
+                fontWeight = FontWeight.Bold
             )
-
         }
 
         val context = LocalContext.current
-        val backgroundColor = Color(0xfffff0a3)
+        val backgroundColor = Color(0xfffed55f)
 
         var toast:Toast? = null
 
@@ -122,14 +133,20 @@ fun GameHomeScreen(navHostController: NavHostController){
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colors.background)
+                .background( shape = RoundedCornerShape(
+                    topStart = CornerSize(25.dp),
+                    topEnd = CornerSize(25.dp),
+                    bottomEnd = CornerSize(0),
+                    bottomStart = CornerSize(0),
+                ),
+                    color = Color.White)
                 .padding(all = 5.dp)
         ) {
             GameSelectionButton("숫자 순서 맞추기 ", desc = "1부터 9까지의 순서를 순대로 맞추고 역으로 누르면 되는 게임입니다.", func = {
                 navHostController.navigate(Screen.KioskTutorialSelection.route)
 
             })
-            GameSelectionButton("글자 순 맞추기", desc = "글자안의 색상을 맞추는 게임입니다.", func = {
+            GameSelectionButton("글자 색 맞추기", desc = "글자안의 색상을 맞추는 게임입니다.", func = {
                 navHostController.navigate(Screen.KioskExerciseSelection.route)
             })
 

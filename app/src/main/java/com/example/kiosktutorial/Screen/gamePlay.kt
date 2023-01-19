@@ -85,8 +85,8 @@ fun GamePlayScreen(navHostController: NavHostController){
                     .height(150.dp)
                     .background(
                         shape = RoundedCornerShape(
-                            topStart = CornerSize(20.dp),
-                            topEnd = CornerSize(20.dp),
+                            topStart = CornerSize(25.dp),
+                            topEnd = CornerSize(25.dp),
                             bottomEnd = CornerSize(0),
                             bottomStart = CornerSize(0),
                         ),
