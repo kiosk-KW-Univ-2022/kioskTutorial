@@ -38,13 +38,7 @@ fun GameSelectionButton(title: String, modifier:Modifier? = null, desc:String? =
             .clickable(
                 onClick = func
             )
-            .background( shape =
-            RoundedCornerShape(
-                topStart = CornerSize(20.dp),
-                topEnd = CornerSize(20.dp),
-                bottomEnd = CornerSize(0),
-                bottomStart = CornerSize(0)),
-                color = Color.White)
+            .background(MaterialTheme.colors.background)
             .composed{modifier?:Modifier}
 
         ,   Alignment.TopStart
