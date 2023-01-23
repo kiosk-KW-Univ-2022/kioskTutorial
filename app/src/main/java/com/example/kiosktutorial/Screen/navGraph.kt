@@ -69,7 +69,7 @@ fun SetupNavGraph(navController: NavHostController) {
             GameHomeScreen(navController)
         }
         composable(route = Screen.TextGame.route){
-            GamePlayScreen(navController)
+            GamePlayScreen(navController, "글자색 맞추기")
         }
     }
 }

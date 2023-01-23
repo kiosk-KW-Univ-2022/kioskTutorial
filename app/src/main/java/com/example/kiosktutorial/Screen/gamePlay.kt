@@ -46,174 +46,291 @@ fun GamePlay(name:String){
 
 }
 
+
+
+
 @Composable
-fun GamePlayScreen(navHostController: NavHostController){
+fun GamePlayScreen(navHostController: NavHostController,title:String){
     val backgroundColor = Color(0xfffed55f)
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colors.background),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Top
-    ) {
-        Box(//위에 설명구문 박스
+    if(title=="글자색 맞추기")
+    {
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(150.dp)
-                .background(Color(0xfffed55f))
+                .fillMaxSize()
+                .background(MaterialTheme.colors.background),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
         ) {
-            val paintD = painterResource(R.drawable._1_kt_wordmark__standard__01)
-//            Image(painter = paintD, contentDescription = "")
-
-            Text(
-                text= "\n글자의 색상을 맞춰 주세요.",
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(alignment = Alignment.Center),
-                fontSize = 30.sp,
-                color = Color.White,
-                fontWeight = FontWeight.Bold
-            )
-
-        }
-        Column(modifier = Modifier
-            .background(backgroundColor)) {
-            Box(
+            Box(//위에 설명구문 박스
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(150.dp)
-                    .background(
-                        shape = RoundedCornerShape(
-                            topStart = CornerSize(25.dp),
-                            topEnd = CornerSize(25.dp),
-                            bottomEnd = CornerSize(0),
-                            bottomStart = CornerSize(0),
-                        ),
-                        color = Color.White
-                    )
-            ){
-                var time= 60
-                var score=0
-                Column(
-                    Modifier.padding(top = 30.dp)
+                    .background(Color(0xfffed55f))
+            ) {
+                val paintD = painterResource(R.drawable._1_kt_wordmark__standard__01)
+    //            Image(painter = paintD, contentDescription = "")
 
-                ) {
-                    Text(
-                        text="남은 시간 $time 초",
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        fontSize = 30.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(text = "맞춘 숫자 : $score",
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                    )
-                }
+                Text(
+                    text = "\n글자의 색상을 맞춰 주세요.",
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(alignment = Alignment.Center),
+                    fontSize = 30.sp,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold
+                )
 
             }
-        }
-
-        val context = LocalContext.current
-
-        Text(text = "검정" ,
-            color = Color.Blue,
-            fontSize =  70.sp,
-            textAlign = TextAlign.Center,
-            fontWeight = FontWeight.Bold
-        )
-
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .height(10.dp)
-            .background(Color(0x00000000))
-        )
-        //Button들
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .height(160.dp)
-            .background(Color(0x00000000))
-        ){
-            Row(
-                Modifier.padding(40.dp, 30.dp)
+            Column(
+                modifier = Modifier
+                    .background(backgroundColor)
             ) {
-                Button(modifier = Modifier
-                    .height(80.dp)
-                    .width(130.dp),
-                    border = BorderStroke(3.dp, Color.Black),
-                    onClick = { /*TODO*/ },
-                    colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
-                    shape = RoundedCornerShape(15.dp)
-
-                ) {
-                    Text(text = "파랑",
-                        fontSize = 20.sp
-                    )
-                }
-                Button(modifier = Modifier
-                    .height(80.dp)
-                    .width(130.dp)
-                    .offset(65.dp),
-                    border = BorderStroke(3.dp, Color.Black),
-                    onClick = { /*TODO*/ },
-                    colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
-                    shape = RoundedCornerShape(15.dp)
-                ) {
-                    Text(text = "검정",
-                        fontSize = 20.sp
-                    )
-                }
-            }
-        }
-
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .height(160.dp)
-            .background(Color(0x00000000))
-        ){
-            Row(
-                Modifier.padding(40.dp)
-            ) {
-                Button(modifier = Modifier
-                    .height(80.dp)
-                    .width(130.dp),
-                    border = BorderStroke(3.dp, Color.Black),
-                    onClick = { /*TODO*/ },
-                    colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
-                    shape = RoundedCornerShape(15.dp)
-                ) {
-                    Text(
-                        text = "빨강",
-                        fontSize = 20.sp
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(150.dp)
+                        .background(
+                            shape = RoundedCornerShape(
+                                topStart = CornerSize(25.dp),
+                                topEnd = CornerSize(25.dp),
+                                bottomEnd = CornerSize(0),
+                                bottomStart = CornerSize(0),
+                            ),
+                            color = Color.White
                         )
-                }
-                Button(modifier = Modifier
-                    .height(80.dp)
-                    .width(130.dp)
-                    .offset(65.dp),
-                    border = BorderStroke(3.dp, Color.Black),
-                    onClick = { /*TODO*/ },
-                    colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
-                    shape = RoundedCornerShape(15.dp)
                 ) {
-                    Text(text = "초록",
-                        fontSize = 20.sp
-                    )
+                    var time = 60
+                    var score = 0
+                    Column(
+                        Modifier.padding(top = 30.dp)
+
+                    ) {
+                        Text(
+                            text = "남은 시간 $time 초",
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            fontSize = 30.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            text = "맞춘 숫자 : $score",
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                        )
+                    }
+
+                }
+            }
+
+            val context = LocalContext.current
+
+            Text(
+                text = "검정",
+                color = Color.Blue,
+                fontSize = 70.sp,
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Bold
+            )
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(10.dp)
+                    .background(Color(0x00000000))
+            )
+            //Button들
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(160.dp)
+                    .background(Color(0x00000000))
+            ) {
+                Row(
+                    Modifier.padding(40.dp, 30.dp)
+                ) {
+                    Button(
+                        modifier = Modifier
+                            .height(80.dp)
+                            .width(130.dp),
+                        border = BorderStroke(3.dp, Color.Black),
+                        onClick = { /*TODO*/ },
+                        colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
+                        shape = RoundedCornerShape(15.dp)
+
+                    ) {
+                        Text(
+                            text = "파랑",
+                            fontSize = 20.sp
+                        )
+                    }
+                    Button(
+                        modifier = Modifier
+                            .height(80.dp)
+                            .width(130.dp)
+                            .offset(65.dp),
+                        border = BorderStroke(3.dp, Color.Black),
+                        onClick = { /*TODO*/ },
+                        colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
+                        shape = RoundedCornerShape(15.dp)
+                    ) {
+                        Text(
+                            text = "검정",
+                            fontSize = 20.sp
+                        )
+                    }
+                }
+            }
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(160.dp)
+                    .background(Color(0x00000000))
+            ) {
+                Row(
+                    Modifier.padding(40.dp)
+                ) {
+                    Button(
+                        modifier = Modifier
+                            .height(80.dp)
+                            .width(130.dp),
+                        border = BorderStroke(3.dp, Color.Black),
+                        onClick = { /*TODO*/ },
+                        colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
+                        shape = RoundedCornerShape(15.dp)
+                    ) {
+                        Text(
+                            text = "빨강",
+                            fontSize = 20.sp
+                        )
+                    }
+                    Button(
+                        modifier = Modifier
+                            .height(80.dp)
+                            .width(130.dp)
+                            .offset(65.dp),
+                        border = BorderStroke(3.dp, Color.Black),
+                        onClick = { /*TODO*/ },
+                        colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
+                        shape = RoundedCornerShape(15.dp)
+                    ) {
+                        Text(
+                            text = "초록",
+                            fontSize = 20.sp
+                        )
+                    }
                 }
             }
         }
-
-
         var toast:Toast? = null
+    }
+    else if(title == "숫자 순서 맞추기")
+    {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colors.background),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
+        ) {
+            Box(//위에 설명구문 박스
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(150.dp)
+                    .background(Color(0xfffed55f))
+            ) {
+                val paintD = painterResource(R.drawable._1_kt_wordmark__standard__01)
+                //            Image(painter = paintD, contentDescription = "")
 
+                Text(
+                    text = "\n1~9까지 순서대로 눌러주세요",
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(alignment = Alignment.Center),
+                    fontSize = 30.sp,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold
+                )
+
+            }
+            Column(
+                modifier = Modifier
+                    .background(backgroundColor)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(150.dp)
+                        .background(
+                            shape = RoundedCornerShape(
+                                topStart = CornerSize(25.dp),
+                                topEnd = CornerSize(25.dp),
+                                bottomEnd = CornerSize(0),
+                                bottomStart = CornerSize(0),
+                            ),
+                            color = Color.White
+                        )
+                ) {
+                    var time = 60
+                    var number =1
+                    Column(
+                        Modifier.padding(top = 30.dp)
+
+                    ) {
+                        Text(
+                            text = "남은 시간 $time 초",
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            fontSize = 30.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            text = "$number 를 눌러주세요",
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                        )
+                        Row(Modifier.padding(10.dp)) {
+                            Button(modifier = Modifier
+                                .width(120.dp)
+                                .height(160.dp),
+                                onClick = { /*TODO*/ }) {
+                            }
+                            Button(modifier = Modifier
+                                .width(120.dp)
+                                .height(160.dp),
+                                onClick = { /*TODO*/ }) {
+                            }
+                            Button(modifier = Modifier
+                                .width(120.dp)
+                                .height(160.dp),
+                                onClick = { /*TODO*/ }) {
+                            }
+
+                        }
+                    }
+                }
+            }
+
+        }
+        var toast:Toast? = null
     }
 }
 @Preview
 @Composable
 fun PreviewGame(){
     val navCtrl = rememberNavController()
-    GamePlayScreen(navHostController = navCtrl)
+    GamePlayScreen(navHostController = navCtrl,"글자색 맞추기")
+}
+
+@Preview
+@Composable
+fun PreviewnumberGame(){
+    val navCtrl = rememberNavController()
+    GamePlayScreen(navHostController = navCtrl,"숫자 순서 맞추기")
 }
