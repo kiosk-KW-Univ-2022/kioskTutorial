@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.VerticalAlignmentLine
 import androidx.compose.ui.platform.LocalContext
@@ -31,8 +32,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.kiosktutorial.R
 
-
-
 @Composable
 fun GamePlay(name:String){
     if(name=="NumberGame") //숫자 순서 맞추기 게임
@@ -44,17 +43,13 @@ fun GamePlay(name:String){
     {
         var num: Int = 4; //색깔의 종류
         var colorname = arrayOf("검정","파랑","초록","빨강");//색상 리스트
-
     }
-
 }
-
-
-
-
+var start : Long = 0
 @Composable
 fun GamePlayScreen(navHostController: NavHostController,title:String){
-    val backgroundColor = Color(0xfffed55f)
+    start =System.currentTimeMillis()
+    val backgroundColor = Color(0xffffe690)
     if(title=="글자색 맞추기")
     {
         Column(
@@ -246,7 +241,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                     .background(Color(0xfffed55f))
             ) {
                 val paintD = painterResource(R.drawable._1_kt_wordmark__standard__01)
-                //            Image(painter = paintD, contentDescription = "")
+                //           Image(painter = paintD, contentDescription = "")
 
                 Text(
                     text = "\n1~9까지 순서대로 눌러주세요",
@@ -305,89 +300,99 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                 }
 
                 Row(modifier= Modifier
-                    .padding(5.dp)
+                    .padding(10.dp)
                     .fillMaxWidth(100f),
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
                     Button(modifier = Modifier
                         .width(100.dp)
-                        .height(100.dp),
+                        .height(100.dp)
+                        .shadow(20.dp,shape = RectangleShape, clip = true),
+                        colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
                         onClick = { /*TODO*/ }) {
                     }
-
                     Button(modifier = Modifier
                         .width(100.dp)
-                        .height(100.dp),
+                        .height(100.dp)
+                        .shadow(20.dp,shape = RectangleShape, clip = true),
+                        colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
                         onClick = { /*TODO*/ }) {
                     }
-
                     Button(modifier = Modifier
                         .width(100.dp)
-                        .height(100.dp),
+                        .height(100.dp)
+                        .shadow(20.dp,shape = RectangleShape, clip = true),
+                        colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
                         onClick = { /*TODO*/ }) {
                     }
                 }
                 Row(modifier= Modifier
-                    .padding(5.dp)
+                    .padding(10.dp)
                     .fillMaxWidth(100f),
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
                     Button(modifier = Modifier
                         .width(100.dp)
-                        .height(100.dp),
+                        .height(100.dp)
+                        .shadow(15.dp,shape = RectangleShape, clip = true),
+                        colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
+                        onClick = { /*TODO*/ }) {
+                    }
+                    Button(modifier = Modifier
+                        .width(100.dp)
+                        .height(100.dp)
+                        .shadow(15.dp,shape = RectangleShape, clip = true),
+                        colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
                         onClick = { /*TODO*/ }) {
                     }
 
                     Button(modifier = Modifier
                         .width(100.dp)
-                        .height(100.dp),
-                        onClick = { /*TODO*/ }) {
-                    }
-
-                    Button(modifier = Modifier
-                        .width(100.dp)
-                        .height(100.dp),
+                        .height(100.dp)
+                        .shadow(15.dp,shape = RectangleShape, clip = true),
+                        colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
                         onClick = { /*TODO*/ }) {
                     }
                 }
                 Row(modifier= Modifier
-                    .padding(5.dp)
+                    .padding(10.dp)
                     .fillMaxWidth(100f),
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
                     Button(modifier = Modifier
                         .width(100.dp)
-                        .height(100.dp),
+                        .height(100.dp)
+                        .shadow(10.dp,shape = RectangleShape, clip = true),
+                        colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
                         onClick = { /*TODO*/ }) {
                     }
-
                     Button(modifier = Modifier
                         .width(100.dp)
-                        .height(100.dp),
+                        .height(100.dp)
+                        .shadow(10.dp,shape = RectangleShape, clip = true),
+                        colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
                         onClick = { /*TODO*/ }) {
                     }
-
                     Button(modifier = Modifier
                         .width(100.dp)
-                        .height(100.dp),
+                        .height(100.dp)
+                        .shadow(10.dp,shape = RectangleShape, clip = true),
+                        colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
                         onClick = { /*TODO*/ }) {
                     }
                 }
-
-
-
             }
-
         }
         var toast:Toast? = null
     }
 }
-//@Preview
-//@Composable
-//fun PreviewGame(){
-//    val navCtrl = rememberNavController()
-//    GamePlayScreen(navHostController = navCtrl,"글자색 맞추기")
-//}
+
+@Preview
+@Composable
+fun PreviewGame(){
+    val navCtrl = rememberNavController()
+    GamePlayScreen(navHostController = navCtrl,"글자색 맞추기")
+}
 
 @Preview
 @Composable
