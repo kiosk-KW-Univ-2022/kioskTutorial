@@ -141,7 +141,7 @@ fun GameHomeScreen(navHostController: NavHostController){
 
             })
             GameSelectionButton("글자 색 맞추기", desc = "글자안의 색상을 맞추는 게임입니다.", func = {
-                navHostController.navigate(Screen.KioskExerciseSelection.route)
+                navHostController.navigate(Screen.TextGame.route)
             })
 
 

@@ -66,7 +66,10 @@ fun SetupNavGraph(navController: NavHostController) {
             KioskSelection(navController, true)
         }
         composable(route = Screen.GameHome.route){
-            
+            GameHomeScreen(navController)
+        }
+        composable(route = Screen.TextGame.route){
+            GamePlayScreen(navController)
         }
     }
 }
