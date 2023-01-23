@@ -71,5 +71,9 @@ fun SetupNavGraph(navController: NavHostController) {
         composable(route = Screen.TextGame.route){
             GamePlayScreen(navController, "글자색 맞추기")
         }
+        composable(route = Screen.NumberGame.route){
+            GamePlayScreen(navController, "숫자 순서 맞추기" )
+        }
+
     }
 }

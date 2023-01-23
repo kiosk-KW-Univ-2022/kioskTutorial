@@ -9,4 +9,5 @@ sealed class Screen(val route:String){
     object KioskExercise: Screen("kiosk_exercise_screen")
     object GameHome: Screen("game_home")
     object TextGame: Screen("text_game_play")
+    object NumberGame: Screen("number_game_play")
 }

@@ -137,7 +137,7 @@ fun GameHomeScreen(navHostController: NavHostController){
                 .padding(all = 5.dp)
         ) {
             GameSelectionButton("숫자 순서 맞추기 ", desc = "1부터 9까지의 순서를 순대로 맞추고 역으로 누르면 되는 게임입니다.", func = {
-                navHostController.navigate(Screen.KioskTutorialSelection.route)
+                navHostController.navigate(Screen.NumberGame.route)
 
             })
             GameSelectionButton("글자 색 맞추기", desc = "글자안의 색상을 맞추는 게임입니다.", func = {

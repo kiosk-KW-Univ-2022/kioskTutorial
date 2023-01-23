@@ -5,6 +5,8 @@ import android.content.res.Configuration.*
 import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.GridCells
+import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -17,6 +19,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.VerticalAlignmentLine
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -259,8 +262,8 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
             }
             Column(
                 modifier = Modifier
-                    .background(backgroundColor)
-            ) {
+                    .background(Color.White),
+                ) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -278,8 +281,9 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                     var time = 60
                     var number =1
                     Column(
-                        Modifier.padding(top = 30.dp)
-
+                        Modifier
+                            .padding(top = 30.dp)
+                            .fillMaxSize()
                     ) {
                         Text(
                             text = "남은 시간 $time 초",
@@ -295,38 +299,95 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                             modifier = Modifier
                                 .fillMaxWidth(),
                         )
-                        Row(Modifier.padding(10.dp)) {
-                            Button(modifier = Modifier
-                                .width(120.dp)
-                                .height(160.dp),
-                                onClick = { /*TODO*/ }) {
-                            }
-                            Button(modifier = Modifier
-                                .width(120.dp)
-                                .height(160.dp),
-                                onClick = { /*TODO*/ }) {
-                            }
-                            Button(modifier = Modifier
-                                .width(120.dp)
-                                .height(160.dp),
-                                onClick = { /*TODO*/ }) {
-                            }
 
-                        }
+
                     }
                 }
+
+                Row(modifier= Modifier
+                    .padding(5.dp)
+                    .fillMaxWidth(100f),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    Button(modifier = Modifier
+                        .width(100.dp)
+                        .height(100.dp),
+                        onClick = { /*TODO*/ }) {
+                    }
+
+                    Button(modifier = Modifier
+                        .width(100.dp)
+                        .height(100.dp),
+                        onClick = { /*TODO*/ }) {
+                    }
+
+                    Button(modifier = Modifier
+                        .width(100.dp)
+                        .height(100.dp),
+                        onClick = { /*TODO*/ }) {
+                    }
+                }
+                Row(modifier= Modifier
+                    .padding(5.dp)
+                    .fillMaxWidth(100f),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    Button(modifier = Modifier
+                        .width(100.dp)
+                        .height(100.dp),
+                        onClick = { /*TODO*/ }) {
+                    }
+
+                    Button(modifier = Modifier
+                        .width(100.dp)
+                        .height(100.dp),
+                        onClick = { /*TODO*/ }) {
+                    }
+
+                    Button(modifier = Modifier
+                        .width(100.dp)
+                        .height(100.dp),
+                        onClick = { /*TODO*/ }) {
+                    }
+                }
+                Row(modifier= Modifier
+                    .padding(5.dp)
+                    .fillMaxWidth(100f),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    Button(modifier = Modifier
+                        .width(100.dp)
+                        .height(100.dp),
+                        onClick = { /*TODO*/ }) {
+                    }
+
+                    Button(modifier = Modifier
+                        .width(100.dp)
+                        .height(100.dp),
+                        onClick = { /*TODO*/ }) {
+                    }
+
+                    Button(modifier = Modifier
+                        .width(100.dp)
+                        .height(100.dp),
+                        onClick = { /*TODO*/ }) {
+                    }
+                }
+
+
+
             }
 
         }
         var toast:Toast? = null
     }
 }
-@Preview
-@Composable
-fun PreviewGame(){
-    val navCtrl = rememberNavController()
-    GamePlayScreen(navHostController = navCtrl,"글자색 맞추기")
-}
+//@Preview
+//@Composable
+//fun PreviewGame(){
+//    val navCtrl = rememberNavController()
+//    GamePlayScreen(navHostController = navCtrl,"글자색 맞추기")
+//}
 
 @Preview
 @Composable
