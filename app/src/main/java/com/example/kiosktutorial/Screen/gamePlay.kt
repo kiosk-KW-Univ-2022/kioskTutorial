@@ -228,6 +228,9 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
     }
     else if(title == "숫자 순서 맞추기")
     {
+        var (number,setnumber) = remember {
+            mutableStateOf(1)
+        }
         var numberarray = arrayOf(1,2,3,4,5,6,7,8,9)
         numberarray.shuffle()
         Column(
@@ -276,7 +279,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                             color = Color.White
                         )
                 ) {
-                    var number =1
+
                     Column(
                         Modifier
                             .padding(top = 30.dp)
@@ -311,7 +314,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                         .height(100.dp)
                         .shadow(20.dp, shape = RectangleShape, clip = true),
                         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
-                        onClick = { /*TODO*/ }) {
+                        onClick = {  if(numberarray[0]== number) setnumber(number+1) }) {
                         Text(
                             text = numberarray[0].toString() ,
                             fontSize = 20.sp
@@ -322,7 +325,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                         .height(100.dp)
                         .shadow(20.dp, shape = RectangleShape, clip = true),
                         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
-                        onClick = { /*TODO*/ }) {
+                        onClick = { if(numberarray[1]== number) setnumber(number+1)}) {
                         Text(
                             text = numberarray[1].toString(),
                             fontSize = 20.sp
@@ -333,7 +336,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                         .height(100.dp)
                         .shadow(20.dp, shape = RectangleShape, clip = true),
                         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
-                        onClick = { /*TODO*/ }) {
+                        onClick = { if(numberarray[2]== number) setnumber(number+1) }) {
                         Text(
                             text = numberarray[2].toString(),
                             fontSize = 20.sp
@@ -350,7 +353,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                         .height(100.dp)
                         .shadow(15.dp, shape = RectangleShape, clip = true),
                         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
-                        onClick = { /*TODO*/ }) {
+                        onClick = {  if(numberarray[3]== number) setnumber(number+1) }) {
                         Text(
                             text = numberarray[3].toString(),
                             fontSize = 20.sp
@@ -361,7 +364,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                         .height(100.dp)
                         .shadow(15.dp, shape = RectangleShape, clip = true),
                         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
-                        onClick = { /*TODO*/ }) {
+                        onClick = {  if(numberarray[4]== number) setnumber(number+1) }) {
                         Text(
                             text = numberarray[4].toString(),
                             fontSize = 20.sp
@@ -373,7 +376,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                         .height(100.dp)
                         .shadow(15.dp, shape = RectangleShape, clip = true),
                         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
-                        onClick = { /*TODO*/ }) {
+                        onClick = {  if(numberarray[5]== number) setnumber(number+1) }) {
                         Text(
                             text = numberarray[5].toString(),
                             fontSize = 20.sp
@@ -390,7 +393,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                         .height(100.dp)
                         .shadow(10.dp, shape = RectangleShape, clip = true),
                         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
-                        onClick = { /*TODO*/ }) {
+                        onClick = { if(numberarray[6]== number) setnumber(number+1) }) {
                         Text(
                             text = numberarray[6].toString(),
                             fontSize = 20.sp
@@ -401,7 +404,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                         .height(100.dp)
                         .shadow(10.dp, shape = RectangleShape, clip = true),
                         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
-                        onClick = { /*TODO*/ }) {
+                        onClick = {  if(numberarray[7]== number) setnumber(number+1)}) {
                         Text(
                             text = numberarray[7].toString(),
                             fontSize = 20.sp
@@ -412,7 +415,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                         .height(100.dp)
                         .shadow(10.dp, shape = RectangleShape, clip = true),
                         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
-                        onClick = { /*TODO*/ }) {
+                        onClick = {  if(numberarray[8]== number) setnumber(number+1) }) {
                         Text(
                             text = numberarray[8].toString(),
                             fontSize = 20.sp
