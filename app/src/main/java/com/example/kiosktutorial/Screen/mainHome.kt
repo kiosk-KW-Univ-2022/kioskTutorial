@@ -22,6 +22,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.kiosktutorial.R
 
+
+//TODO 각 노랭이 위에 이미지 올리기
+
 @Composable
 fun MainSelectionButton(title: String, modifier:Modifier? = null, desc:String? = null, icon: Int? = null, func: () -> Unit) {
     Box(
@@ -29,26 +32,24 @@ fun MainSelectionButton(title: String, modifier:Modifier? = null, desc:String? =
             .fillMaxWidth()
             .height(IntrinsicSize.Min)
             .heightIn(min = 100.dp)
-            .padding(all = 5.dp)
+            .padding(all = 15.dp)
             .clickable(
                 onClick = func
             )
-            .shadow(elevation = 5.dp)
             .background(MaterialTheme.colors.background)
             .composed{modifier?:Modifier}
 
     ,   Alignment.TopStart
     ) {
-        var paintD = painterResource(id = icon ?: R.drawable.ic_launcher_background)
+        var paintD = painterResource(id = icon ?: R.drawable.yellow)
         Image(
             painter = paintD,
             contentDescription = "$title 아이콘",
             contentScale = ContentScale.Fit,
 
             modifier = Modifier
-                .heightIn(max = 100.dp)
+                .heightIn(max = 150.dp)
         ,   alignment = Alignment.Center
-
         )
 
         val size =
@@ -57,8 +58,8 @@ fun MainSelectionButton(title: String, modifier:Modifier? = null, desc:String? =
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color(red = 255, green =255, blue = 255, alpha = 100))
-                .padding(all = 5.dp)
-        ,   horizontalAlignment = Alignment.CenterHorizontally
+                .padding(all = 50.dp)
+        ,   horizontalAlignment = Alignment.End
         , verticalArrangement = Arrangement.Center
 
         ) {
@@ -66,17 +67,17 @@ fun MainSelectionButton(title: String, modifier:Modifier? = null, desc:String? =
 
             Text(
                 text = title
-                , fontSize = 20.sp
+                , fontSize = 30.sp
             )
 
 
             desc?.let{
                 Spacer(modifier= Modifier.height(5.dp))
 
-                Text(
+                /*Text(
                     text = desc
                 ,   fontSize = 14.sp
-                )
+                )*/
 
             }
 
@@ -123,25 +124,25 @@ fun Home(navHostController: NavHostController) {
             modifier = Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colors.background)
-                .padding(all = 5.dp)
+                .padding(all = 15.dp)
         ) {
 
-            MainSelectionButton("키오스크 튜토리얼", desc = "hello", func = {
+            MainSelectionButton("사용 지침서", func = {
                 navHostController.navigate(Screen.KioskTutorialSelection.route)
 //                toast?.cancel()
-//                toast = Toast.makeText(context, "키오스크 튜토리얼", Toast.LENGTH_SHORT)
+//                toast = Toast.makeText(context, "키오스크 설명서 진행하기", Toast.LENGTH_SHORT)
 //                toast?.show()
             })
-            MainSelectionButton("키오스크 실전연습", func = {
+            MainSelectionButton("실전연습  ", func = {
                 navHostController.navigate(Screen.KioskExerciseSelection.route)
 //                toast?.cancel()
-//                toast = Toast.makeText(context, "키오스크 실전연습", Toast.LENGTH_SHORT)
+//                toast = Toast.makeText(context, "실전연습", Toast.LENGTH_SHORT)
 //                toast?.show()
 
             })
-            MainSelectionButton("두뇌 활성화 게임", func = {
+            MainSelectionButton("뇌활력 게임", func = {
                 toast?.cancel()
-                toast = Toast.makeText(context, "두뇌 활성화 게임", Toast.LENGTH_SHORT)
+                toast = Toast.makeText(context, "뇌활력 게임", Toast.LENGTH_SHORT)
                 toast?.show()
             })
 
