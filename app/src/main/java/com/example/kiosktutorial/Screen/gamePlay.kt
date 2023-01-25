@@ -11,6 +11,9 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -34,6 +37,7 @@ import com.example.kiosktutorial.R
 import java.time.LocalDateTime
 import java.util.*
 import kotlin.concurrent.thread
+import kotlin.math.absoluteValue
 import kotlin.random.Random
 import kotlin.system.measureNanoTime
 
@@ -47,6 +51,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
     start =System.currentTimeMillis()
     var timeout = 60
     val backgroundColor = Color(0xffffe690)
+    var (score , setscore ) = remember{ mutableStateOf(0) }
     if(title=="글자색 맞추기")
     {
         Column(
@@ -71,7 +76,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                     modifier = Modifier
                         .fillMaxWidth()
                         .align(alignment = Alignment.Center),
-                    fontSize = 30.sp,
+                    fontSize =30.sp,
                     color = Color.White,
                     fontWeight = FontWeight.Bold
                 )
@@ -96,7 +101,6 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                         )
                 ) {
 
-                    var score = 0
                     Column(
                         Modifier.padding(top = 30.dp)
 
@@ -120,7 +124,6 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                 }
             }
 
-            val context = LocalContext.current
             val randomList = arrayOf(0,1,2,3)
             randomList.shuffle()
             Text(
@@ -152,7 +155,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                             .height(80.dp)
                             .width(130.dp),
                         border = BorderStroke(3.dp, Color.Black),
-                        onClick = { /*TODO*/ },
+                        onClick = { if(randomList[1]==0) setscore(score.absoluteValue +1)},
                         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
                         shape = RoundedCornerShape(15.dp)
 
@@ -168,7 +171,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                             .width(130.dp)
                             .offset(65.dp),
                         border = BorderStroke(3.dp, Color.Black),
-                        onClick = { /*TODO*/ },
+                        onClick = { if(randomList[1]==1) setscore(score.absoluteValue +1) },
                         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
                         shape = RoundedCornerShape(15.dp)
                     ) {
@@ -194,7 +197,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                             .height(80.dp)
                             .width(130.dp),
                         border = BorderStroke(3.dp, Color.Black),
-                        onClick = { /*TODO*/ },
+                        onClick = { if(randomList[1]==2) setscore(score.absoluteValue +1) },
                         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
                         shape = RoundedCornerShape(15.dp)
                     ) {
@@ -209,7 +212,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                             .width(130.dp)
                             .offset(65.dp),
                         border = BorderStroke(3.dp, Color.Black),
-                        onClick = { /*TODO*/ },
+                        onClick = { if(randomList[1]==3) setscore(score.absoluteValue +1) },
                         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
                         shape = RoundedCornerShape(15.dp)
                     ) {
