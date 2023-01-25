@@ -31,24 +31,21 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.kiosktutorial.R
+import java.time.LocalDateTime
+import java.util.*
+import kotlin.concurrent.thread
+import kotlin.random.Random
+import kotlin.system.measureNanoTime
 
-@Composable
-fun GamePlay(name:String){
-    if(name=="NumberGame") //숫자 순서 맞추기 게임
-    {
-        var num:Int =0;
-
-    }
-    else if(name == "ColorGame") //글자 색상 맞추기 게임
-    {
-        var num: Int = 4; //색깔의 종류
-        var colorname = arrayOf("검정","파랑","초록","빨강");//색상 리스트
-    }
-}
+var num: Int = 4; //색깔의 종류
+var colorname = arrayOf("검정","파랑","초록","빨강");//색상 리스트
+var colorarray = arrayOf(Color.Black, Color.Blue, Color.Green, Color.Red)
 var start : Long = 0
+
 @Composable
 fun GamePlayScreen(navHostController: NavHostController,title:String){
     start =System.currentTimeMillis()
+    var timeout = 60
     val backgroundColor = Color(0xffffe690)
     if(title=="글자색 맞추기")
     {
@@ -98,14 +95,14 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                             color = Color.White
                         )
                 ) {
-                    var time = 60
+
                     var score = 0
                     Column(
                         Modifier.padding(top = 30.dp)
 
                     ) {
                         Text(
-                            text = "남은 시간 $time 초",
+                            text = "남은 시간 $timeout 초",
                             textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .fillMaxWidth(),
@@ -124,10 +121,11 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
             }
 
             val context = LocalContext.current
-
+            val randomList = arrayOf(0,1,2,3)
+            randomList.shuffle()
             Text(
-                text = "검정",
-                color = Color.Blue,
+                text = colorname[randomList[0]],
+                color = colorarray[randomList[1]],
                 fontSize = 70.sp,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold
@@ -160,7 +158,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
 
                     ) {
                         Text(
-                            text = "파랑",
+                            text = colorname[0],
                             fontSize = 20.sp
                         )
                     }
@@ -175,7 +173,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                         shape = RoundedCornerShape(15.dp)
                     ) {
                         Text(
-                            text = "검정",
+                            text = colorname[1],
                             fontSize = 20.sp
                         )
                     }
@@ -201,7 +199,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                         shape = RoundedCornerShape(15.dp)
                     ) {
                         Text(
-                            text = "빨강",
+                            text = colorname[2],
                             fontSize = 20.sp
                         )
                     }
@@ -216,7 +214,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                         shape = RoundedCornerShape(15.dp)
                     ) {
                         Text(
-                            text = "초록",
+                            text = colorname[3],
                             fontSize = 20.sp
                         )
                     }
@@ -227,6 +225,8 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
     }
     else if(title == "숫자 순서 맞추기")
     {
+        var numberarray = arrayOf(1,2,3,4,5,6,7,8,9)
+        numberarray.shuffle()
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -273,7 +273,6 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                             color = Color.White
                         )
                 ) {
-                    var time = 60
                     var number =1
                     Column(
                         Modifier
@@ -281,7 +280,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                             .fillMaxSize()
                     ) {
                         Text(
-                            text = "남은 시간 $time 초",
+                            text = "남은 시간 $timeout 초",
                             textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .fillMaxWidth(),
@@ -307,23 +306,35 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                     Button(modifier = Modifier
                         .width(100.dp)
                         .height(100.dp)
-                        .shadow(20.dp,shape = RectangleShape, clip = true),
+                        .shadow(20.dp, shape = RectangleShape, clip = true),
                         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
                         onClick = { /*TODO*/ }) {
+                        Text(
+                            text = numberarray[0].toString() ,
+                            fontSize = 20.sp
+                        )
                     }
                     Button(modifier = Modifier
                         .width(100.dp)
                         .height(100.dp)
-                        .shadow(20.dp,shape = RectangleShape, clip = true),
+                        .shadow(20.dp, shape = RectangleShape, clip = true),
                         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
                         onClick = { /*TODO*/ }) {
+                        Text(
+                            text = numberarray[1].toString(),
+                            fontSize = 20.sp
+                        )
                     }
                     Button(modifier = Modifier
                         .width(100.dp)
                         .height(100.dp)
-                        .shadow(20.dp,shape = RectangleShape, clip = true),
+                        .shadow(20.dp, shape = RectangleShape, clip = true),
                         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
                         onClick = { /*TODO*/ }) {
+                        Text(
+                            text = numberarray[2].toString(),
+                            fontSize = 20.sp
+                        )
                     }
                 }
                 Row(modifier= Modifier
@@ -334,24 +345,36 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                     Button(modifier = Modifier
                         .width(100.dp)
                         .height(100.dp)
-                        .shadow(15.dp,shape = RectangleShape, clip = true),
+                        .shadow(15.dp, shape = RectangleShape, clip = true),
                         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
                         onClick = { /*TODO*/ }) {
+                        Text(
+                            text = numberarray[3].toString(),
+                            fontSize = 20.sp
+                        )
                     }
                     Button(modifier = Modifier
                         .width(100.dp)
                         .height(100.dp)
-                        .shadow(15.dp,shape = RectangleShape, clip = true),
+                        .shadow(15.dp, shape = RectangleShape, clip = true),
                         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
                         onClick = { /*TODO*/ }) {
+                        Text(
+                            text = numberarray[4].toString(),
+                            fontSize = 20.sp
+                        )
                     }
 
                     Button(modifier = Modifier
                         .width(100.dp)
                         .height(100.dp)
-                        .shadow(15.dp,shape = RectangleShape, clip = true),
+                        .shadow(15.dp, shape = RectangleShape, clip = true),
                         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
                         onClick = { /*TODO*/ }) {
+                        Text(
+                            text = numberarray[5].toString(),
+                            fontSize = 20.sp
+                        )
                     }
                 }
                 Row(modifier= Modifier
@@ -362,23 +385,35 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                     Button(modifier = Modifier
                         .width(100.dp)
                         .height(100.dp)
-                        .shadow(10.dp,shape = RectangleShape, clip = true),
+                        .shadow(10.dp, shape = RectangleShape, clip = true),
                         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
                         onClick = { /*TODO*/ }) {
+                        Text(
+                            text = numberarray[6].toString(),
+                            fontSize = 20.sp
+                        )
                     }
                     Button(modifier = Modifier
                         .width(100.dp)
                         .height(100.dp)
-                        .shadow(10.dp,shape = RectangleShape, clip = true),
+                        .shadow(10.dp, shape = RectangleShape, clip = true),
                         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
                         onClick = { /*TODO*/ }) {
+                        Text(
+                            text = numberarray[7].toString(),
+                            fontSize = 20.sp
+                        )
                     }
                     Button(modifier = Modifier
                         .width(100.dp)
                         .height(100.dp)
-                        .shadow(10.dp,shape = RectangleShape, clip = true),
+                        .shadow(10.dp, shape = RectangleShape, clip = true),
                         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
                         onClick = { /*TODO*/ }) {
+                        Text(
+                            text = numberarray[8].toString(),
+                            fontSize = 20.sp
+                        )
                     }
                 }
             }
