@@ -31,8 +31,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.draw.paint
 
 
+
 @Composable
-fun CafeKiosk(navHostController: NavHostController){
+fun CafeKiosk(navHostController: NavHostController,number:Int =0, fee:Int=0){
     var CafeColor = Color(0xFF28CDC8)
     var (Category, SetCategory) = remember{mutableStateOf(0)}
     Column(modifier = Modifier
@@ -116,7 +117,8 @@ fun CafeKiosk(navHostController: NavHostController){
                             .paint(
                                 painterResource(id = R.drawable.americano_hot),
                                 contentScale = ContentScale.Fit
-                            )){
+                            )
+                            .clickable {  }){
                         }
                         Text("아메리카노(hot)\n 1500원", fontWeight = FontWeight.Bold)
                     }
@@ -294,10 +296,10 @@ fun CafeKiosk(navHostController: NavHostController){
                 }
         }
         var (currentnumber, SetCurrentnumber) = remember {
-            mutableStateOf(0)
+            mutableStateOf(number)
         }//주문 갯수
         var(orderfee, SetOrderfee)= remember{
-            mutableStateOf(0)
+            mutableStateOf(fee)
         }//주문 금액
         Box(modifier = Modifier
             .fillMaxWidth()

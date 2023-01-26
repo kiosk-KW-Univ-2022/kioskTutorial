@@ -82,5 +82,9 @@ fun SetupNavGraph(navController: NavHostController) {
         {
             CafeMainScreen(navController)
         }
+        composable(route = Screen.CafeOrder.route)
+        {
+            CafeOrder(navController, price = 1500, name ="아메리카노" , painter = R.drawable.americano_hot )
+        }
     }
 }
