@@ -38,22 +38,39 @@ import java.time.LocalDateTime
 import java.util.*
 import kotlin.concurrent.thread
 import kotlin.math.absoluteValue
-import kotlin.random.Random
 import kotlin.system.measureNanoTime
 
 var num: Int = 4; //색깔의 종류
 var colorname = arrayOf("검정","파랑","초록","빨강");//색상 리스트
 var colorarray = arrayOf(Color.Black, Color.Blue, Color.Green, Color.Red)
 var start : Long = 0
+val randomList = arrayOf(0,1,2,3)
+
+
 
 @Composable
 fun GamePlayScreen(navHostController: NavHostController,title:String){
     start =System.currentTimeMillis()
-    var timeout = 60
+    var (timeout,settimeout) = remember {
+        mutableStateOf(60)
+    }
     val backgroundColor = Color(0xffffe690)
     var (score , setscore ) = remember{ mutableStateOf(0) }
+    var(remaing, setremaing) = remember {
+        mutableStateOf(10)
+    }
     if(title=="글자색 맞추기")
     {
+        if(remaing == 0)
+        {
+            var toast:Toast? = null
+            val context = LocalContext.current
+
+            toast?.cancel()
+            toast = Toast.makeText(context, "성공!", Toast.LENGTH_SHORT)
+            toast?.show()
+            navHostController.popBackStack(Screen.GameHome.route,true)
+        }
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -106,7 +123,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
 
                     ) {
                         Text(
-                            text = "남은 시간 $timeout 초",
+                            text = "맞춘 갯수 $score ",
                             textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .fillMaxWidth(),
@@ -114,7 +131,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = "맞춘 숫자 : $score",
+                            text = "남은 갯수 : $remaing",
                             textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .fillMaxWidth(),
@@ -124,8 +141,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                 }
             }
 
-            val randomList = arrayOf(0,1,2,3)
-            randomList.shuffle()
+
             Text(
                 text = colorname[randomList[0]],
                 color = colorarray[randomList[1]],
@@ -155,7 +171,11 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                             .height(80.dp)
                             .width(130.dp),
                         border = BorderStroke(3.dp, Color.Black),
-                        onClick = { if(randomList[1]==0) setscore(score.absoluteValue +1)},
+                        onClick = { if(randomList[1]==0) {
+                            setscore(score.absoluteValue +1)
+                            setremaing(remaing.absoluteValue -1)
+                            randomList.shuffle()
+                        }},
                         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
                         shape = RoundedCornerShape(15.dp)
 
@@ -171,7 +191,11 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                             .width(130.dp)
                             .offset(65.dp),
                         border = BorderStroke(3.dp, Color.Black),
-                        onClick = { if(randomList[1]==1) setscore(score.absoluteValue +1) },
+                        onClick = { if(randomList[1]==1) {
+                            setscore(score.absoluteValue +1)
+                            setremaing(remaing.absoluteValue -1)
+                            randomList.shuffle()
+                        } },
                         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
                         shape = RoundedCornerShape(15.dp)
                     ) {
@@ -197,7 +221,11 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                             .height(80.dp)
                             .width(130.dp),
                         border = BorderStroke(3.dp, Color.Black),
-                        onClick = { if(randomList[1]==2) setscore(score.absoluteValue +1) },
+                        onClick = { if(randomList[1]==2) {
+                            setscore(score.absoluteValue +1)
+                            setremaing(remaing.absoluteValue -1)
+                            randomList.shuffle()
+                        }},
                         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
                         shape = RoundedCornerShape(15.dp)
                     ) {
@@ -212,7 +240,11 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                             .width(130.dp)
                             .offset(65.dp),
                         border = BorderStroke(3.dp, Color.Black),
-                        onClick = { if(randomList[1]==3) setscore(score.absoluteValue +1) },
+                        onClick = { if(randomList[1]==3) {
+                            setscore(score.absoluteValue + 1)
+                            setremaing(remaing.absoluteValue -1)
+                            randomList.shuffle()
+                        }},
                         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
                         shape = RoundedCornerShape(15.dp)
                     ) {
@@ -228,11 +260,22 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
     }
     else if(title == "숫자 순서 맞추기")
     {
+        var numberarray = arrayOf(1,2,3,4,5,6,7,8,9)
+        numberarray.shuffle()
         var (number,setnumber) = remember {
             mutableStateOf(1)
         }
-        var numberarray = arrayOf(1,2,3,4,5,6,7,8,9)
-        numberarray.shuffle()
+        if(number== 10)
+        {
+            var toast:Toast? = null
+            val context = LocalContext.current
+
+            toast?.cancel()
+            toast = Toast.makeText(context, "성공!", Toast.LENGTH_SHORT)
+            toast?.show()
+            navHostController.popBackStack(Screen.GameHome.route,true)
+        }
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -286,21 +329,13 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                             .fillMaxSize()
                     ) {
                         Text(
-                            text = "남은 시간 $timeout 초",
+                            text = "$number 을 눌러주세요",
                             textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .fillMaxWidth(),
                             fontSize = 30.sp,
                             fontWeight = FontWeight.Bold
                         )
-                        Text(
-                            text = "$number 를 눌러주세요",
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                        )
-
-
                     }
                 }
 
@@ -432,6 +467,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
 @Composable
 fun PreviewGame(){
     val navCtrl = rememberNavController()
+    randomList.shuffle()
     GamePlayScreen(navHostController = navCtrl,"글자색 맞추기")
 }
 
