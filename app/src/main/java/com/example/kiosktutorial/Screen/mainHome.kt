@@ -140,9 +140,10 @@ fun Home(navHostController: NavHostController) {
 
             })
             MainSelectionButton("두뇌 활성화 게임", func = {
-                toast?.cancel()
-                toast = Toast.makeText(context, "두뇌 활성화 게임", Toast.LENGTH_SHORT)
-                toast?.show()
+                navHostController.navigate(Screen.GameHome.route)
+//                toast?.cancel()
+//                toast = Toast.makeText(context, "두뇌 활성화 게임", Toast.LENGTH_SHORT)
+//                toast?.show()
             })
 
 
