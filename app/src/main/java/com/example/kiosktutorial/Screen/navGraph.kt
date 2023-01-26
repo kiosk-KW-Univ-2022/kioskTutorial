@@ -61,7 +61,7 @@ fun SetupNavGraph(navController: NavHostController) {
         }
 
         composable(route = Screen.KioskExerciseSelection.route){
-            KioskSelection(navController = navController, bExercise = true)
+            CafeMainScreen(navController)
         }
 
         composable(route = Screen.KioskTutorial.route){
@@ -73,6 +73,14 @@ fun SetupNavGraph(navController: NavHostController) {
         }
         composable(route = Screen.GameHome.route){
             
+        }
+        composable(route = Screen.CafeKiosk.route)
+        {
+            CafeKiosk(navController)
+        }
+        composable(route = Screen.CafeHome.route)
+        {
+            CafeMainScreen(navController)
         }
     }
 }
