@@ -3,12 +3,14 @@ package com.example.kiosktutorial.Screen
 import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -21,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.kiosktutorial.R
+import com.example.kiosktutorial.ui.theme.backGround
 
 
 //TODO 각 노랭이 위에 이미지 올리기
@@ -43,16 +46,25 @@ fun MainSelectionButton(title: String, modifier:Modifier? = null, desc:String? =
 
         ,   Alignment.TopStart
     ) {
-        Image(
-            painter = paintD,
-            contentDescription = "$title 아이콘",
-            contentScale = ContentScale.Fit,
+        Box(modifier=Modifier
+            .clip(CircleShape)
+            .height(130.dp)
+            .width(130.dp)
+            .background(backGround)
+            .padding(15.dp)
+        ){
+            Image(
+                painter = paintD,
+                contentDescription = "$title 아이콘",
+                contentScale = ContentScale.Fit,
 
-            modifier = Modifier
-                .height(130.dp)
-                .width(130.dp)
-            ,   alignment = Alignment.Center
-        )
+                modifier = Modifier
+                    .height(100.dp)
+                    .width(100.dp)
+                ,   alignment = Alignment.Center
+            )
+        }
+
 
         val size =
 
@@ -134,19 +146,19 @@ fun Home(navHostController: NavHostController) {
 //                toast?.cancel()
 //                toast = Toast.makeText(context, "키오스크 설명서 진행하기", Toast.LENGTH_SHORT)
 //                toast?.show()
-            },paint= R.drawable.select1)
+            },paint=R.drawable.book)
             MainSelectionButton("실전연습  ", func = {
                 navHostController.navigate(Screen.KioskExerciseSelection.route)
 //                toast?.cancel()
 //                toast = Toast.makeText(context, "실전연습", Toast.LENGTH_SHORT)
 //                toast?.show()
 
-            },paint= R.drawable.select2)
+            },paint= R.drawable.note)
             MainSelectionButton("뇌활력 게임", func = {
                 toast?.cancel()
                 toast = Toast.makeText(context, "뇌활력 게임", Toast.LENGTH_SHORT)
                 toast?.show()
-            },paint= R.drawable.select3)
+            },paint= R.drawable.game)
 
 
         }
