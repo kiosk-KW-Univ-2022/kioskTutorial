@@ -32,8 +32,42 @@ import androidx.compose.ui.draw.paint
 
 
 @Composable
-fun CafeOrder(navHostController: NavHostController,price: Int, name: String, painter :Int)
+fun CafeOrder(navHostController: NavHostController, name: String)
 {
+    var price=0
+    var painter = R.drawable.americano_hot
+    if(name=="아메리카노") price =1500
+    else if(name == "아이스 아메리카노") price= 2000
+    else if(name=="카페라떼") price=2500
+    else if(name=="아이스 카페라떼") price=3000
+    else if(name=="홍차") price=4500
+    else if(name=="꽃차") price=4500
+    else if(name=="녹차") price=4500
+    else if(name=="오렌지 주스") price=4500
+    else if(name=="샌드위치") price=4000
+    else if(name=="빵") price= 3000
+    else if(name=="쿠키") price=1500
+    else if(name=="머핀") price=2000
+    else price =0
+    if(name=="아메리카노")               painter=R.drawable.americano_hot
+    else if(name == "아이스 아메리카노")  painter=R.drawable.americano_ice
+    else if(name=="카페라떼")           painter=R.drawable.latte_hot
+    else if(name=="아이스 카페라떼")      painter=R.drawable.latte_ice
+    else if(name=="홍차")             painter=R.drawable.blacktea
+    else if(name=="꽃차")             painter=R.drawable.tea
+    else if(name=="녹차")             painter=R.drawable.greentea
+    else if(name=="오렌지 주스")         painter=R.drawable.orange
+    else if(name=="샌드위치")            painter=R.drawable.sandwitch
+    else if(name=="빵")               painter=R.drawable.bread
+    else if(name=="쿠키")              painter=R.drawable.cookie
+    else if(name=="머핀")              painter=R.drawable.muffin
+
+    var dessert =0
+    if(name=="샌드위치")           dessert=1
+    else if(name=="빵")          dessert=1
+    else if(name=="쿠키")         dessert=1
+    else if(name=="머핀")         dessert=1
+
     var CafeColor = Color(0xFF28CDC8)
     var (totalcost, setcost) = remember {
         mutableStateOf(price)
@@ -89,7 +123,7 @@ fun CafeOrder(navHostController: NavHostController,price: Int, name: String, pai
                         }
                         Box(modifier = Modifier
                             .fillMaxHeight()
-                            .width(30.dp)
+                            .width(34.dp)
                         ){
                             Text(modifier = Modifier.align(Alignment.Center), text = "$number", fontWeight = FontWeight.Bold, fontSize = 30.sp)
                         }
@@ -108,34 +142,35 @@ fun CafeOrder(navHostController: NavHostController,price: Int, name: String, pai
                 }
             }
         }
-
-        Row(modifier = Modifier.padding(10.dp)){
-            Button(
-                modifier = Modifier
-                    .width(100.dp)
-                    .height(50.dp),
-                colors = if(cup==1) ButtonDefaults.buttonColors(Color.LightGray) else ButtonDefaults.buttonColors(CafeColor) ,
-                onClick = { setcup(1) }
-            ) {
-                Text("매장컵")
-            }
-            Box(modifier = Modifier.width(30.dp))
-            Button(
-                modifier = Modifier
-                    .width(100.dp)
-                    .height(50.dp),
-                colors = if(cup==2) ButtonDefaults.buttonColors(Color.LightGray) else ButtonDefaults.buttonColors(CafeColor) ,
-                onClick = { setcup(2) }) {
-                Text("개인컵")
-            }
-            Box(modifier = Modifier.width(30.dp))
-            Button(
-                modifier = Modifier
-                    .width(100.dp)
-                    .height(50.dp),
-                colors = if(cup==3) ButtonDefaults.buttonColors(Color.LightGray) else ButtonDefaults.buttonColors(CafeColor) ,
-                onClick = {setcup(3)}){
-                Text("일회용컵")
+        if(dessert==0){
+            Row(modifier = Modifier.padding(10.dp)){
+                Button(
+                    modifier = Modifier
+                        .width(100.dp)
+                        .height(50.dp),
+                    colors = if(cup==1) ButtonDefaults.buttonColors(Color.LightGray) else ButtonDefaults.buttonColors(CafeColor) ,
+                    onClick = { setcup(1) }
+                ) {
+                    Text("매장컵")
+                }
+                Box(modifier = Modifier.width(30.dp))
+                Button(
+                    modifier = Modifier
+                        .width(100.dp)
+                        .height(50.dp),
+                    colors = if(cup==2) ButtonDefaults.buttonColors(Color.LightGray) else ButtonDefaults.buttonColors(CafeColor) ,
+                    onClick = { setcup(2) }) {
+                    Text("개인컵")
+                }
+                Box(modifier = Modifier.width(30.dp))
+                Button(
+                    modifier = Modifier
+                        .width(100.dp)
+                        .height(50.dp),
+                    colors = if(cup==3) ButtonDefaults.buttonColors(Color.LightGray) else ButtonDefaults.buttonColors(CafeColor) ,
+                    onClick = {setcup(3)}){
+                    Text("일회용컵")
+                }
             }
         }
         if(cup!=0){
@@ -175,16 +210,16 @@ fun CafeOrder(navHostController: NavHostController,price: Int, name: String, pai
                 }
             }
         }
-        if(size!=0){
+        if(size!=0||dessert==1){
             Row(modifier = Modifier.padding(10.dp)) {
                 Button(
                     modifier = Modifier
                         .width(360.dp)
                         .height(50.dp),
                     colors =  ButtonDefaults.buttonColors(CafeColor),
-                    onClick = { /* 기존 화면으로 이동*/ }
+                    onClick = { navHostController.navigate("cafe_kiosk/${number}/${totalcost}") }
                 ) {
-                    Text("S")
+                    Text("주문완료")
                 }
             }
         }
@@ -195,5 +230,5 @@ fun CafeOrder(navHostController: NavHostController,price: Int, name: String, pai
 @Composable
 fun PreviewCafeOrder(){
     val navCtrl = rememberNavController()
-    CafeOrder(navCtrl,1500,"아메리카노",R.drawable.americano_hot)
+    CafeOrder(navCtrl,"아메리카노")
 }

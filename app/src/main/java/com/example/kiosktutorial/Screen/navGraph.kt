@@ -84,7 +84,17 @@ fun SetupNavGraph(navController: NavHostController) {
         }
         composable(route = Screen.CafeOrder.route)
         {
-            CafeOrder(navController, price = 1500, name ="아메리카노" , painter = R.drawable.americano_hot )
+            CafeOrder(navController, name ="아메리카노")
+        }
+        composable("cafe_order/{name}")
+        {backStackEntry ->
+            CafeOrder(navHostController = navController,name =backStackEntry.arguments?.getString("name") ?:"")
+
+        }
+        composable("cafe_kiosk/{number}/{fee}")
+        {backStackEntry ->
+            CafeKiosk(navHostController = navController, number =backStackEntry.arguments?.getInt("number") ?:0,
+                fee=backStackEntry.arguments?.getInt("fee")?:10)
         }
     }
 }
