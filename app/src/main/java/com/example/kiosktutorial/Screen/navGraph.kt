@@ -10,8 +10,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.kiosktutorial.R
 import com.example.kiosktutorial.Screen.Kiosk.KioskTrain
-import com.example.kiosktutorial.Screen.Kiosk.TrainCheckPage
-import com.example.kiosktutorial.Screen.Kiosk.dataPackage
 import kotlinx.coroutines.delay
 
 sealed class BackPress {

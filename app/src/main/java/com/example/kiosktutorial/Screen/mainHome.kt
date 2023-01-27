@@ -126,7 +126,7 @@ fun Home(navHostController: NavHostController) {
                 .padding(all = 5.dp)
         ) {
 
-            MainSelectionButton("키오스크 튜토리얼", desc = "hello", func = {
+            MainSelectionButton("키오스크 튜토리얼", func = {
                 navHostController.navigate(Screen.KioskTutorialSelection.route)
 //                toast?.cancel()
 //                toast = Toast.makeText(context, "키오스크 튜토리얼", Toast.LENGTH_SHORT)
