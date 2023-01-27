@@ -126,7 +126,7 @@ fun Home(navHostController: NavHostController) {
                 .padding(all = 5.dp)
         ) {
 
-            MainSelectionButton("키오스크 튜토리얼", desc = "hello", func = {
+            MainSelectionButton("키오스크 튜토리얼", func = {
                 navHostController.navigate(Screen.KioskTutorialSelection.route)
 //                toast?.cancel()
 //                toast = Toast.makeText(context, "키오스크 튜토리얼", Toast.LENGTH_SHORT)
@@ -140,9 +140,10 @@ fun Home(navHostController: NavHostController) {
 
             })
             MainSelectionButton("두뇌 활성화 게임", func = {
-                toast?.cancel()
-                toast = Toast.makeText(context, "두뇌 활성화 게임", Toast.LENGTH_SHORT)
-                toast?.show()
+                navHostController.navigate(Screen.GameHome.route)
+//                toast?.cancel()
+//                toast = Toast.makeText(context, "두뇌 활성화 게임", Toast.LENGTH_SHORT)
+//                toast?.show()
             })
 
 
