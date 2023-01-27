@@ -62,7 +62,7 @@ fun SetupNavGraph(navController: NavHostController) {
         }
 
         composable(route = Screen.KioskExerciseSelection.route){
-            KioskSelection(navController = navController, bExercise = true)
+            CafeMainScreen(navController)
         }
 
         composable(route = Screen.KioskTrain.route){
@@ -84,6 +84,28 @@ fun SetupNavGraph(navController: NavHostController) {
         }
         composable(route = Screen.NumberGame.route){
             GamePlayScreen(navController, "숫자 순서 맞추기" )
+        }
+        composable(route = Screen.CafeKiosk.route)
+        {
+            CafeKiosk(navController)
+        }
+        composable(route = Screen.CafeHome.route)
+        {
+            CafeMainScreen(navController)
+        }
+        composable(route = Screen.CafeOrder.route)
+        {
+            CafeOrder(navController, name ="아메리카노")
+        }
+        composable("cafe_order/{name}")
+        {backStackEntry ->
+            CafeOrder(navHostController = navController,name =backStackEntry.arguments?.getString("name") ?:"")
+
+        }
+        composable("cafe_kiosk/{number}/{fee}")
+        {backStackEntry ->
+            CafeKiosk(navHostController = navController, number =backStackEntry.arguments?.getInt("number") ?:0,
+                fee=backStackEntry.arguments?.getInt("fee")?:10)
         }
     }
 }
