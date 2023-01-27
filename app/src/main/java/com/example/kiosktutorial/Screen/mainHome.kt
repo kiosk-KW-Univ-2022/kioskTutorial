@@ -26,7 +26,9 @@ import com.example.kiosktutorial.R
 //TODO 각 노랭이 위에 이미지 올리기
 
 @Composable
-fun MainSelectionButton(title: String, modifier:Modifier? = null, desc:String? = null, icon: Int? = null, func: () -> Unit) {
+fun MainSelectionButton(title: String, modifier:Modifier? = null, desc:String? = null, icon: Int? = null, func: () -> Unit, paint: Int) {
+    var paintD = painterResource(id = paint)
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -39,49 +41,49 @@ fun MainSelectionButton(title: String, modifier:Modifier? = null, desc:String? =
             .background(MaterialTheme.colors.background)
             .composed{modifier?:Modifier}
 
-    ,   Alignment.TopStart
+        ,   Alignment.TopStart
     ) {
-        var paintD = painterResource(id = icon ?: R.drawable.yellow)
         Image(
             painter = paintD,
             contentDescription = "$title 아이콘",
             contentScale = ContentScale.Fit,
 
             modifier = Modifier
-                .heightIn(max = 150.dp)
-        ,   alignment = Alignment.Center
+                .height(130.dp)
+                .width(130.dp)
+            ,   alignment = Alignment.Center
         )
 
         val size =
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color(red = 255, green =255, blue = 255, alpha = 100))
-                .padding(all = 50.dp)
-        ,   horizontalAlignment = Alignment.End
-        , verticalArrangement = Arrangement.Center
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color(red = 255, green =255, blue = 255, alpha = 100))
+                    .padding(all = 50.dp)
+                ,   horizontalAlignment = Alignment.End
+                , verticalArrangement = Arrangement.Center
 
-        ) {
-
-
-            Text(
-                text = title
-                , fontSize = 30.sp
-            )
+            ) {
 
 
-            desc?.let{
-                Spacer(modifier= Modifier.height(5.dp))
+                Text(
+                    text = title
+                    , fontSize = 30.sp
+                )
 
-                /*Text(
-                    text = desc
-                ,   fontSize = 14.sp
-                )*/
+
+                desc?.let{
+                    Spacer(modifier= Modifier.height(5.dp))
+
+                    /*Text(
+                        text = desc
+                    ,   fontSize = 14.sp
+                    )*/
+
+                }
 
             }
-
-        }
     }
 }
 
@@ -132,19 +134,19 @@ fun Home(navHostController: NavHostController) {
 //                toast?.cancel()
 //                toast = Toast.makeText(context, "키오스크 설명서 진행하기", Toast.LENGTH_SHORT)
 //                toast?.show()
-            })
+            },paint= R.drawable.select1)
             MainSelectionButton("실전연습  ", func = {
                 navHostController.navigate(Screen.KioskExerciseSelection.route)
 //                toast?.cancel()
 //                toast = Toast.makeText(context, "실전연습", Toast.LENGTH_SHORT)
 //                toast?.show()
 
-            })
+            },paint= R.drawable.select2)
             MainSelectionButton("뇌활력 게임", func = {
                 toast?.cancel()
                 toast = Toast.makeText(context, "뇌활력 게임", Toast.LENGTH_SHORT)
                 toast?.show()
-            })
+            },paint= R.drawable.select3)
 
 
         }
