@@ -1,7 +1,7 @@
 package com.example.kiosktutorial.Screen.Kiosk
 
 import android.content.res.Configuration
-import android.os.Parcelable
+import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,12 +21,41 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.kiosktutorial.R
-import kotlinx.parcelize.Parcelize
+import com.example.kiosktutorial.Screen.Screen
 import java.text.SimpleDateFormat
 import java.util.*
 
+private val personType = arrayOf("어린이", "성인", "경로")
+
 @Composable
 fun KioskTrain(navController: NavHostController) {
+    var displayMode by remember { mutableStateOf(0) }
+    var startStation by remember { mutableStateOf(StationState("서울", Date())) }
+    var endStation by remember { mutableStateOf(StationState("용산", Date())) }
+    val ticketMap = remember {
+        mutableMapOf(
+            "어린이" to TicketCount(0),
+            "성인" to TicketCount(1),
+            "경로" to TicketCount(0)
+        )
+    }
+
+    /*/
+    /// 0 - default
+    /// 1 - start station name change
+    /// 2 - end station name change
+    /// 10 - train check
+     */
+    if(displayMode == 10){
+        val dpkg = dataPackage(
+            startStation,
+            endStation,
+            mutableMapOf(personType[0] to ticketMap[personType[0]]!!,
+                personType[1] to ticketMap[personType[1]]!!, personType[2] to ticketMap[personType[2]]!! )
+        )
+        TrainCheckPage(navHostController = navController, dpkg = dpkg, {displayMode = it})
+    }
+    else
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -41,27 +70,17 @@ fun KioskTrain(navController: NavHostController) {
         ) {
             Text(text = "승차권 예매", fontSize = 18.sp)
         }
-        var startStation by remember { mutableStateOf(StationState("서울", Date())) }
-        var endStation by remember { mutableStateOf(StationState("용산", Date())) }
-        var displayMode by remember { mutableStateOf(0) }
-        val ticketMap = remember {
-            mutableMapOf(
-                "어린이" to TicketCount(0),
-                "성인" to TicketCount(0),
-                "경로" to TicketCount(0)
-            )
-        }
-//        var ticketCount by remember{ mutableStateOf(TicketStorage(TicketCount(0), TicketCount(0), TicketCount(0)))}
 
         Box(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
             DirectionalTicket(
+                navController,
                 startStation,
                 endStation,
-                ticketMap,
-                { mode: Int -> displayMode = mode })
+                ticketMap
+            ) { mode: Int -> displayMode = mode }
             if (displayMode == 1)
                 StationSelectDialog(startStation, displayMode, { mode: Int -> displayMode = mode })
             else if (displayMode == 2)
@@ -382,8 +401,7 @@ fun TicketBox(
     ticketStorage: MutableMap<String, TicketCount>,
     onIncrease: (TicketCount) -> Unit, onDecrease: (TicketCount) -> Unit
 ) {
-    var countVisible by remember { mutableStateOf(false) }
-    val personType = arrayOf("어린이", "성인", "경로")
+    var countVisible by remember { mutableStateOf(true) }
     var total by remember{ mutableStateOf(ticketStorage[personType[0]]!!.count +
             ticketStorage[personType[1]]!!.count + ticketStorage[personType[2]]!!.count) }
 
@@ -403,7 +421,7 @@ fun TicketBox(
         ) {
 
             Text(
-                text = "발권 티켓 수: ${total}",
+                text = "총 ${total}명",
                 fontSize = 30.sp,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
@@ -429,11 +447,11 @@ fun TicketBox(
 
         if (countVisible)
             personType.forEach {
-                TicketSelector(label = it, ticketStorage[it]!!, onIncrease, onDecrease,
+                TicketSelector(label = it, ticketStorage[it]!!, onIncrease, onDecrease,)
                     {
                         total = ticketStorage[personType[0]]!!.count +
                                 ticketStorage[personType[1]]!!.count + ticketStorage[personType[2]]!!.count
-                    })
+                    }
             }
 
     }
@@ -441,6 +459,7 @@ fun TicketBox(
 
 @Composable
 fun DirectionalTicket(
+    navController: NavHostController,
     startStation: StationState,
     endStation: StationState,
     ticketStorage: MutableMap<String, TicketCount>,
@@ -463,27 +482,54 @@ fun DirectionalTicket(
                 if (tc.count > 0) tc.count--
             }
         )
+        dSpacer()
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()
+        ){}
+        val context = LocalContext.current
+        var toast:Toast? = null
+        Button(
+            modifier = Modifier
+                .fillMaxWidth(),
+
+            onClick = {
+                if(ticketStorage[personType[0]]!!.count +ticketStorage[personType[1]]!!.count +ticketStorage[personType[2]]!!.count > 0){
+                    onSetDisplay(10)
+                }
+                toast?.cancel()
+                toast = Toast.makeText(context, "결제", Toast.LENGTH_SHORT)
+                toast!!.show()
+            }
+        ){
+            Text(
+                text = "발권",
+                fontSize = 28.sp
+
+            )
+        }
 
     }
 
 }
+
 
 data class StationState(
     var stationName: String,
     var ticketTime: Date
 )
 
-@Parcelize
-data class TicketStorage(
-    var child: TicketCount,
-    var adult: TicketCount,
-    var oldMan: TicketCount
-) : Parcelable
 
-@Parcelize
 data class TicketCount(
     var count: Int
-) : Parcelable
+)
+
+data class dataPackage(
+    var startStation: StationState,
+    var endStation: StationState,
+    var TicketStorage:MutableMap<String, TicketCount>
+)
 
 // light mode
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
