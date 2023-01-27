@@ -9,6 +9,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.kiosktutorial.R
+import com.example.kiosktutorial.Screen.Kiosk.KioskTrain
+import com.example.kiosktutorial.Screen.Kiosk.TrainCheckPage
+import com.example.kiosktutorial.Screen.Kiosk.dataPackage
 import kotlinx.coroutines.delay
 
 sealed class BackPress {
@@ -64,6 +67,10 @@ fun SetupNavGraph(navController: NavHostController) {
             KioskSelection(navController = navController, bExercise = true)
         }
 
+        composable(route = Screen.KioskTrain.route){
+            KioskTrain(navController = navController)
+        }
+
         composable(route = Screen.KioskTutorial.route){
             KioskSelection(navController, false)
         }
@@ -80,6 +87,5 @@ fun SetupNavGraph(navController: NavHostController) {
         composable(route = Screen.NumberGame.route){
             GamePlayScreen(navController, "숫자 순서 맞추기" )
         }
-
     }
 }
