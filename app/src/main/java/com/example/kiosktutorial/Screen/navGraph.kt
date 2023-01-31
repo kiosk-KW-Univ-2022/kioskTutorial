@@ -95,17 +95,11 @@ fun SetupNavGraph(navController: NavHostController) {
         }
         composable(route = Screen.CafeOrder.route)
         {
-            CafeOrder(navController, name ="아메리카노")
+            CafeOrder(navController)
         }
-        composable("cafe_order/{name}")
+        composable("${Screen.PayWindow.route}/{move}")
         {backStackEntry ->
-            CafeOrder(navHostController = navController,name =backStackEntry.arguments?.getString("name") ?:"")
-
-        }
-        composable("cafe_kiosk/{number}/{fee}")
-        {backStackEntry ->
-            CafeKiosk(navHostController = navController, number =backStackEntry.arguments?.getInt("number") ?:0,
-                fee=backStackEntry.arguments?.getInt("fee")?:10)
+            paywindow(navHostController = navController,route = backStackEntry.arguments?.getString("move") ?:"${Screen.CafeOrder.route}")
         }
     }
 }

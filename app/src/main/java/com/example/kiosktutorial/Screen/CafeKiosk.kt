@@ -38,7 +38,7 @@ fun CafeKiosk(navHostController: NavHostController,number:Int =0, fee:Int=0){
     var (Category, SetCategory) = remember{mutableStateOf(0)}
     var (order,Setorder) =remember { mutableStateOf(false)}
     var (currentnumber,Setcurrentnumber) = remember { mutableStateOf(0)}
-    var (orderfee:Int,Setorderfee) = remember{ mutableStateOf(0) }
+    var (orderfee,Setorderfee) = remember{ mutableStateOf(0) }
     var (name,Setname)= remember {
         mutableStateOf("")
     }
@@ -404,7 +404,10 @@ fun CafeKiosk(navHostController: NavHostController,number:Int =0, fee:Int=0){
                         .width(150.dp)
                         .fillMaxHeight(),
                         colors = ButtonDefaults.buttonColors(CafeColor),
-                        onClick = { /*TODO*/ }) {
+                        onClick = { Setorderfee(0)
+                            Setcurrentnumber(0)
+                            navHostController.navigate("${Screen.PayWindow.route}/${Screen.CafeOrder.route}")
+                        }) {
                         Text(text = "주문 완료", fontWeight = FontWeight.Bold)
                     }
                 }
