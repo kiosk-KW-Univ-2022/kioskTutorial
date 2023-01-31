@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.kiosktutorial.R
+import com.example.kiosktutorial.ui.theme.backGround
 import java.time.LocalDateTime
 import java.util.*
 import kotlin.concurrent.thread
@@ -54,7 +55,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
     var (timeout,settimeout) = remember {
         mutableStateOf(60)
     }
-    val backgroundColor = Color(0xffffe690)
+    val backgroundColor = backGround
     var (score , setscore ) = remember{ mutableStateOf(0) }
     var(remaing, setremaing) = remember {
         mutableStateOf(10)
@@ -82,7 +83,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(150.dp)
-                    .background(Color(0xfffed55f))
+                    .background(backGround)
             ) {
                 val paintD = painterResource(R.drawable._1_kt_wordmark__standard__01)
     //            Image(painter = paintD, contentDescription = "")
@@ -287,7 +288,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(150.dp)
-                    .background(Color(0xfffed55f))
+                    .background(backgroundColor)
             ) {
                 val paintD = painterResource(R.drawable._1_kt_wordmark__standard__01)
                 //           Image(painter = paintD, contentDescription = "")
@@ -306,7 +307,7 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
             }
             Column(
                 modifier = Modifier
-                    .background(Color.White),
+                    .background(backgroundColor),
                 ) {
                 Box(
                     modifier = Modifier
@@ -338,7 +339,9 @@ fun GamePlayScreen(navHostController: NavHostController,title:String){
                         )
                     }
                 }
-
+            }
+            Column(modifier = Modifier
+                .background(Color.White)) {
                 Row(modifier= Modifier
                     .padding(10.dp)
                     .fillMaxWidth(100f),
