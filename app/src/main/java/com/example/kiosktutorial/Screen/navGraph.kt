@@ -99,7 +99,7 @@ fun SetupNavGraph(navController: NavHostController) {
         }
         composable("${Screen.PayWindow.route}/{move}")
         {backStackEntry ->
-            paywindow(navHostController = navController,route = backStackEntry.arguments?.getString("move") ?:"${Screen.CafeOrder.route}")
+            Paywindow(navHostController = navController,route = backStackEntry.arguments?.getString("move") ?:"${Screen.CafeOrder.route}")
         }
     }
 }

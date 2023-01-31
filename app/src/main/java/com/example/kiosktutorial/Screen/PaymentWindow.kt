@@ -36,7 +36,7 @@ import kotlinx.coroutines.launch
 
 
 @Composable
-fun paywindow(navHostController: NavHostController, route: String) {
+fun Paywindow(navHostController: NavHostController, route: String) {
     val mCountDown: CountDownTimer = object : CountDownTimer(2500, 1000) {
         override fun onTick(millisUntilFinished: Long) {
         }
@@ -129,5 +129,5 @@ fun AnimationGaugeBar(
 @Composable
 fun Prepaywindow(){
     val navCtrl = rememberNavController()
-    paywindow(navCtrl,Screen.KioskExercise.route)
+    Paywindow(navCtrl,Screen.KioskExercise.route)
 }
