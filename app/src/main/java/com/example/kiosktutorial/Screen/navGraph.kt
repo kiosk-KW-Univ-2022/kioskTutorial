@@ -9,6 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.kiosktutorial.R
+import com.example.kiosktutorial.Screen.Kiosk.HospitalCheck
 import com.example.kiosktutorial.Screen.Kiosk.HospitalMain
 import com.example.kiosktutorial.Screen.Kiosk.HospitalVModel
 import com.example.kiosktutorial.Screen.Kiosk.KioskTrain
@@ -120,6 +121,9 @@ fun SetupNavGraph(navController: NavHostController) {
             }
         }
 
+        composable(route = Screen.KioskHospitalCheck.route){
+            HospitalCheck(navController, hvModel)
+        }
 
     }
 }

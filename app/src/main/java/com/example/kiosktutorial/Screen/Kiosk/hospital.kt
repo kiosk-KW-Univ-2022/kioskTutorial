@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.kiosktutorial.R
+import com.example.kiosktutorial.Screen.Screen
 
 class HospitalVModel : ViewModel() {
     var id by mutableStateOf("")
@@ -71,7 +72,9 @@ fun HospitalMain(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .heightIn(50.dp)
+                    .heightIn(50.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
             ) {
                 Text(
                     text = "영수증 바코드를 아래 리더기에 대주세요.",
@@ -100,6 +103,7 @@ fun HospitalMain(
 
             Spacer(
                 modifier = Modifier
+                    .padding(0.dp, 5.dp)
                     .fillMaxWidth(0.98f)
                     .height(1.dp)
                     .background(Color(0xff555555))
@@ -147,7 +151,8 @@ fun HospitalMain(
                                 }
                             ){
                                 Text(
-                                    text = "$code"
+                                    text = "$code",
+                                    fontSize = 30.sp
                                 )
                             }
                         }
@@ -163,7 +168,7 @@ fun HospitalMain(
                             viewModel.clearId()
                         }
                     ){
-                        Text("정정")
+                        Text("정정", fontSize = 30.sp)
                     }
                     Button(
                         modifier = Modifier
@@ -173,7 +178,7 @@ fun HospitalMain(
                             viewModel.addId("0")
                         }
                     ){
-                        Text("0")
+                        Text("0", fontSize = 30.sp)
                     }
                     val context = LocalContext.current
                     var toast: Toast? = null
@@ -188,14 +193,11 @@ fun HospitalMain(
                                 toast!!.show()
                                 return@Button
                             }
-
-                            toast?.cancel()
-                            toast = Toast.makeText(context, "수납 금액/처방전을 확인하세요", Toast.LENGTH_SHORT)
-                            toast!!.show()
-
+                            navHostController.popBackStack()
+                            navHostController.navigate(Screen.KioskHospitalCheck.route)
                         }
                     ){
-                        Text("확인")
+                        Text("확인", fontSize = 30.sp)
                     }
 
                 }
@@ -209,8 +211,41 @@ fun HospitalMain(
     }
 }
 
+@Composable
+fun HospitalCheck(
+    navHostController:NavHostController,
+    viewModel:HospitalVModel
+){
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
+        Text(
+            text = "수납/처방전 발행",
+            fontSize = 30.sp,
+            modifier = Modifier
+                .background(Color(0xfffbe872))
+                .padding(10.dp)
+                .fillMaxWidth(),
+            textAlign = TextAlign.Center
+        )
+
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun PreviewHospitalMain() {
     HospitalMain(rememberNavController())
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewHospitalCheck(){
+    val td = HospitalVModel()
+    for(i:Int in 1..5){
+        td.addId("$i")
+    }
+    HospitalCheck(rememberNavController(), td)
 }
