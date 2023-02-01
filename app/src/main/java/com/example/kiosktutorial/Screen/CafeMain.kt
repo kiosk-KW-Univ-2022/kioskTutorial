@@ -65,6 +65,9 @@ fun CafeMainScreen(navHostController: NavHostController){
 
 }
 
+
+
+
 @Preview(uiMode = UI_MODE_NIGHT_NO, showBackground = true)
 @Composable
 fun PreviewMainCafe(){
