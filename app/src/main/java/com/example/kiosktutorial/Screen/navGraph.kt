@@ -65,7 +65,7 @@ fun SetupNavGraph(navController: NavHostController) {
         }
 
         composable(route = Screen.KioskTutorial.route){
-            KioskSelection(navController, false)
+            Secondhome2(navController)
         }
 
         composable(route = Screen.KioskExercise.route){
@@ -77,6 +77,44 @@ fun SetupNavGraph(navController: NavHostController) {
         composable(route =Screen.OfficeHome.route){
             ResidentSelection()
         }
+        composable(Screen.Bank.route)
+        {
+            Secondhome2(navController)
+        }
+        composable(Screen.Bank1.route)
+        {
+            Secondhome1(navController)
+        }
 
+        composable(Screen.Bank1_1.route)
+        {
+            Secondhome1_1(navController)
+        }
+
+        composable(Screen.Bank2.route)
+        {
+            InputNumber(navController)
+        }
+
+        composable(Screen.Bank3.route)
+        {
+            Secondhome3(navController)
+        }
+        composable(Screen.Bank4.route)
+        {
+            Secondhome4(navController)
+        }
+        composable(Screen.Bank5.route)
+        {
+            Secondhome5(navController)
+        }
+        composable(Screen.Bank5_1.route)
+        {
+            Secondhome5_1(navController)
+        }
+        composable("${Screen.DoneApp.route}/{move}")
+        {backStackEntry ->
+            Paywindow2(navHostController = navController,route = backStackEntry.arguments?.getString("move") ?:"${Screen.Home.route}")
+        }
     }
 }
