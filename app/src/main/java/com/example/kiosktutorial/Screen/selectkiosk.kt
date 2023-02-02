@@ -3,109 +3,98 @@ package com.example.kiosktutorial.Screen
 import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.Card
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.runtime.remember
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.kiosktutorial.R
+import com.example.kiosktutorial.ui.theme.Typography
+import com.example.kiosktutorial.ui.theme.KioskTutorialTheme
 import com.example.kiosktutorial.ui.theme.backGround
 
-
-
-
 @Composable
-fun MainSelectionButton(title: String, modifier:Modifier? = null, desc:String? = null, icon: Int? = null, func: () -> Unit, paint: Int) {
-    var paintD = painterResource(id = paint)
-
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(IntrinsicSize.Min)
-            .heightIn(min = 100.dp)
-            .padding(all = 15.dp)
-            .clickable(
-                onClick = func
-            )
-            .background(Color.White)
-            .composed { modifier ?: Modifier }
-
-        ,   Alignment.TopStart
+fun KioskHomeSelectionButton(navHostController: NavHostController) {
+    Scaffold(
+        backgroundColor = MaterialTheme.colors.background
     ) {
-        Box(modifier= Modifier
-            .clip(CircleShape)
-            .height(130.dp)
-            .width(130.dp)
-            .background(backGround)
-            .padding(15.dp)
-        ){
-            Image(
-                painter = paintD,
-                contentDescription = "$title 아이콘",
-                contentScale = ContentScale.Fit,
-
-                modifier = Modifier
-                    .height(90.dp)
-                    .width(90.dp)
-                ,   alignment = Alignment.Center
-            )
-        }
-
-
-        val size =
-
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color(red = 255, green = 255, blue = 255, alpha = 100))
-                    .padding(all = 50.dp)
-                ,   horizontalAlignment = Alignment.End
-                , verticalArrangement = Arrangement.Center
-
-            ) {
-
-
-                Text(
-                    text = title
-                    , fontSize = 30.sp
-
-                )
-
-
-                desc?.let{
-                    Spacer(modifier= Modifier.height(5.dp))
-
-                    /*Text(
-                        text = desc
-                    ,   fontSize = 14.sp
-                    )*/
-
-                }
-
-            }
-
+        RecyclerViewContent1(navHostController)
     }
 }
 
 @Composable
-fun Home(navHostController: NavHostController) {
+fun RecyclerViewContent1(navHostController: NavHostController) {
+    val kiosks = remember { HomeDataProvider.kioskList }
+    LazyColumn(contentPadding = PaddingValues(30.dp, 8.dp)) {
+        items(
+            items = kiosks,
+            itemContent = { KioskListItem(navHostController,it) }
+        )
+    }
+}
+
+@Composable
+fun KioskListItem(navHostController:NavHostController,kiosk: Kioskicon) {
+    Column {
+        Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(0.dp, 12.dp),
+        )
+        Row {
+            Box(
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .height(90.dp)
+                    .width(90.dp)
+                    .background(backGround)
+                    .padding(15.dp)
+                    .clickable {
+                        navHostController.navigate(kiosk.route)
+                    }
+            ) {
+                KioskImage(kiosk = kiosk)
+            }
+            Column(
+                modifier = Modifier
+                    .padding(8.dp)
+                    .align(Alignment.CenterVertically)
+            ) {
+                Text(text = kiosk.name, style = Typography.h6, fontWeight = FontWeight.Bold)
+            }
+        }
+        Spacer(modifier = Modifier.height(10.dp))
+        Box(modifier = Modifier
+            .fillMaxWidth()
+            .height(3.dp)
+            .background(Color.LightGray)){
+            
+        }
+    }
+}
+@Composable
+fun Secondhome(navHostController: NavHostController,  bExercise:Boolean) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -152,7 +141,7 @@ fun Home(navHostController: NavHostController) {
         val context = LocalContext.current
 
 
-        var toast:Toast? = null
+        var toast: Toast? = null
 
         // selection
         Column(
@@ -172,29 +161,7 @@ fun Home(navHostController: NavHostController) {
                 .padding(10.dp)
                 .fillMaxSize()
             ){
-                Column() {
-                    MainSelectionButton("사용 지침서", func = {
-                        navHostController.navigate(Screen.KioskTutorialSelection.route)
-
-//                toast?.cancel()
-
-//                toast = Toast.makeText(context, "키오스크 설명서 진행하기", Toast.LENGTH_SHORT)
-
-//                toast?.show()
-                    },paint=R.drawable.book)
-
-                    MainSelectionButton("실전연습  ", func = {
-                        navHostController.navigate(Screen.KioskExerciseSelection.route)
-//                toast?.cancel()
-//                toast = Toast.makeText(context, "실전연습", Toast.LENGTH_SHORT)
-//                toast?.show()
-
-                    },paint= R.drawable.note)
-
-                    MainSelectionButton("뇌활력 게임", func = {
-                        navHostController.navigate(Screen.GameHome.route)
-                    },paint= R.drawable.game)
-                }
+                KioskHomeSelectionButton(navHostController)
             }
 
         }
@@ -203,9 +170,24 @@ fun Home(navHostController: NavHostController) {
 
 }
 
+
+@Composable
+fun KioskImage(kiosk: Kioskicon) {
+    var paintD = painterResource(id = kiosk.image)
+    Image(
+            painter = paintD,
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+
+    modifier = Modifier
+        .height(80.dp)
+        .width(80.dp)
+    )
+}
+
 @Preview
 @Composable
-fun HomePreview(){
+fun SecondhomePreview(){
     val navHostController = rememberNavController()
-    Home(navHostController)
+    Secondhome(navHostController, true)
 }

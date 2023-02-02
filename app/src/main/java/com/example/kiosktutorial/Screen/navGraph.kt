@@ -58,15 +58,16 @@ fun SetupNavGraph(navController: NavHostController) {
         }
 
         composable(route = Screen.KioskTutorialSelection.route){
-            KioskSelection(navController = navController, bExercise = false)
+            OfficeSelection(navController)
         }
 
         composable(route = Screen.KioskExerciseSelection.route){
-            CafeMainScreen(navController)
+            Secondhome(navController,true)
         }
 
         composable(route = Screen.KioskTrain.route){
             KioskTrain(navController = navController)
+
         }
 
         composable(route = Screen.KioskTutorial.route){
@@ -109,5 +110,9 @@ fun SetupNavGraph(navController: NavHostController) {
         {backStackEntry ->
             Paywindow(navHostController = navController,route = backStackEntry.arguments?.getString("move") ?:"${Screen.CafeOrder.route}")
         }
+        composable(route =Screen.OfficeHome.route){
+            ResidentSelection()
+        }
+
     }
 }
