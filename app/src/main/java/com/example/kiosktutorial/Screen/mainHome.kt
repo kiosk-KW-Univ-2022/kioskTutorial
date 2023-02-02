@@ -141,6 +141,7 @@ fun Home(navHostController: NavHostController) {
                 .padding(all = 15.dp)
         ) {
 
+
             MainSelectionButton("사용 지침서", func = {
                 navHostController.navigate(Screen.KioskTutorialSelection.route)
 //                toast?.cancel()

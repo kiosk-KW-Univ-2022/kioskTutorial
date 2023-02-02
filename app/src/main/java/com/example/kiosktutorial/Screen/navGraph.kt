@@ -9,6 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.kiosktutorial.R
+import com.example.kiosktutorial.Screen.Kiosk.KioskTrain
 import kotlinx.coroutines.delay
 
 sealed class BackPress {
@@ -61,7 +62,11 @@ fun SetupNavGraph(navController: NavHostController) {
         }
 
         composable(route = Screen.KioskExerciseSelection.route){
-            KioskSelection(navController = navController, bExercise = true)
+            CafeMainScreen(navController)
+        }
+
+        composable(route = Screen.KioskTrain.route){
+            KioskTrain(navController = navController)
         }
 
         composable(route = Screen.KioskTutorial.route){
@@ -72,7 +77,29 @@ fun SetupNavGraph(navController: NavHostController) {
             KioskSelection(navController, true)
         }
         composable(route = Screen.GameHome.route){
-            
+            GameHomeScreen(navController)
+        }
+        composable(route = Screen.TextGame.route){
+            GamePlayScreen(navController, "글자색 맞추기")
+        }
+        composable(route = Screen.NumberGame.route){
+            GamePlayScreen(navController, "숫자 순서 맞추기" )
+        }
+        composable(route = Screen.CafeKiosk.route)
+        {
+            CafeKiosk(navController)
+        }
+        composable(route = Screen.CafeHome.route)
+        {
+            CafeMainScreen(navController)
+        }
+        composable(route = Screen.CafeOrder.route)
+        {
+            CafeOrder(navController)
+        }
+        composable("${Screen.PayWindow.route}/{move}")
+        {backStackEntry ->
+            Paywindow(navHostController = navController,route = backStackEntry.arguments?.getString("move") ?:"${Screen.CafeOrder.route}")
         }
         composable(route =Screen.OfficeHome.route){
             ResidentSelection()

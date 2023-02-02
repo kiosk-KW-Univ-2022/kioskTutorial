@@ -43,25 +43,37 @@ fun KioskSelection(navController: NavHostController, bExercise:Boolean){
             }
         }
 
-
         Button(
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(min = 40.dp)
-                .padding(
-                    horizontal = 5.dp
-                )
-        ,   onClick = {
-                // TODO: 실제로 선택한 것을 다시 한번 확인시켜주기
-                navController.navigate(startPath)
+                .padding(5.dp),
+            onClick = {
+                navController.navigate(Screen.KioskTrain.route)
             }
         ){
             Text(
-                text = "시작하기"
-            ,   fontSize = 20.sp
-
+                text = "열차 예매하기"
             )
         }
+
+//        Button(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .heightIn(min = 40.dp)
+//                .padding(
+//                    horizontal = 5.dp
+//                )
+//        ,   onClick = {
+//                // TODO: 실제로 선택한 것을 다시 한번 확인시켜주기
+//                navController.navigate(startPath)
+//            }
+//        ){
+//            Text(
+//                text = "시작하기"
+//            ,   fontSize = 20.sp
+//
+//            )
+//        }
     }
 
 }
