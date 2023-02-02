@@ -49,21 +49,21 @@ fun RecyclerViewContent1(navHostController: NavHostController) {
     LazyColumn(contentPadding = PaddingValues(30.dp, 8.dp)) {
         items(
             items = kiosks,
-            itemContent = { KioskListItem(navHostController,it) }
+            itemContent = { KioskListItem(navHostController, it) }
         )
     }
 }
 
 @Composable
-fun KioskListItem(navHostController:NavHostController,kiosk: Kioskicon) {
+fun KioskListItem(navHostController: NavHostController, kiosk: Kioskicon) {
     Column {
         Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(0.dp, 12.dp)
-            .clickable {
-            navHostController.navigate(kiosk.route)
-        }
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(0.dp, 12.dp)
+                .clickable {
+                    navHostController.navigate(kiosk.route)
+                }
         )
         Row {
             Box(
@@ -86,16 +86,19 @@ fun KioskListItem(navHostController:NavHostController,kiosk: Kioskicon) {
             }
         }
         Spacer(modifier = Modifier.height(10.dp))
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .height(3.dp)
-            .background(Color.LightGray)){
-            
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(3.dp)
+                .background(Color.LightGray)
+        ) {
+
         }
     }
 }
+
 @Composable
-fun Secondhome(navHostController: NavHostController,  bExercise:Boolean) {
+fun Secondhome(navHostController: NavHostController, bExercise: Boolean) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -111,7 +114,9 @@ fun Secondhome(navHostController: NavHostController,  bExercise:Boolean) {
                 .padding(30.dp)
         ) {
             val paintD = painterResource(R.drawable._1_kt_wordmark__standard__01)
-            Row(){
+            Row(
+                verticalAlignment = Alignment.Bottom
+            ) {
                 Image(
                     painter = paintD,
                     contentDescription = "아이콘",
@@ -122,17 +127,14 @@ fun Secondhome(navHostController: NavHostController,  bExercise:Boolean) {
                         .width(50.dp)
 
                 )
-                Box(modifier = Modifier.height(70.dp)
-                ){
-                    Text(
-                        text= " 키오스크 교육용 체험 앱",
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        fontSize = 25.sp,
-                        fontWeight = FontWeight.Bold,
+                Text(
+                    text = " 키오스크 교육용 체험 앱",
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    fontSize = 25.sp,
+                    fontWeight = FontWeight.Bold,
 
-                        )
-                }
+                    )
 
             }
 
@@ -150,18 +152,19 @@ fun Secondhome(navHostController: NavHostController,  bExercise:Boolean) {
                 .fillMaxSize()
                 .background(backGround)
         ) {
-            Box(modifier = Modifier
-                .background(
-                    shape = RoundedCornerShape(
-                        topStart = CornerSize(25.dp),
-                        topEnd = CornerSize(25.dp),
-                        bottomEnd = CornerSize(0),
-                        bottomStart = CornerSize(0)
-                    ), color = Color.White
-                )
-                .padding(10.dp)
-                .fillMaxSize()
-            ){
+            Box(
+                modifier = Modifier
+                    .background(
+                        shape = RoundedCornerShape(
+                            topStart = CornerSize(25.dp),
+                            topEnd = CornerSize(25.dp),
+                            bottomEnd = CornerSize(0),
+                            bottomStart = CornerSize(0)
+                        ), color = Color.White
+                    )
+                    .padding(10.dp)
+                    .fillMaxSize()
+            ) {
                 KioskHomeSelectionButton(navHostController)
             }
 
@@ -176,19 +179,19 @@ fun Secondhome(navHostController: NavHostController,  bExercise:Boolean) {
 fun KioskImage(kiosk: Kioskicon) {
     var paintD = painterResource(id = kiosk.image)
     Image(
-            painter = paintD,
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
+        painter = paintD,
+        contentDescription = null,
+        contentScale = ContentScale.Crop,
 
-    modifier = Modifier
-        .height(80.dp)
-        .width(80.dp)
+        modifier = Modifier
+            .height(80.dp)
+            .width(80.dp)
     )
 }
 
 @Preview
 @Composable
-fun SecondhomePreview(){
+fun SecondhomePreview() {
     val navHostController = rememberNavController()
     Secondhome(navHostController, true)
 }

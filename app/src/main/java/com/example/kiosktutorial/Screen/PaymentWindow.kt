@@ -61,26 +61,43 @@ fun Paywindow(navHostController: NavHostController, route: String) {
         {
         }
         Spacer(modifier = Modifier.height(10.dp))
-        Text(modifier = Modifier.fillMaxWidth(), text = "신용카드를 투입구에 끝까지 넣어주세요. ", fontWeight = FontWeight.Bold, fontSize = 20.sp, textAlign = TextAlign.Center)
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = "신용카드를 투입구에 끝까지 넣어주세요. ",
+            fontWeight = FontWeight.Bold,
+            fontSize = 20.sp,
+            textAlign = TextAlign.Center
+        )
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(500.dp)
                 .padding(20.dp)
         ) {
-            Image(modifier = Modifier.align(Alignment.Center), painter =painterResource(id = R.drawable.credit), contentDescription = "")
+            Image(
+                modifier = Modifier.align(Alignment.Center),
+                painter = painterResource(id = R.drawable.credit),
+                contentDescription = ""
+            )
         }
-        Text(modifier = Modifier.fillMaxWidth(), text = "결제 중입니다. 잠시만 기다려 주세요.", fontWeight = FontWeight.Bold, fontSize = 20.sp, textAlign = TextAlign.Center)
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = "결제 중입니다. 잠시만 기다려 주세요.",
+            fontWeight = FontWeight.Bold,
+            fontSize = 20.sp,
+            textAlign = TextAlign.Center
+        )
         Spacer(modifier = Modifier.height(10.dp))
-        Box(modifier = Modifier.padding(20.dp)){
+        Box(modifier = Modifier.padding(20.dp)) {
             mCountDown.start()
-            AnimationGaugeBar(navHostController,100, backGround,route)
+            AnimationGaugeBar(navHostController, 100, backGround, route)
         }
 
 
     }
 
 }
+
 @Composable
 fun AnimationGaugeBar(
     navHostController: NavHostController,
@@ -118,16 +135,16 @@ fun AnimationGaugeBar(
                 .padding(8.dp)
         ) {
             Text(text = curValue.value.toString())
-            if(curValue.value==100)
-            {
+            if (curValue.value == 100) {
 //                navHostController.navigate(route)
             }
         }
     }
 }
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true)
+
+@Preview(showBackground = true)
 @Composable
-fun Prepaywindow(){
+fun Prepaywindow() {
     val navCtrl = rememberNavController()
-    Paywindow(navCtrl,Screen.KioskExercise.route)
+    Paywindow(navCtrl, Screen.KioskExercise.route)
 }

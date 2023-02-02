@@ -33,7 +33,13 @@ import com.example.kiosktutorial.Screen.Kiosk.dSpacer
 import com.example.kiosktutorial.ui.theme.backGround
 
 @Composable
-fun GameSelectionButton(title: String, modifier:Modifier? = null, desc:String? = null, icon: Int? = null, func: () -> Unit) {
+fun GameSelectionButton(
+    title: String,
+    modifier: Modifier? = null,
+    desc: String? = null,
+    icon: Int? = null,
+    func: () -> Unit
+) {
 
     Box(
         modifier = Modifier
@@ -45,60 +51,70 @@ fun GameSelectionButton(title: String, modifier:Modifier? = null, desc:String? =
                 onClick = func
             )
             .background(MaterialTheme.colors.background)
-            .composed { modifier ?: Modifier }
-
-        ,   Alignment.TopStart
+            .composed { modifier ?: Modifier }, Alignment.TopStart
     ) {
-        Row(){
-        Box(modifier = Modifier
-            .clip(CircleShape)
-            .height(90.dp)
-            .width(90.dp)
-            .background(backGround)
-            ){
-            Column(){
-                Spacer(modifier = Modifier.height(10.dp))
-                if(title == "글자 색 맞추기")Text(modifier = Modifier.fillMaxSize(), text = "가", fontSize = 50.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
-                else if(title == "숫자 순서 맞추기")Text(modifier = Modifier.fillMaxSize(), text = "1", fontSize = 50.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
-            }
-        }
-
-
-        val size =
-
-            Column(
+        Row() {
+            Box(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color(red = 255, green = 255, blue = 255, alpha = 100))
-                    .padding(
-                        all = 10.dp
-                    )
-                ,   horizontalAlignment = Alignment.CenterHorizontally
-                , verticalArrangement = Arrangement.Center
-
+                    .clip(CircleShape)
+                    .height(90.dp)
+                    .width(90.dp)
+                    .background(backGround),
+                contentAlignment = Alignment.Center
             ) {
-
-
-                Text(
-                    text = title
-                    , fontSize = 20.sp
-                )
-
-
-                desc?.let{
-                    Spacer(modifier= Modifier.height(5.dp))
-                    Text(
-                        text = desc
-                        ,   fontSize = 14.sp, textAlign = TextAlign.Center
+                Column() {
+                    Spacer(modifier = Modifier.height(10.dp))
+                    if (title == "글자 색 맞추기") Text(
+                        modifier = Modifier.fillMaxSize(),
+                        text = "가",
+                        fontSize = 50.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center
+                    )
+                    else if (title == "숫자 순서 맞추기") Text(
+                        modifier = Modifier.fillMaxSize(),
+                        text = "1",
+                        fontSize = 50.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center
                     )
                 }
             }
+
+
+            val size =
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color(red = 255, green = 255, blue = 255, alpha = 100))
+                        .padding(
+                            all = 10.dp
+                        ),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+
+                ) {
+
+
+                    Text(
+                        text = title, fontSize = 20.sp
+                    )
+
+
+                    desc?.let {
+                        Spacer(modifier = Modifier.height(5.dp))
+                        Text(
+                            text = desc, fontSize = 14.sp, textAlign = TextAlign.Center
+                        )
+                    }
+                }
         }
     }
 }
 
 @Composable
-fun GameHomeScreen(navHostController: NavHostController){
+fun GameHomeScreen(navHostController: NavHostController) {
     val startPath = Screen.GameHome.route
     val backgroundYellow = Color(0xfffed55f)
     Column(
@@ -118,7 +134,7 @@ fun GameHomeScreen(navHostController: NavHostController){
 //            Image(painter = paintD, contentDescription = "")
 
             Text(
-                text= "KT IT 서포터즈가 함께하는\n 키오스크 연습하기",
+                text = "KT IT 서포터즈가 함께하는\n 키오스크 연습하기",
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -131,7 +147,7 @@ fun GameHomeScreen(navHostController: NavHostController){
         val context = LocalContext.current
         val backgroundColor = Color(0xfffed55f)
 
-        var toast:Toast? = null
+        var toast: Toast? = null
 
         // selection
         Column(
@@ -166,7 +182,7 @@ fun GameHomeScreen(navHostController: NavHostController){
 
 @Preview(uiMode = UI_MODE_NIGHT_NO, showBackground = true)
 @Composable
-fun PreviewGameHome(){
+fun PreviewGameHome() {
     val navCtrl = rememberNavController()
     GameHomeScreen(navCtrl)
 }
@@ -174,14 +190,13 @@ fun PreviewGameHome(){
 
 @Preview(uiMode = UI_MODE_NIGHT_YES, showBackground = true)
 @Composable
-fun PreviewDarkGameHome(){
+fun PreviewDarkGameHome() {
     val navCtrl = rememberNavController()
     GameHomeScreen(navCtrl)
 }
 
-class ColorText{
-    constructor(text:String,color:Int)
-    {
+class ColorText {
+    constructor(text: String, color: Int) {
 
 
     }

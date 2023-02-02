@@ -46,49 +46,57 @@ fun KioskTrain(navController: NavHostController) {
     /// 2 - end station name change
     /// 10 - train check
      */
-    if(displayMode == 10){
+    if (displayMode == 10) {
         val dpkg = dataPackage(
             startStation,
             endStation,
-            mutableMapOf(personType[0] to ticketMap[personType[0]]!!,
-                personType[1] to ticketMap[personType[1]]!!, personType[2] to ticketMap[personType[2]]!! )
+            mutableMapOf(
+                personType[0] to ticketMap[personType[0]]!!,
+                personType[1] to ticketMap[personType[1]]!!,
+                personType[2] to ticketMap[personType[2]]!!
+            )
         )
-        TrainCheckPage(navHostController = navController, dpkg = dpkg, {displayMode = it})
-    }
-    else
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
-        Box(
+        TrainCheckPage(navHostController = navController, dpkg = dpkg, { displayMode = it })
+    } else
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .background(Color(0xFF6E95DB))
-                .padding(10.dp),
-            contentAlignment = Alignment.Center
-
+                .fillMaxSize()
         ) {
-            Text(text = "승차권 예매", fontSize = 18.sp)
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color(0xFF6E95DB))
+                    .padding(10.dp),
+                contentAlignment = Alignment.Center
+
+            ) {
+                Text(text = "승차권 예매", fontSize = 18.sp)
+            }
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                DirectionalTicket(
+                    navController,
+                    startStation,
+                    endStation,
+                    ticketMap
+                ) { mode: Int -> displayMode = mode }
+                if (displayMode == 1)
+                    StationSelectDialog(
+                        startStation,
+                        displayMode,
+                        { mode: Int -> displayMode = mode })
+                else if (displayMode == 2)
+                    StationSelectDialog(
+                        endStation,
+                        displayMode,
+                        { mode: Int -> displayMode = mode })
+
+            }
+
         }
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            DirectionalTicket(
-                navController,
-                startStation,
-                endStation,
-                ticketMap
-            ) { mode: Int -> displayMode = mode }
-            if (displayMode == 1)
-                StationSelectDialog(startStation, displayMode, { mode: Int -> displayMode = mode })
-            else if (displayMode == 2)
-                StationSelectDialog(endStation, displayMode, { mode: Int -> displayMode = mode })
-
-        }
-
-    }
 }
 
 @Composable
@@ -355,7 +363,7 @@ fun makeTicketCount(ticket: Int) {
 fun TicketSelector(
     label: String, ticket: TicketCount,
     onIncrease: (TicketCount) -> Unit, onDecrease: (TicketCount) -> Unit,
-    onUpdateTotal:()->Unit
+    onUpdateTotal: () -> Unit
 ) {
     var c by remember { mutableStateOf(ticket.count) }
     Row(
@@ -402,8 +410,12 @@ fun TicketBox(
     onIncrease: (TicketCount) -> Unit, onDecrease: (TicketCount) -> Unit
 ) {
     var countVisible by remember { mutableStateOf(true) }
-    var total by remember{ mutableStateOf(ticketStorage[personType[0]]!!.count +
-            ticketStorage[personType[1]]!!.count + ticketStorage[personType[2]]!!.count) }
+    var total by remember {
+        mutableStateOf(
+            ticketStorage[personType[0]]!!.count +
+                    ticketStorage[personType[1]]!!.count + ticketStorage[personType[2]]!!.count
+        )
+    }
 
     Column(
         modifier = Modifier
@@ -447,11 +459,11 @@ fun TicketBox(
 
         if (countVisible)
             personType.forEach {
-                TicketSelector(label = it, ticketStorage[it]!!, onIncrease, onDecrease,)
-                    {
-                        total = ticketStorage[personType[0]]!!.count +
-                                ticketStorage[personType[1]]!!.count + ticketStorage[personType[2]]!!.count
-                    }
+                TicketSelector(label = it, ticketStorage[it]!!, onIncrease, onDecrease)
+                {
+                    total = ticketStorage[personType[0]]!!.count +
+                            ticketStorage[personType[1]]!!.count + ticketStorage[personType[2]]!!.count
+                }
             }
 
     }
@@ -487,22 +499,22 @@ fun DirectionalTicket(
             modifier = Modifier
                 .weight(1f)
                 .fillMaxHeight()
-        ){}
+        ) {}
         val context = LocalContext.current
-        var toast:Toast? = null
+        var toast: Toast? = null
         Button(
             modifier = Modifier
                 .fillMaxWidth(),
 
             onClick = {
-                if(ticketStorage[personType[0]]!!.count +ticketStorage[personType[1]]!!.count +ticketStorage[personType[2]]!!.count > 0){
+                if (ticketStorage[personType[0]]!!.count + ticketStorage[personType[1]]!!.count + ticketStorage[personType[2]]!!.count > 0) {
                     onSetDisplay(10)
                 }
                 toast?.cancel()
                 toast = Toast.makeText(context, "결제", Toast.LENGTH_SHORT)
                 toast!!.show()
             }
-        ){
+        ) {
             Text(
                 text = "발권",
                 fontSize = 28.sp
@@ -528,7 +540,7 @@ data class TicketCount(
 data class dataPackage(
     var startStation: StationState,
     var endStation: StationState,
-    var TicketStorage:MutableMap<String, TicketCount>
+    var TicketStorage: MutableMap<String, TicketCount>
 )
 
 // light mode

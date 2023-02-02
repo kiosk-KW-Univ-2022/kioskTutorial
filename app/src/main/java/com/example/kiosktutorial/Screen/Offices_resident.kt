@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -22,7 +23,7 @@ import com.example.kiosktutorial.ui.theme.Typography
 import com.example.kiosktutorial.ui.theme.KioskTutorialTheme
 
 @Composable
-fun ResidentSelection(){
+fun ResidentSelection() {
     Scaffold(
         backgroundColor = MaterialTheme.colors.background
     ) {
@@ -45,9 +46,11 @@ fun RecyclerViewContent2() {
 @Composable
 fun ResidentListItem(office: Office) {
     Card(
-        modifier = Modifier.fillMaxWidth().padding(0.dp, 12.dp),
+        modifier = Modifier
+            .clip(RoundedCornerShape(16.dp))
+            .fillMaxWidth()
+            .padding(0.dp, 12.dp),
         elevation = 4.dp,
-        shape = RoundedCornerShape(corner = CornerSize(16.dp)),
         border = BorderStroke(1.dp, MaterialTheme.colors.primary)
     ) {
         Row {
@@ -57,7 +60,11 @@ fun ResidentListItem(office: Office) {
                     .align(Alignment.CenterVertically)
             ) {
                 Text(text = office.name, style = Typography.h6)
-                Text(text = office.content, style = Typography.caption, modifier = Modifier.padding(0.dp,2.dp))
+                Text(
+                    text = office.content,
+                    style = Typography.caption,
+                    modifier = Modifier.padding(0.dp, 2.dp)
+                )
             }
         }
     }
