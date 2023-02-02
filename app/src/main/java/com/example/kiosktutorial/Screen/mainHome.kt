@@ -177,7 +177,9 @@ fun Home(navHostController: NavHostController) {
                         navHostController.navigate(Screen.KioskTutorialSelection.route)
 
 //                toast?.cancel()
+
 //                toast = Toast.makeText(context, "키오스크 설명서 진행하기", Toast.LENGTH_SHORT)
+
 //                toast?.show()
                     },paint=R.drawable.book)
 

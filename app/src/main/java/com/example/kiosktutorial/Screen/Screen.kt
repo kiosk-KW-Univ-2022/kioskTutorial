@@ -16,4 +16,6 @@ sealed class Screen(val route:String){
     object NumberGame: Screen("number_game_play")
     object KioskTrain: Screen("train-Ticket")
     object PayWindow: Screen("pay-window")
+    object HamburgerHome: Screen("hamburger-main")
+    object HamburgerKiosk: Screen("hamburger-kiosk")
 }
