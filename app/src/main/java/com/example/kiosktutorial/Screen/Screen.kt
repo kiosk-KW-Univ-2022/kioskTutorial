@@ -18,5 +18,14 @@ sealed class Screen(val route:String){
     object Bank5 : Screen("bank5")
     object Bank5_1 : Screen("bank5_1")
     object DoneApp : Screen("doneapp")
+    object CafeHome: Screen("cafe_home")
+    object CafeKiosk: Screen("cafe_kiosk")
+    object CafeOrder: Screen("cafe_order")
+    object TextGame: Screen("text_game_play")
+    object NumberGame: Screen("number_game_play")
+    object KioskTrain: Screen("train-Ticket")
+    object PayWindow: Screen("pay-window")
+    object HamburgerHome: Screen("hamburger-main")
+    object HamburgerKiosk: Screen("hamburger-kiosk")
 
 }

@@ -35,35 +35,36 @@ import com.example.kiosktutorial.ui.theme.KioskTutorialTheme
 import com.example.kiosktutorial.ui.theme.backGround
 
 @Composable
-fun KioskHomeSelectionButton() {
+fun KioskHomeSelectionButton(navHostController: NavHostController) {
     Scaffold(
         backgroundColor = MaterialTheme.colors.background
     ) {
-        RecyclerViewContent()
+        RecyclerViewContent1(navHostController)
     }
 }
 
 @Composable
-fun RecyclerViewContent() {
+fun RecyclerViewContent1(navHostController: NavHostController) {
     val kiosks = remember { HomeDataProvider.kioskList }
     LazyColumn(contentPadding = PaddingValues(30.dp, 8.dp)) {
         items(
             items = kiosks,
-            itemContent = { KioskListItem(it) }
+            itemContent = { KioskListItem(navHostController,it) }
         )
     }
 }
 
 @Composable
-fun KioskListItem(kiosk: Kiosk) {
+fun KioskListItem(navHostController:NavHostController,kiosk: Kioskicon) {
     Column {
         Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(0.dp, 12.dp),
-
+            .padding(0.dp, 12.dp)
+            .clickable {
+            navHostController.navigate(kiosk.route)
+        }
         )
-
         Row {
             Box(
                 modifier = Modifier
@@ -72,6 +73,7 @@ fun KioskListItem(kiosk: Kiosk) {
                     .width(90.dp)
                     .background(backGround)
                     .padding(15.dp)
+
             ) {
                 KioskImage(kiosk = kiosk)
             }
@@ -160,7 +162,7 @@ fun Secondhome(navHostController: NavHostController,  bExercise:Boolean) {
                 .padding(10.dp)
                 .fillMaxSize()
             ){
-                KioskHomeSelectionButton()
+                KioskHomeSelectionButton(navHostController)
             }
 
         }
@@ -171,7 +173,7 @@ fun Secondhome(navHostController: NavHostController,  bExercise:Boolean) {
 
 
 @Composable
-fun KioskImage(kiosk: Kiosk) {
+fun KioskImage(kiosk: Kioskicon) {
     var paintD = painterResource(id = kiosk.image)
     Image(
             painter = paintD,
