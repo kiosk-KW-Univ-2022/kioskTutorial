@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.kiosktutorial.R
+import com.example.kiosktutorial.Screen.Kiosk.dSpacer
 import com.example.kiosktutorial.ui.theme.backGround
 
 
@@ -172,7 +173,7 @@ fun Home(navHostController: NavHostController) {
                 .padding(10.dp)
                 .fillMaxSize()
             ){
-                Column() {
+                Column {
                     MainSelectionButton("사용 지침서", func = {
                         navHostController.navigate(Screen.KioskTutorialSelection.route)
 
@@ -182,7 +183,7 @@ fun Home(navHostController: NavHostController) {
 
 //                toast?.show()
                     },paint=R.drawable.book)
-
+                    dSpacer()
                     MainSelectionButton("실전연습  ", func = {
                         navHostController.navigate(Screen.KioskExerciseSelection.route)
 //                toast?.cancel()
@@ -190,7 +191,7 @@ fun Home(navHostController: NavHostController) {
 //                toast?.show()
 
                     },paint= R.drawable.note)
-
+                    dSpacer()
                     MainSelectionButton("뇌활력 게임", func = {
                         navHostController.navigate(Screen.GameHome.route)
                     },paint= R.drawable.game)

@@ -60,7 +60,10 @@ fun KioskListItem(navHostController:NavHostController,kiosk: Kioskicon) {
         Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(0.dp, 12.dp),
+            .padding(0.dp, 12.dp)
+            .clickable {
+            navHostController.navigate(kiosk.route)
+        }
         )
         Row {
             Box(
@@ -70,9 +73,7 @@ fun KioskListItem(navHostController:NavHostController,kiosk: Kioskicon) {
                     .width(90.dp)
                     .background(backGround)
                     .padding(15.dp)
-                    .clickable {
-                        navHostController.navigate(kiosk.route)
-                    }
+
             ) {
                 KioskImage(kiosk = kiosk)
             }
