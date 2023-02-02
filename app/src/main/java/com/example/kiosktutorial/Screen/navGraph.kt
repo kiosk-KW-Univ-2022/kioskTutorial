@@ -97,6 +97,14 @@ fun SetupNavGraph(navController: NavHostController) {
         {
             CafeOrder(navController)
         }
+        composable(route = Screen.HamburgerHome.route)
+        {
+            HamburgerMainScreen(navController)
+        }
+        composable(route = Screen.HamburgerKiosk.route)
+        {
+            HambergurKiosk(navController)
+        }
         composable("${Screen.PayWindow.route}/{move}")
         {backStackEntry ->
             Paywindow(navHostController = navController,route = backStackEntry.arguments?.getString("move") ?:"${Screen.CafeOrder.route}")

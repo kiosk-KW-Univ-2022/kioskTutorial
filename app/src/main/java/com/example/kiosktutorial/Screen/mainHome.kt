@@ -133,7 +133,7 @@ fun Home(navHostController: NavHostController) {
 //                toast?.show()
             })
             MainSelectionButton("키오스크 실전연습", func = {
-                navHostController.navigate(Screen.KioskExerciseSelection.route)
+                navHostController.navigate(Screen.HamburgerHome.route)
 //                toast?.cancel()
 //                toast = Toast.makeText(context, "키오스크 실전연습", Toast.LENGTH_SHORT)
 //                toast?.show()

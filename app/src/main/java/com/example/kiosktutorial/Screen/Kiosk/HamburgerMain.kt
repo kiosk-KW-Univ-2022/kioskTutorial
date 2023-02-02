@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -34,7 +35,7 @@ fun HamburgerMainScreen(navHostController: NavHostController){
         .fillMaxWidth()
 
         .clickable {
-            navHostController.navigate(Screen.CafeKiosk.route)
+            navHostController.navigate(Screen.HamburgerKiosk.route)
         }
         .paint(paintD, contentScale = ContentScale.Crop)
     ) {
@@ -63,9 +64,23 @@ fun HamburgerMainScreen(navHostController: NavHostController){
             }
         }
         Box(modifier = Modifier
+            .height(200.dp)
+            .fillMaxWidth()
+        ){
+            Text(
+                modifier = Modifier.align(Alignment.Center),
+                text = "아무곳이나 터치하여\n 진행해 주세요",
+                color = Color.White,
+                fontSize = 40.sp,
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Bold
+            )
+        }
+        Box(modifier = Modifier
             .fillMaxSize()
         )
         {
+
 
         }
 
