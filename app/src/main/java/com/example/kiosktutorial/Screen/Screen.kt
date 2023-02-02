@@ -8,7 +8,16 @@ sealed class Screen(val route:String){
     object KioskTutorial: Screen("kiosk_tutorial_screen")
     object KioskExercise: Screen("kiosk_exercise_screen")
     object GameHome: Screen("game_home")
-    object OfficeHome: Screen("Office_home")
+    object OfficeHome: Screen("office_home")
+    object Bank : Screen("bank")
+    object Bank1 : Screen("bank1")
+    object Bank1_1 : Screen("bank1_1")
+    object Bank2 : Screen("bank2")
+    object Bank3 : Screen("bank3")
+    object Bank4 : Screen("bank4")
+    object Bank5 : Screen("bank5")
+    object Bank5_1 : Screen("bank5_1")
+    object DoneApp : Screen("doneapp")
     object CafeHome: Screen("cafe_home")
     object CafeKiosk: Screen("cafe_kiosk")
     object CafeOrder: Screen("cafe_order")
@@ -18,4 +27,5 @@ sealed class Screen(val route:String){
     object PayWindow: Screen("pay-window")
     object HamburgerHome: Screen("hamburger-main")
     object HamburgerKiosk: Screen("hamburger-kiosk")
+
 }
