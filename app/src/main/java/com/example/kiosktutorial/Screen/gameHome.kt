@@ -100,11 +100,10 @@ fun GameSelectionButton(title: String, modifier:Modifier? = null, desc:String? =
 @Composable
 fun GameHomeScreen(navHostController: NavHostController){
     val startPath = Screen.GameHome.route
-    val backgroundYellow = Color(0xfffed55f)
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(backgroundYellow),
+            .background(backGround),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
@@ -112,20 +111,55 @@ fun GameHomeScreen(navHostController: NavHostController){
             modifier = Modifier
                 .fillMaxWidth()
                 .height(200.dp)
-                .background(backgroundYellow)
+                .background(backGround)
         ) {
-            val paintD = painterResource(R.drawable._1_kt_wordmark__standard__01)
-//            Image(painter = paintD, contentDescription = "")
 
-            Text(
-                text= "KT IT 서포터즈가 함께하는\n 키오스크 연습하기",
-                textAlign = TextAlign.Center,
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .align(alignment = Alignment.Center),
-                fontSize = 30.sp,
-                fontWeight = FontWeight.Bold
-            )
+                    .height(200.dp)
+                    .background(backGround)
+                    .padding(30.dp)
+            ) {
+                Column() {
+                    val paintD = painterResource(R.drawable._1_kt_wordmark__standard__01)
+                    Row(){
+                        Image(
+                            painter = paintD,
+                            contentDescription = "아이콘",
+                            contentScale = ContentScale.Fit,
+
+                            modifier = Modifier
+                                .height(50.dp)
+                                .width(50.dp)
+
+                        )
+                        Box(modifier = Modifier.height(70.dp)
+                        ){
+                            Text(
+                                text= " 키오스크 교육용 체험 앱",
+                                modifier = Modifier
+                                    .fillMaxWidth(),
+                                fontSize = 25.sp,
+                                fontWeight = FontWeight.Bold,
+
+                                )
+                        }
+
+                    }
+                    Text(
+                        text= "아래의 메뉴에서 하고 싶은\n게임을 골라주세요.",
+                        textAlign = TextAlign.Left,
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        fontSize = 25.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+
+            }
+
+
         }
 
         val context = LocalContext.current

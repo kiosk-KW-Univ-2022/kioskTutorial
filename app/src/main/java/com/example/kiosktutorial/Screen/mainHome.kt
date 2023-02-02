@@ -75,7 +75,6 @@ fun MainSelectionButton(title: String, modifier:Modifier? = null, desc:String? =
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color(red = 255, green = 255, blue = 255, alpha = 100))
                     .padding(all = 50.dp)
                 ,   horizontalAlignment = Alignment.End
                 , verticalArrangement = Arrangement.Center
@@ -85,7 +84,7 @@ fun MainSelectionButton(title: String, modifier:Modifier? = null, desc:String? =
 
                 Text(
                     text = title
-                    , fontSize = 30.sp
+                    , fontSize = 25.sp, fontWeight = FontWeight.Bold
 
                 )
 
@@ -114,6 +113,7 @@ fun Home(navHostController: NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
+
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -121,29 +121,40 @@ fun Home(navHostController: NavHostController) {
                 .background(backGround)
                 .padding(30.dp)
         ) {
-            val paintD = painterResource(R.drawable._1_kt_wordmark__standard__01)
-            Row(){
-                Image(
-                    painter = paintD,
-                    contentDescription = "아이콘",
-                    contentScale = ContentScale.Fit,
+            Column() {
+                val paintD = painterResource(R.drawable._1_kt_wordmark__standard__01)
+                Row(){
+                    Image(
+                        painter = paintD,
+                        contentDescription = "아이콘",
+                        contentScale = ContentScale.Fit,
 
-                    modifier = Modifier
-                        .height(50.dp)
-                        .width(50.dp)
-
-                )
-                Box(modifier = Modifier.height(70.dp)
-                ){
-                    Text(
-                        text= " 키오스크 교육용 체험 앱",
                         modifier = Modifier
-                            .fillMaxWidth(),
-                        fontSize = 25.sp,
-                        fontWeight = FontWeight.Bold,
+                            .height(50.dp)
+                            .width(50.dp)
 
-                        )
+                    )
+                    Box(modifier = Modifier.height(70.dp)
+                    ){
+                        Text(
+                            text= " 키오스크 교육용 체험 앱",
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            fontSize = 25.sp,
+                            fontWeight = FontWeight.Bold,
+
+                            )
+                    }
+
                 }
+                Text(
+                   text= "아래의 메뉴에서 하고 싶은\n체험을 골라주세요.",
+                    textAlign = TextAlign.Left,
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    fontSize = 25.sp,
+                    fontWeight = FontWeight.Bold
+                )
 
             }
 

@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -62,8 +63,8 @@ fun KioskListItem(navHostController:NavHostController,kiosk: Kioskicon) {
             .fillMaxWidth()
             .padding(0.dp, 12.dp)
             .clickable {
-            navHostController.navigate(kiosk.route)
-        }
+                navHostController.navigate(kiosk.route)
+            }
         )
         Row {
             Box(
@@ -111,39 +112,43 @@ fun Secondhome(navHostController: NavHostController,  bExercise:Boolean) {
                 .padding(30.dp)
         ) {
             val paintD = painterResource(R.drawable._1_kt_wordmark__standard__01)
-            Row(){
-                Image(
-                    painter = paintD,
-                    contentDescription = "아이콘",
-                    contentScale = ContentScale.Fit,
+            Column() {
+                Row(){
+                    Image(
+                        painter = paintD,
+                        contentDescription = "아이콘",
+                        contentScale = ContentScale.Fit,
 
-                    modifier = Modifier
-                        .height(50.dp)
-                        .width(50.dp)
-
-                )
-                Box(modifier = Modifier.height(70.dp)
-                ){
-                    Text(
-                        text= " 키오스크 교육용 체험 앱",
                         modifier = Modifier
-                            .fillMaxWidth(),
-                        fontSize = 25.sp,
-                        fontWeight = FontWeight.Bold,
+                            .height(50.dp)
+                            .width(50.dp)
 
-                        )
+                    )
+                    Box(modifier = Modifier.height(70.dp)
+                    ){
+                        Text(
+                            text= " 키오스크 교육용 체험 앱",
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            fontSize = 25.sp,
+                            fontWeight = FontWeight.Bold,
+
+                            )
+                    }
+
                 }
-
+                Text(
+                    text= "아래에서 체험하고 싶은\n키오스크를 골라주세요.",
+                    textAlign = TextAlign.Left,
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    fontSize = 25.sp,
+                    fontWeight = FontWeight.Bold
+                )
             }
-
-
         }
-
         val context = LocalContext.current
-
-
         var toast: Toast? = null
-
         // selection
         Column(
             modifier = Modifier
