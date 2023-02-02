@@ -190,9 +190,7 @@ fun Home(navHostController: NavHostController) {
                     },paint= R.drawable.note)
 
                     MainSelectionButton("뇌활력 게임", func = {
-                        toast?.cancel()
-                        toast = Toast.makeText(context, "뇌활력 게임", Toast.LENGTH_SHORT)
-                        toast?.show()
+                        navHostController.navigate(Screen.GameHome.route)
                     },paint= R.drawable.game)
                 }
             }
