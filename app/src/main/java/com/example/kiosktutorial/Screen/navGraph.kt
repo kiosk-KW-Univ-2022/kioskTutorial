@@ -111,17 +111,19 @@ fun SetupNavGraph(navController: NavHostController) {
                 fee=backStackEntry.arguments?.getInt("fee")?:10)
         }
 
-        val hvModel: HospitalVModel = HospitalVModel()
+        val hvModel = HospitalVModel()
         composable(route = Screen.KioskHospital.route){
+            hvModel.initData()
             HospitalMain(navController, hvModel)
 
             BackHandler(true){
-                hvModel.initData()
+                hvModel.bInit = true
                 navController.popBackStack()
             }
         }
 
         composable(route = Screen.KioskHospitalCheck.route){
+            hvModel.bInit = true
             HospitalCheck(navController, hvModel)
         }
 
