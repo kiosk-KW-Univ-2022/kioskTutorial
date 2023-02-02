@@ -175,6 +175,7 @@ fun Home(navHostController: NavHostController) {
                 Column() {
                     MainSelectionButton("사용 지침서", func = {
                         navHostController.navigate(Screen.KioskTutorialSelection.route)
+
 //                toast?.cancel()
 //                toast = Toast.makeText(context, "키오스크 설명서 진행하기", Toast.LENGTH_SHORT)
 //                toast?.show()
