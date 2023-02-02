@@ -38,7 +38,8 @@ fun Paywindow2(navHostController: NavHostController, route: String) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(Color.White),
+        horizontalAlignment = Alignment.CenterHorizontally
     )
     {
         Box(
@@ -51,33 +52,41 @@ fun Paywindow2(navHostController: NavHostController, route: String) {
         }
         Spacer(modifier = Modifier.height(100.dp))
 
-        Box(modifier = Modifier
-            .background(
-                shape = RoundedCornerShape(
-                    topStart = CornerSize(25.dp),
-                    topEnd = CornerSize(25.dp),
-                    bottomEnd = CornerSize(25.dp),
-                    bottomStart = CornerSize(25.dp)
-                ), color = backGround
+        Box(
+            modifier = Modifier
+                .background(
+                    shape = RoundedCornerShape(
+                        topStart = CornerSize(25.dp),
+                        topEnd = CornerSize(25.dp),
+                        bottomEnd = CornerSize(25.dp),
+                        bottomStart = CornerSize(25.dp)
+                    ), color = backGround
+                )
+                .height(250.dp)
+                .width(380.dp)
+                .padding(30.dp)
+        ) {
+            Text(
+                modifier = Modifier.align(Alignment.Center),
+                text = "거래가 정상적으로 처리되었습니다.\n놓고 가시는 물건이 없는지 확인하시기 바랍니다.",
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
+                textAlign = TextAlign.Center
             )
-            .height(250.dp)
-            .width(380.dp)
-            .padding(30.dp)){
-            Text(modifier = Modifier.align(Alignment.Center),
-                text = "거래가 정상적으로 처리되었습니다.\n놓고 가시는 물건이 없는지 확인하시기 바랍니다.", fontWeight = FontWeight.Bold, fontSize = 20.sp, textAlign = TextAlign.Center)
         }
 
-       Box(modifier = Modifier.padding(20.dp)){
+        Box(modifier = Modifier.padding(20.dp)) {
             mCountDown.start()
-            AnimationGaugeBar(navHostController,100, backGround,route)
+            AnimationGaugeBar2(navHostController, 100, backGround, route)
         }
 
 
     }
 
 }
+
 @Composable
-fun AnimationGaugeBar(
+fun AnimationGaugeBar2(
     navHostController: NavHostController,
     value: Int, // 표시할 값
     color: Color, // 게이지바의 색
@@ -113,9 +122,8 @@ fun AnimationGaugeBar(
                 .padding(8.dp)
         ) {
             Text(text = curValue.value.toString())
-            if(curValue.value==100)
-            {
-               navHostController.navigate(route)
+            if (curValue.value == 100) {
+                navHostController.navigate(route)
             }
         }
     }
@@ -123,7 +131,7 @@ fun AnimationGaugeBar(
 
 @Preview()
 @Composable
-fun Prepaywindow(){
+fun PreviewDoneApp() {
     val navHostController = rememberNavController()
     Paywindow2(navHostController, Screen.KioskExercise.route)
 }
