@@ -18,4 +18,5 @@ sealed class Screen(val route:String){
     object Bank5 : Screen("bank5")
     object Bank5_1 : Screen("bank5_1")
     object DoneApp : Screen("doneapp")
+
 }

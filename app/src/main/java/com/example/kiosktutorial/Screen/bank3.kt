@@ -107,8 +107,8 @@ fun Secondhome3(navHostController: NavHostController) {
             }
         }
     }
-
 }
+
 @Composable
 fun BankScreen3(navHostController: NavHostController) {
     Column {

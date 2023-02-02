@@ -72,8 +72,6 @@ fun Secondhome1(navHostController: NavHostController) {
                 }
 
             }
-
-
         }
 
         val context = LocalContext.current

@@ -95,7 +95,6 @@ fun SetupNavGraph(navController: NavHostController) {
         {
             InputNumber(navController)
         }
-
         composable(Screen.Bank3.route)
         {
             Secondhome3(navController)

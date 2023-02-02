@@ -172,6 +172,7 @@ fun BankScreen5(navHostController: NavHostController) {
     }
 }
 
+
 @Preview
 @Composable
 fun bankPreview5(){

@@ -120,6 +120,7 @@ fun AnimationGaugeBar(
         }
     }
 }
+
 @Preview()
 @Composable
 fun Prepaywindow(){

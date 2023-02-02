@@ -155,6 +155,7 @@ fun BankScreen5_1(navHostController: NavHostController) {
     }
 }
 
+
 @Preview
 @Composable
 fun bankPreview5_1(){
