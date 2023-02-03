@@ -4,7 +4,6 @@ import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Card
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.remember
@@ -12,7 +11,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
@@ -21,7 +19,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -31,7 +28,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.kiosktutorial.R
 import com.example.kiosktutorial.ui.theme.Typography
-import com.example.kiosktutorial.ui.theme.KioskTutorialTheme
 import com.example.kiosktutorial.ui.theme.backGround
 
 @Composable
@@ -56,49 +52,65 @@ fun RecyclerViewContent1(navHostController: NavHostController) {
 
 @Composable
 fun KioskListItem(navHostController: NavHostController, kiosk: Kioskicon) {
-    Column {
+    val context = LocalContext.current
+    var toast: Toast? = null
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+    ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(0.dp, 12.dp)
+                .padding(top = 12.dp, bottom = 12.dp)
                 .clickable {
+                    if (kiosk.route.isEmpty()) {
+                        toast?.cancel()
+                        toast = Toast.makeText(context, "위치 지정이 잘못되었습니다.", Toast.LENGTH_SHORT)
+                        toast!!.show()
+                        return@clickable
+                    }
                     navHostController.navigate(kiosk.route)
                 }
-        )
-        Row {
-            Box(
-                modifier = Modifier
-                    .clip(CircleShape)
-                    .height(90.dp)
-                    .width(90.dp)
-                    .background(backGround)
-                    .padding(15.dp)
-
-            ) {
-                KioskImage(kiosk = kiosk)
-            }
-            Column(
-                modifier = Modifier
-                    .padding(8.dp)
-                    .align(Alignment.CenterVertically)
-            ) {
-                Text(text = kiosk.name, style = Typography.h6, fontWeight = FontWeight.Bold)
+        ) {
+            Row() {
+                Box(
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .width(90.dp)
+                        .height(90.dp)
+                        .background(backGround)
+                        .padding(15.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    KioskImage(kiosk)
+                }
+                Column(
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .align(Alignment.CenterVertically)
+                        .weight(1f)
+                ) {
+                    Text(
+                        text = kiosk.name,
+                        style = Typography.h6,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
             }
         }
-        Spacer(modifier = Modifier.height(10.dp))
-        Box(
+
+        Spacer(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(3.dp)
+                .height(2.dp)
                 .background(Color.LightGray)
-        ) {
-
-        }
+        )
     }
+
 }
 
 @Composable
-fun Secondhome(navHostController: NavHostController, bExercise: Boolean) {
+fun SecondHome(navHostController: NavHostController, bExercise: Boolean) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -140,11 +152,6 @@ fun Secondhome(navHostController: NavHostController, bExercise: Boolean) {
 
 
         }
-
-        val context = LocalContext.current
-
-
-        var toast: Toast? = null
 
         // selection
         Column(
@@ -193,5 +200,5 @@ fun KioskImage(kiosk: Kioskicon) {
 @Composable
 fun SecondhomePreview() {
     val navHostController = rememberNavController()
-    Secondhome(navHostController, true)
+    SecondHome(navHostController, true)
 }
