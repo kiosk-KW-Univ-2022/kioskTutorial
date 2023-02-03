@@ -9,6 +9,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.kiosktutorial.R
+import com.example.kiosktutorial.Screen.Kiosk.HospitalCheck
+import com.example.kiosktutorial.Screen.Kiosk.HospitalMain
+import com.example.kiosktutorial.Screen.Kiosk.HospitalVModel
 import com.example.kiosktutorial.Screen.Kiosk.KioskTrain
 import kotlinx.coroutines.delay
 
@@ -161,5 +164,22 @@ fun SetupNavGraph(navController: NavHostController) {
                 route = backStackEntry.arguments?.getString("move") ?: "${Screen.Home.route}"
             )
         }
+
+        val hvModel = HospitalVModel()
+        composable(route = Screen.KioskHospital.route){
+            hvModel.initData()
+            HospitalMain(navController, hvModel)
+
+            BackHandler(true){
+                hvModel.bInit = true
+                navController.popBackStack()
+            }
+        }
+
+        composable(route = Screen.KioskHospitalCheck.route){
+            hvModel.bInit = true
+            HospitalCheck(navController, hvModel)
+        }
+
     }
 }

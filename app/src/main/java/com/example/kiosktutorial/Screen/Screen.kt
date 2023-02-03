@@ -28,4 +28,7 @@ sealed class Screen(val route: String) {
     object HamburgerHome : Screen("hamburger-main")
     object HamburgerKiosk : Screen("hamburger-kiosk")
 
+    object KioskHospital: Screen("hospital-main")
+    object KioskHospitalCheck: Screen("hospital-check")
+
 }
