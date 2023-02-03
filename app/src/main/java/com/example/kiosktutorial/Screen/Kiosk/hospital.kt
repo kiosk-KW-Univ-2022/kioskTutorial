@@ -411,6 +411,7 @@ fun ReCheck(navHostController: NavHostController, viewModel:HospitalVModel){
                             .padding(5.dp),
                         onClick = {
                             // TODO: going to payment page
+                            navHostController.navigate("${Screen.PayWindow.route}/${Screen.Home.route}")
                         }
                     ){
                         Text(
