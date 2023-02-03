@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -57,45 +58,31 @@ fun KioskListItem(navHostController: NavHostController, kiosk: Kioskicon) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 12.dp, bottom = 12.dp)
-                .clickable {
-                    if (kiosk.route.isEmpty()) {
-                        toast?.cancel()
-                        toast = Toast.makeText(context, "위치 지정이 잘못되었습니다.", Toast.LENGTH_SHORT)
-                        toast!!.show()
-                        return@clickable
-                    }
-                    navHostController.navigate(kiosk.route)
-                }
-        ) {
-            Row() {
-                Box(
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .width(90.dp)
-                        .height(90.dp)
-                        .background(backGround)
-                        .padding(15.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    KioskImage(kiosk)
-                }
-                Column(
-                    modifier = Modifier
-                        .padding(8.dp)
-                        .align(Alignment.CenterVertically)
-                        .weight(1f)
-                ) {
-                    Text(
-                        text = kiosk.name,
-                        style = Typography.h6,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
+
+            .padding(0.dp, 12.dp)
+            .clickable {
+                navHostController.navigate(kiosk.route)
+            }
+        )
+        Row {
+            Box(
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .height(90.dp)
+                    .width(90.dp)
+                    .background(backGround)
+                    .padding(15.dp)
+
+            ) {
+                KioskImage(kiosk = kiosk)
+            }
+            Column(
+                modifier = Modifier
+                    .padding(8.dp)
+                    .align(Alignment.CenterVertically)
+            ) {
+                Text(text = kiosk.name, style = Typography.h6, fontWeight = FontWeight.Bold)
+
             }
         }
 
@@ -126,32 +113,46 @@ fun SecondHome(navHostController: NavHostController, bExercise: Boolean) {
                 .padding(30.dp)
         ) {
             val paintD = painterResource(R.drawable._1_kt_wordmark__standard__01)
-            Row(
-                verticalAlignment = Alignment.Bottom
-            ) {
-                Image(
-                    painter = paintD,
-                    contentDescription = "아이콘",
-                    contentScale = ContentScale.Fit,
 
-                    modifier = Modifier
-                        .height(50.dp)
-                        .width(50.dp)
+            Column() {
+                Row(){
+                    Image(
+                        painter = paintD,
+                        contentDescription = "아이콘",
+                        contentScale = ContentScale.Fit,
 
-                )
-                Text(
-                    text = " 키오스크 교육용 체험 앱",
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    fontSize = 25.sp,
-                    fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .height(50.dp)
+                            .width(50.dp)
 
                     )
+                    Box(modifier = Modifier.height(70.dp)
+                    ){
+                        Text(
+                            text= " 키오스크 교육용 체험 앱",
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            fontSize = 25.sp,
+                            fontWeight = FontWeight.Bold,
+
+                            )
+                    }
+
+                }
+                Text(
+                    text= "아래에서 체험하고 싶은\n키오스크를 골라주세요.",
+                    textAlign = TextAlign.Left,
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    fontSize = 25.sp,
+                    fontWeight = FontWeight.Bold
+                )
 
             }
-
-
         }
+
+        val context = LocalContext.current
+        var toast: Toast? = null
 
         // selection
         Column(
