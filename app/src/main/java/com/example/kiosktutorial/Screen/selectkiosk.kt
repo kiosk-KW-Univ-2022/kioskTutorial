@@ -63,7 +63,7 @@ fun KioskListItem(navHostController: NavHostController, kiosk: Kioskicon) {
             .clickable {
                 navHostController.navigate(kiosk.route)
             }
-        )
+        ){
         Row {
             Box(
                 modifier = Modifier
