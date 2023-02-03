@@ -26,9 +26,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.kiosktutorial.R
 
 
-
 @Composable
-fun CafeMainScreen(navHostController: NavHostController){
+fun CafeMainScreen(navHostController: NavHostController) {
     var paintD = painterResource(id = R.drawable.cafeimg)
     Column(modifier = Modifier
         .fillMaxWidth()
@@ -38,17 +37,21 @@ fun CafeMainScreen(navHostController: NavHostController){
         }
         .paint(painterResource(id = R.drawable.cafeimg), contentScale = ContentScale.Crop)
     ) {
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .height(100.dp)
-        ){
-            Text("KT 카페",
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(100.dp)
+        ) {
+            Text(
+                "KT 카페",
                 color = Color.White,
                 fontSize = 25.sp,
-                fontWeight = FontWeight.Bold)
+                fontWeight = FontWeight.Bold
+            )
         }
-        Box(modifier = Modifier
-            .fillMaxSize()
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
         )
         {
             Text(
@@ -65,9 +68,10 @@ fun CafeMainScreen(navHostController: NavHostController){
 
 }
 
+
 @Preview(uiMode = UI_MODE_NIGHT_NO, showBackground = true)
 @Composable
-fun PreviewMainCafe(){
+fun PreviewMainCafe() {
     val navCtrl = rememberNavController()
     CafeMainScreen(navCtrl)
 }
