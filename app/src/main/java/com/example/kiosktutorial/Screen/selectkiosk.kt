@@ -59,39 +59,54 @@ fun KioskListItem(navHostController: NavHostController, kiosk: Kioskicon) {
         modifier = Modifier
             .fillMaxWidth()
 
-            .padding(0.dp, 12.dp)
-            .clickable {
-                navHostController.navigate(kiosk.route)
-            }
-        ){
-        Row {
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable {
+                    if (kiosk.route.isEmpty() || navHostController.findDestination(kiosk.route) == null) {
+                        toast?.cancel()
+                        toast = Toast.makeText(context, "잘못된 경로입니다.", Toast.LENGTH_SHORT)
+                        toast!!.show()
+                        return@clickable
+                    }
+
+                    navHostController.navigate((kiosk.route))
+                }
+                .padding(5.dp)
+        ) {
             Box(
                 modifier = Modifier
                     .clip(CircleShape)
-                    .height(90.dp)
                     .width(90.dp)
+                    .height(90.dp)
                     .background(backGround)
                     .padding(15.dp)
-
             ) {
                 KioskImage(kiosk = kiosk)
             }
+
             Column(
                 modifier = Modifier
                     .padding(8.dp)
                     .align(Alignment.CenterVertically)
             ) {
-                Text(text = kiosk.name, style = Typography.h6, fontWeight = FontWeight.Bold)
-
+                Text(
+                    text = kiosk.name,
+                    style = Typography.h6,
+                    fontWeight = FontWeight.Bold
+                )
             }
         }
 
         Spacer(
             modifier = Modifier
+                .padding(0.dp, 10.dp)
                 .fillMaxWidth()
                 .height(2.dp)
                 .background(Color.LightGray)
         )
+
     }
 
 }
@@ -105,54 +120,11 @@ fun SecondHome(navHostController: NavHostController, bExercise: Boolean) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(200.dp)
-                .background(backGround)
-                .padding(30.dp)
-        ) {
-            val paintD = painterResource(R.drawable._1_kt_wordmark__standard__01)
 
-            Column() {
-                Row(){
-                    Image(
-                        painter = paintD,
-                        contentDescription = "아이콘",
-                        contentScale = ContentScale.Fit,
-
-                        modifier = Modifier
-                            .height(50.dp)
-                            .width(50.dp)
-
-                    )
-                    Box(modifier = Modifier.height(70.dp)
-                    ){
-                        Text(
-                            text= " 키오스크 교육용 체험 앱",
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            fontSize = 25.sp,
-                            fontWeight = FontWeight.Bold,
-
-                            )
-                    }
-
-                }
-                Text(
-                    text= "아래에서 체험하고 싶은\n키오스크를 골라주세요.",
-                    textAlign = TextAlign.Left,
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    fontSize = 25.sp,
-                    fontWeight = FontWeight.Bold
-                )
-
-            }
-        }
-
-        val context = LocalContext.current
-        var toast: Toast? = null
+        ActMainTitle(
+            title = "키오스크 교육용 체험 앱",
+            subTitle = "아래에서 체험하고싶은 키오스크를 골라주세요"
+        )
 
         // selection
         Column(

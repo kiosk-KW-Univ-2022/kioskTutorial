@@ -123,61 +123,10 @@ fun GameHomeScreen(navHostController: NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(200.dp)
-                .background(backGround)
-        ) {
-
-
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp)
-                    .background(backGround)
-                    .padding(30.dp)
-            ) {
-                Column() {
-                    val paintD = painterResource(R.drawable._1_kt_wordmark__standard__01)
-                    Row(){
-                        Image(
-                            painter = paintD,
-                            contentDescription = "아이콘",
-                            contentScale = ContentScale.Fit,
-
-                            modifier = Modifier
-                                .height(50.dp)
-                                .width(50.dp)
-
-                        )
-                        Box(modifier = Modifier.height(70.dp)
-                        ){
-                            Text(
-                                text= " 키오스크 교육용 체험 앱",
-                                modifier = Modifier
-                                    .fillMaxWidth(),
-                                fontSize = 25.sp,
-                                fontWeight = FontWeight.Bold,
-
-                                )
-                        }
-
-                    }
-                    Text(
-                        text= "아래의 메뉴에서 하고 싶은\n게임을 골라주세요.",
-                        textAlign = TextAlign.Left,
-                        modifier = Modifier
-                            .fillMaxSize(),
-                        fontSize = 25.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-
-            }
-
-
-        }
+        ActMainTitle(
+            title = "키오스크 교육용 체험 앱",
+            subTitle = "아래의 메뉴에서 하고싶은 게임을 골라주세요."
+        )
 
         val context = LocalContext.current
         val backgroundColor = Color(0xfffed55f)
