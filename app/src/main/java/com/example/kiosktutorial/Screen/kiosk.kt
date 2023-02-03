@@ -13,29 +13,27 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun KioskSelection(navController: NavHostController, bExercise:Boolean){
-    val startPath = if(bExercise) Screen.KioskExercise.route else Screen.KioskTutorial.route
+fun KioskSelection(navController: NavHostController, bExercise: Boolean) {
+    val startPath = if (bExercise) Screen.KioskExercise.route else Screen.KioskTutorial.route
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(bottom = 10.dp)
-    ,   verticalArrangement = Arrangement.SpaceBetween
+            .padding(bottom = 10.dp), verticalArrangement = Arrangement.SpaceBetween
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(120.dp)
-        ){
+        ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(5.dp)
-            ){
-                val modeString = if(bExercise) "실전연습" else "따라하기"
+            ) {
+                val modeString = if (bExercise) "실전연습" else "따라하기"
                 Text(
-                    text = "키오스크 $modeString"
-                ,   fontSize = 20.sp
+                    text = "키오스크 $modeString", fontSize = 20.sp
                 )
                 Text(
                     text = "Step1. 진행할 매장을 선택해보세요"
@@ -50,7 +48,7 @@ fun KioskSelection(navController: NavHostController, bExercise:Boolean){
             onClick = {
                 navController.navigate(Screen.KioskTrain.route)
             }
-        ){
+        ) {
             Text(
                 text = "열차 예매하기"
             )
@@ -79,13 +77,13 @@ fun KioskSelection(navController: NavHostController, bExercise:Boolean){
 }
 
 @Composable
-fun ScreenKioskTutorial(navController:NavHostController) {
+fun ScreenKioskTutorial(navController: NavHostController) {
 
 }
 
 @Preview(showBackground = true)
 @Composable
-fun KioskSelectionPreview(){
+fun KioskSelectionPreview() {
     val navHostController = rememberNavController()
     KioskSelection(navHostController, false)
 }

@@ -4,7 +4,6 @@ import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Card
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.remember
@@ -12,7 +11,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
@@ -21,7 +19,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -32,7 +29,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.kiosktutorial.R
 import com.example.kiosktutorial.ui.theme.Typography
-import com.example.kiosktutorial.ui.theme.KioskTutorialTheme
 import com.example.kiosktutorial.ui.theme.backGround
 
 @Composable
@@ -50,17 +46,19 @@ fun RecyclerViewContent1(navHostController: NavHostController) {
     LazyColumn(contentPadding = PaddingValues(30.dp, 8.dp)) {
         items(
             items = kiosks,
-            itemContent = { KioskListItem(navHostController,it) }
+            itemContent = { KioskListItem(navHostController, it) }
         )
     }
 }
 
 @Composable
-fun KioskListItem(navHostController:NavHostController,kiosk: Kioskicon) {
-    Column {
-        Box(
+fun KioskListItem(navHostController: NavHostController, kiosk: Kioskicon) {
+    val context = LocalContext.current
+    var toast: Toast? = null
+    Column(
         modifier = Modifier
             .fillMaxWidth()
+
             .padding(0.dp, 12.dp)
             .clickable {
                 navHostController.navigate(kiosk.route)
@@ -84,19 +82,22 @@ fun KioskListItem(navHostController:NavHostController,kiosk: Kioskicon) {
                     .align(Alignment.CenterVertically)
             ) {
                 Text(text = kiosk.name, style = Typography.h6, fontWeight = FontWeight.Bold)
+
             }
         }
-        Spacer(modifier = Modifier.height(10.dp))
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .height(3.dp)
-            .background(Color.LightGray)){
-            
-        }
+
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(2.dp)
+                .background(Color.LightGray)
+        )
     }
+
 }
+
 @Composable
-fun Secondhome(navHostController: NavHostController,  bExercise:Boolean) {
+fun SecondHome(navHostController: NavHostController, bExercise: Boolean) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -112,6 +113,7 @@ fun Secondhome(navHostController: NavHostController,  bExercise:Boolean) {
                 .padding(30.dp)
         ) {
             val paintD = painterResource(R.drawable._1_kt_wordmark__standard__01)
+
             Column() {
                 Row(){
                     Image(
@@ -145,28 +147,32 @@ fun Secondhome(navHostController: NavHostController,  bExercise:Boolean) {
                     fontSize = 25.sp,
                     fontWeight = FontWeight.Bold
                 )
+
             }
         }
+
         val context = LocalContext.current
         var toast: Toast? = null
+
         // selection
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .background(backGround)
         ) {
-            Box(modifier = Modifier
-                .background(
-                    shape = RoundedCornerShape(
-                        topStart = CornerSize(25.dp),
-                        topEnd = CornerSize(25.dp),
-                        bottomEnd = CornerSize(0),
-                        bottomStart = CornerSize(0)
-                    ), color = Color.White
-                )
-                .padding(10.dp)
-                .fillMaxSize()
-            ){
+            Box(
+                modifier = Modifier
+                    .background(
+                        shape = RoundedCornerShape(
+                            topStart = CornerSize(25.dp),
+                            topEnd = CornerSize(25.dp),
+                            bottomEnd = CornerSize(0),
+                            bottomStart = CornerSize(0)
+                        ), color = Color.White
+                    )
+                    .padding(10.dp)
+                    .fillMaxSize()
+            ) {
                 KioskHomeSelectionButton(navHostController)
             }
 
@@ -181,19 +187,19 @@ fun Secondhome(navHostController: NavHostController,  bExercise:Boolean) {
 fun KioskImage(kiosk: Kioskicon) {
     var paintD = painterResource(id = kiosk.image)
     Image(
-            painter = paintD,
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
+        painter = paintD,
+        contentDescription = null,
+        contentScale = ContentScale.Crop,
 
-    modifier = Modifier
-        .height(80.dp)
-        .width(80.dp)
+        modifier = Modifier
+            .height(80.dp)
+            .width(80.dp)
     )
 }
 
 @Preview
 @Composable
-fun SecondhomePreview(){
+fun SecondhomePreview() {
     val navHostController = rememberNavController()
-    Secondhome(navHostController, true)
+    SecondHome(navHostController, true)
 }

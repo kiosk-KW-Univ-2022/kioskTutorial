@@ -29,7 +29,7 @@ import com.example.kiosktutorial.ui.theme.backGround
 
 
 @Composable
-fun HamburgerMainScreen(navHostController: NavHostController){
+fun HamburgerMainScreen(navHostController: NavHostController) {
     var paintD = painterResource(id = R.drawable.hamburger)
     Column(modifier = Modifier
         .fillMaxWidth()
@@ -39,11 +39,12 @@ fun HamburgerMainScreen(navHostController: NavHostController){
         }
         .paint(paintD, contentScale = ContentScale.Crop)
     ) {
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .height(200.dp)
-            .padding(15.dp)
-        ){
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp)
+                .padding(15.dp)
+        ) {
             Spacer(modifier = Modifier.height(50.dp))
             Box(
                 modifier = Modifier
@@ -58,15 +59,22 @@ fun HamburgerMainScreen(navHostController: NavHostController){
                             bottomStart = CornerSize(25.dp),
                         ), color = backGround
                     )
-            ){
+            ) {
                 Spacer(modifier = Modifier.height(3.dp))
-                Text(modifier = Modifier.fillMaxSize(),text="KT 패스트푸드", textAlign = TextAlign.Center, fontSize = 30.sp, fontWeight = FontWeight.Bold)
+                Text(
+                    modifier = Modifier.fillMaxSize(),
+                    text = "KT 패스트푸드",
+                    textAlign = TextAlign.Center,
+                    fontSize = 30.sp,
+                    fontWeight = FontWeight.Bold
+                )
             }
         }
-        Box(modifier = Modifier
-            .height(200.dp)
-            .fillMaxWidth()
-        ){
+        Box(
+            modifier = Modifier
+                .height(200.dp)
+                .fillMaxWidth()
+        ) {
             Text(
                 modifier = Modifier.align(Alignment.Center),
                 text = "아무곳이나 터치하여\n 진행해 주세요",
@@ -76,8 +84,9 @@ fun HamburgerMainScreen(navHostController: NavHostController){
                 fontWeight = FontWeight.Bold
             )
         }
-        Box(modifier = Modifier
-            .fillMaxSize()
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
         )
         {
 
@@ -89,11 +98,9 @@ fun HamburgerMainScreen(navHostController: NavHostController){
 }
 
 
-
-
 @Preview(uiMode = UI_MODE_NIGHT_NO, showBackground = true)
 @Composable
-fun PreviewMainHamburger(){
+fun PreviewMainHamburger() {
     val navCtrl = rememberNavController()
     HamburgerMainScreen(navHostController = navCtrl)
 }

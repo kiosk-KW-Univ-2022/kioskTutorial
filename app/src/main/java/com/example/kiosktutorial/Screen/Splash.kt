@@ -33,13 +33,13 @@ import kotlinx.coroutines.delay
 fun AnimationSplashScreen(navController: NavHostController) {
     var startAnimation by remember { mutableStateOf(false) }
     val alphaAnim = animateFloatAsState(
-        targetValue = if(startAnimation) 1f else 0f,
+        targetValue = if (startAnimation) 1f else 0f,
         animationSpec = tween(
             durationMillis = 2000
         )
     )
 
-    LaunchedEffect(key1 = true){
+    LaunchedEffect(key1 = true) {
         startAnimation = true
         delay(2500)
         navController.popBackStack()
@@ -56,11 +56,12 @@ fun Splash(alpha: Float) {
         modifier = Modifier
             .alpha(alpha)
             .fillMaxSize()
-            // .background(MaterialTheme.colors.background)
+        // .background(MaterialTheme.colors.background)
 
     ) {
         val nightMode = isSystemInDarkTheme();
-        val paintD = painterResource(if (!nightMode) R.drawable._1_kt_wordmark__standard__01  else R.drawable._2_kt_wordmark__standard__02)
+        val paintD =
+            painterResource(if (!nightMode) R.drawable._1_kt_wordmark__standard__01 else R.drawable._2_kt_wordmark__standard__02)
 
         Image(
             painter = paintD,
@@ -71,14 +72,11 @@ fun Splash(alpha: Float) {
         )
 
         Text(
-            text="KT × 광운대학교 키오스크 교육앱"
-        ,   modifier = Modifier
+            text = "KT × 광운대학교 키오스크 교육앱", modifier = Modifier
                 .align(alignment = Alignment.BottomCenter)
                 .padding(
                     bottom = 50.dp
-                )
-        ,   textAlign = TextAlign.Center
-        ,   color = MaterialTheme.colors.primary
+                ), textAlign = TextAlign.Center, color = MaterialTheme.colors.primary
 
         )
 
@@ -87,7 +85,7 @@ fun Splash(alpha: Float) {
 
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_NO)
 @Composable
-fun SplashPreview(){
+fun SplashPreview() {
     Splash(1f)
 
 }

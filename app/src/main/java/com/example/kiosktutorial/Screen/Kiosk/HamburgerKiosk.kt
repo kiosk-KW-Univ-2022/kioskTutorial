@@ -31,134 +31,141 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.kiosktutorial.ui.theme.backGround
 
 
-
 data class HamburgerMenu(
-    var name:String,
-    var price:Int,
-    var image:Int
+    var name: String,
+    var price: Int,
+    var image: Int
 )
-object HamburgerMenuProvider{
+
+object HamburgerMenuProvider {
     val hamburgerList = listOf(
-        HamburgerMenu("더블 베이컨 버거",4500,R.drawable.bacon),
+        HamburgerMenu("더블 베이컨 버거", 4500, R.drawable.bacon),
         HamburgerMenu("통새우 버거", 4500, R.drawable.shrimp),
     )
     val sideList = listOf(
-        HamburgerMenu("감자튀김",4500,R.drawable.hamburgerpotato),
-        HamburgerMenu("치킨랩",4500,R.drawable.chikenlab),
+        HamburgerMenu("감자튀김", 4500, R.drawable.hamburgerpotato),
+        HamburgerMenu("치킨랩", 4500, R.drawable.chikenlab),
     )
     val setList = listOf(
-        HamburgerMenu("더블 베이컨 버거 세트",6500,R.drawable.baconset),
-        HamburgerMenu("통새우 버거 세트",6500,R.drawable.shrimpset),
+        HamburgerMenu("더블 베이컨 버거 세트", 6500, R.drawable.baconset),
+        HamburgerMenu("통새우 버거 세트", 6500, R.drawable.shrimpset),
     )
     val beverageList = listOf(
-        HamburgerMenu("콜라",4500,R.drawable.hamburgercoke),
-        HamburgerMenu("오렌지 주스",4500,R.drawable.hamburgerorangejuice),
+        HamburgerMenu("콜라", 4500, R.drawable.hamburgercoke),
+        HamburgerMenu("오렌지 주스", 4500, R.drawable.hamburgerorangejuice),
     )
 }
+
 @Composable
-fun hamburgerMenuUI(hamburgerMenu: HamburgerMenu)
-{
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .paint(
-            painterResource(id = hamburgerMenu.image),
-            contentScale = ContentScale.Fit
-        )
-    ){
+fun hamburgerMenuUI(hamburgerMenu: HamburgerMenu) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .paint(
+                painterResource(id = hamburgerMenu.image),
+                contentScale = ContentScale.Fit
+            )
+    ) {
     }
 }
 
 
 @Composable
-fun HambergurKiosk(navHostController: NavHostController){
+fun HambergurKiosk(navHostController: NavHostController) {
     var CafeColor = backGround
-    var (Category, SetCategory) = remember{mutableStateOf(0)}
-    var (order,Setorder) =remember { mutableStateOf(false)}
-    var (currentnumber,Setcurrentnumber) = remember { mutableStateOf(0)}
-    var (orderfee,Setorderfee) = remember{ mutableStateOf(0) }
-    var (name,Setname)= remember {
+    var (Category, SetCategory) = remember { mutableStateOf(0) }
+    var (order, Setorder) = remember { mutableStateOf(false) }
+    var (currentnumber, Setcurrentnumber) = remember { mutableStateOf(0) }
+    var (orderfee, Setorderfee) = remember { mutableStateOf(0) }
+    var (name, Setname) = remember {
         mutableStateOf("")
     }
-    var price=0
+    var price = 0
     var painter = R.drawable.americano_hot
-    if(!order)
-    {
-        Column(modifier = Modifier
-            .fillMaxWidth()
-        ) {
-            Box(modifier = Modifier
+    if (!order) {
+        Column(
+            modifier = Modifier
                 .fillMaxWidth()
-                .height(50.dp)
-                .background(color = CafeColor))
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+                    .background(color = CafeColor)
+            )
             {}
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
                     .background(color = CafeColor)
-            ){
+            ) {
                 Row(
-                    horizontalArrangement =  Arrangement.SpaceEvenly
-                ){
-                    Box(modifier = Modifier.width(10.dp)){
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    Box(modifier = Modifier.width(10.dp)) {
 
                     }
                     Button(
-                        colors = if(Category==0) ButtonDefaults.buttonColors(Color.White)
+                        colors = if (Category == 0) ButtonDefaults.buttonColors(Color.White)
                         else ButtonDefaults.buttonColors(CafeColor),
                         onClick = { SetCategory(0) }
                     ) {
                         Text(
                             text = "단품",
-                            color = if(Category==0) Color.Black else Color.White,
+                            color = if (Category == 0) Color.Black else Color.White,
                             fontSize = 25.sp,
                             textAlign = TextAlign.Center,
-                            fontWeight = FontWeight.Bold)
+                            fontWeight = FontWeight.Bold
+                        )
                     }
-                    Box(modifier = Modifier.width(10.dp)){
+                    Box(modifier = Modifier.width(10.dp)) {
 
                     }
                     Button(
-                        colors =  if(Category==1) ButtonDefaults.buttonColors(Color.White)
+                        colors = if (Category == 1) ButtonDefaults.buttonColors(Color.White)
                         else ButtonDefaults.buttonColors(CafeColor),
                         onClick = { SetCategory(1) }
                     ) {
                         Text(
                             text = "세트",
-                            color = if(Category==1) Color.Black else Color.White,
+                            color = if (Category == 1) Color.Black else Color.White,
                             fontSize = 25.sp,
                             textAlign = TextAlign.Center,
-                            fontWeight = FontWeight.Bold)
+                            fontWeight = FontWeight.Bold
+                        )
                     }
-                    Box(modifier = Modifier.width(10.dp)){
+                    Box(modifier = Modifier.width(10.dp)) {
 
                     }
                     Button(
-                        colors =  if(Category==2) ButtonDefaults.buttonColors(Color.White)
+                        colors = if (Category == 2) ButtonDefaults.buttonColors(Color.White)
                         else ButtonDefaults.buttonColors(CafeColor),
                         onClick = { SetCategory(2) }
                     ) {
                         Text(
                             text = "음료",
-                            color =  if(Category==2) Color.Black else Color.White,
+                            color = if (Category == 2) Color.Black else Color.White,
                             fontSize = 25.sp,
                             textAlign = TextAlign.Center,
-                            fontWeight = FontWeight.Bold)
+                            fontWeight = FontWeight.Bold
+                        )
                     }
-                    Box(modifier = Modifier.width(10.dp)){
+                    Box(modifier = Modifier.width(10.dp)) {
 
                     }
                     Button(
-                        colors =  if(Category==3) ButtonDefaults.buttonColors(Color.White)
+                        colors = if (Category == 3) ButtonDefaults.buttonColors(Color.White)
                         else ButtonDefaults.buttonColors(CafeColor),
                         onClick = { SetCategory(3) }
                     ) {
                         Text(
                             text = "사이드",
-                            color =  if(Category==3) Color.Black else Color.White,
+                            color = if (Category == 3) Color.Black else Color.White,
                             fontSize = 25.sp,
                             textAlign = TextAlign.Center,
-                            fontWeight = FontWeight.Bold)
+                            fontWeight = FontWeight.Bold
+                        )
                     }
                 }
             }
@@ -168,100 +175,136 @@ fun HambergurKiosk(navHostController: NavHostController){
                     .height(450.dp)
                     .background(color = Color.White)
                     .padding(40.dp)
-            ){
-                if(Category==0) //메뉴 단품
-                Column (){
-                    Row() {
-                        Box(modifier = Modifier.height(150.dp)
-                            .width(150.dp)
-                            .clickable { Setorderfee(orderfee+HamburgerMenuProvider.hamburgerList[0].price)
-                                Setcurrentnumber(currentnumber+1)}){
-                            hamburgerMenuUI(HamburgerMenuProvider.hamburgerList[0])
-                        }
-                        Spacer(modifier = Modifier.width(10.dp))
-                        Box(modifier = Modifier.height(150.dp)
-                            .width(150.dp)
-                            .clickable { Setorderfee(orderfee+HamburgerMenuProvider.hamburgerList[1].price)
-                                Setcurrentnumber(currentnumber+1)}){
-                            hamburgerMenuUI(HamburgerMenuProvider.hamburgerList[1])
-                        }
-                    }
-                }
-                else if (Category==1)// 메뉴 세트
-                Column (){
-                    Row() {
-                        Box(modifier = Modifier.height(150.dp)
-                            .width(150.dp)
-                            .clickable { Setorderfee(orderfee+HamburgerMenuProvider.setList[0].price)
-                            Setcurrentnumber(currentnumber+1)}){
-                            hamburgerMenuUI(HamburgerMenuProvider.setList[0])
-                        }
-                        Spacer(modifier = Modifier.width(10.dp))
-                        Box(modifier = Modifier.height(150.dp)
-                            .width(150.dp)
-                            .clickable { Setorderfee(orderfee+HamburgerMenuProvider.setList[1].price)
-                                Setcurrentnumber(currentnumber+1)}){
-                            hamburgerMenuUI(HamburgerMenuProvider.setList[1])
-                        }
-                    }
-                }
-                else if (Category==2) // 메뉴 음료
-                Column (){
-                    Row() {
-                        Box(modifier = Modifier.height(150.dp)
-                            .width(150.dp)
-                            .clickable { Setorderfee(orderfee+HamburgerMenuProvider.beverageList[0].price)
-                                Setcurrentnumber(currentnumber+1)}){
-                            hamburgerMenuUI(HamburgerMenuProvider.beverageList[0])
-                        }
-
-                        Spacer(modifier = Modifier.width(10.dp))
-                        Box(modifier = Modifier.height(150.dp)
-                            .width(150.dp)
-                            .clickable { Setorderfee(orderfee+HamburgerMenuProvider.beverageList[1].price)
-                                Setcurrentnumber(currentnumber+1)}){
-                            hamburgerMenuUI(HamburgerMenuProvider.beverageList[1])
-                        }
-                    }
-                }
-                else if (Category==3) // 메뉴 사이드
-                    Column (){
+            ) {
+                if (Category == 0) //메뉴 단품
+                    Column() {
                         Row() {
-                            Box(modifier = Modifier.height(150.dp)
+                            Box(modifier = Modifier
+                                .height(150.dp)
                                 .width(150.dp)
-                                .clickable { Setorderfee(orderfee+HamburgerMenuProvider.sideList[0].price)
-                                    Setcurrentnumber(currentnumber+1)}){
+                                .clickable {
+                                    Setorderfee(orderfee + HamburgerMenuProvider.hamburgerList[0].price)
+                                    Setcurrentnumber(currentnumber + 1)
+                                }) {
+                                hamburgerMenuUI(HamburgerMenuProvider.hamburgerList[0])
+                            }
+                            Spacer(modifier = Modifier.width(10.dp))
+                            Box(modifier = Modifier
+                                .height(150.dp)
+                                .width(150.dp)
+                                .clickable {
+                                    Setorderfee(orderfee + HamburgerMenuProvider.hamburgerList[1].price)
+                                    Setcurrentnumber(currentnumber + 1)
+                                }) {
+                                hamburgerMenuUI(HamburgerMenuProvider.hamburgerList[1])
+                            }
+                        }
+                    }
+                else if (Category == 1)// 메뉴 세트
+                    Column() {
+                        Row() {
+                            Box(modifier = Modifier
+                                .height(150.dp)
+                                .width(150.dp)
+                                .clickable {
+                                    Setorderfee(orderfee + HamburgerMenuProvider.setList[0].price)
+                                    Setcurrentnumber(currentnumber + 1)
+                                }) {
+                                hamburgerMenuUI(HamburgerMenuProvider.setList[0])
+                            }
+                            Spacer(modifier = Modifier.width(10.dp))
+                            Box(modifier = Modifier
+                                .height(150.dp)
+                                .width(150.dp)
+                                .clickable {
+                                    Setorderfee(orderfee + HamburgerMenuProvider.setList[1].price)
+                                    Setcurrentnumber(currentnumber + 1)
+                                }) {
+                                hamburgerMenuUI(HamburgerMenuProvider.setList[1])
+                            }
+                        }
+                    }
+                else if (Category == 2) // 메뉴 음료
+                    Column() {
+                        Row() {
+                            Box(modifier = Modifier
+                                .height(150.dp)
+                                .width(150.dp)
+                                .clickable {
+                                    Setorderfee(orderfee + HamburgerMenuProvider.beverageList[0].price)
+                                    Setcurrentnumber(currentnumber + 1)
+                                }) {
+                                hamburgerMenuUI(HamburgerMenuProvider.beverageList[0])
+                            }
+
+                            Spacer(modifier = Modifier.width(10.dp))
+                            Box(modifier = Modifier
+                                .height(150.dp)
+                                .width(150.dp)
+                                .clickable {
+                                    Setorderfee(orderfee + HamburgerMenuProvider.beverageList[1].price)
+                                    Setcurrentnumber(currentnumber + 1)
+                                }) {
+                                hamburgerMenuUI(HamburgerMenuProvider.beverageList[1])
+                            }
+                        }
+                    }
+                else if (Category == 3) // 메뉴 사이드
+                    Column() {
+                        Row() {
+                            Box(modifier = Modifier
+                                .height(150.dp)
+                                .width(150.dp)
+                                .clickable {
+                                    Setorderfee(orderfee + HamburgerMenuProvider.sideList[0].price)
+                                    Setcurrentnumber(currentnumber + 1)
+                                }) {
                                 hamburgerMenuUI(HamburgerMenuProvider.sideList[0])
                             }
                             Spacer(modifier = Modifier.width(10.dp))
-                            Box(modifier = Modifier.height(150.dp)
+                            Box(modifier = Modifier
+                                .height(150.dp)
                                 .width(150.dp)
-                                .clickable { Setorderfee(orderfee+HamburgerMenuProvider.sideList[1].price)
-                                    Setcurrentnumber(currentnumber+1)}){
+                                .clickable {
+                                    Setorderfee(orderfee + HamburgerMenuProvider.sideList[1].price)
+                                    Setcurrentnumber(currentnumber + 1)
+                                }) {
                                 hamburgerMenuUI(HamburgerMenuProvider.sideList[1])
                             }
                         }
                     }
             }
             Column {
-                Box(modifier = Modifier
-                    .fillMaxWidth()
-                    .height(130.dp)
-                    .background(color = Color.LightGray)
-                    .padding(10.dp)
-                ){
-                    Text(modifier = Modifier.align(Alignment.TopStart),text = "주문내역", fontWeight = FontWeight.Bold)
-                    Text(modifier = Modifier.align(Alignment.CenterStart),text= "                총 $currentnumber ")
-                    Text(modifier = Modifier.align(Alignment.CenterEnd),text= "합계 $orderfee 원                    ")
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(130.dp)
+                        .background(color = Color.LightGray)
+                        .padding(10.dp)
+                ) {
+                    Text(
+                        modifier = Modifier.align(Alignment.TopStart),
+                        text = "주문내역",
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        modifier = Modifier.align(Alignment.CenterStart),
+                        text = "                총 $currentnumber "
+                    )
+                    Text(
+                        modifier = Modifier.align(Alignment.CenterEnd),
+                        text = "합계 $orderfee 원                    "
+                    )
 
                 }
-                Row(modifier = Modifier
-                    .fillMaxWidth()
-                    .height(70.dp)
-                    .background(color = Color.LightGray)
-                    .padding(3.dp)
-                ){
-                    Box(modifier = Modifier.width(40.dp)){
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(70.dp)
+                        .background(color = Color.LightGray)
+                        .padding(3.dp)
+                ) {
+                    Box(modifier = Modifier.width(40.dp)) {
 
                     }
                     Button(modifier = Modifier
@@ -274,7 +317,7 @@ fun HambergurKiosk(navHostController: NavHostController){
                         }) {
                         Text(text = "주문 취소", fontWeight = FontWeight.Bold)
                     }
-                    Box(modifier = Modifier.width(20.dp)){
+                    Box(modifier = Modifier.width(20.dp)) {
 
                     }
                     Button(modifier = Modifier
@@ -310,7 +353,7 @@ fun HambergurKiosk(navHostController: NavHostController){
 
 @Preview(uiMode = UI_MODE_NIGHT_NO, showBackground = true)
 @Composable
-fun PreviewHambergurKiosk(){
+fun PreviewHambergurKiosk() {
     val navCtrl = rememberNavController()
     HambergurKiosk(navCtrl)
 }

@@ -1,6 +1,7 @@
 package com.example.kiosktutorial.Screen
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -25,7 +26,7 @@ import com.example.kiosktutorial.ui.theme.Typography
 import com.example.kiosktutorial.ui.theme.KioskTutorialTheme
 
 @Composable
-fun OfficeSelection(navHostController: NavHostController){
+fun OfficeSelection(navHostController: NavHostController) {
     Scaffold(
         backgroundColor = MaterialTheme.colors.background
     ) {
@@ -40,20 +41,20 @@ fun RecyclerViewContent(navHostController: NavHostController) {
     LazyColumn(contentPadding = PaddingValues(16.dp, 8.dp)) {
         items(
             items = offices,
-            itemContent = { OfficeListItem(it,navHostController) }
+            itemContent = { OfficeListItem(it, navHostController) }
         )
     }
 }
 
 @Composable
-fun OfficeListItem(office: Office,navHostController: NavHostController) {
+fun OfficeListItem(office: Office, navHostController: NavHostController) {
     Card(
         modifier = Modifier
+            .clip(RoundedCornerShape(16.dp))
             .fillMaxWidth()
             .padding(0.dp, 12.dp)
             .clickable { if (office.name == "주민등록") navHostController.navigate(Screen.OfficeHome.route) },
         elevation = 4.dp,
-        shape = RoundedCornerShape(corner = CornerSize(16.dp)),
         border = BorderStroke(1.dp, MaterialTheme.colors.primary)
     ) {
         Row {
@@ -63,7 +64,11 @@ fun OfficeListItem(office: Office,navHostController: NavHostController) {
                     .align(Alignment.CenterVertically)
             ) {
                 Text(text = office.name, style = Typography.h6)
-                Text(text = office.content, style = Typography.caption, modifier = Modifier.padding(0.dp,2.dp))
+                Text(
+                    text = office.content,
+                    style = Typography.caption,
+                    modifier = Modifier.padding(0.dp, 2.dp)
+                )
             }
         }
     }

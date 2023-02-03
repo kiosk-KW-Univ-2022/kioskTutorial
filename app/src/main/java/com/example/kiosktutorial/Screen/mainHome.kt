@@ -30,10 +30,15 @@ import com.example.kiosktutorial.Screen.Kiosk.dSpacer
 import com.example.kiosktutorial.ui.theme.backGround
 
 
-
-
 @Composable
-fun MainSelectionButton(title: String, modifier:Modifier? = null, desc:String? = null, icon: Int? = null, func: () -> Unit, paint: Int) {
+fun MainSelectionButton(
+    title: String,
+    modifier: Modifier? = null,
+    desc: String? = null,
+    icon: Int? = null,
+    func: () -> Unit,
+    paint: Int
+) {
     var paintD = painterResource(id = paint)
 
     Box(
@@ -46,17 +51,16 @@ fun MainSelectionButton(title: String, modifier:Modifier? = null, desc:String? =
                 onClick = func
             )
             .background(Color.White)
-            .composed { modifier ?: Modifier }
-
-        ,   Alignment.TopStart
+            .composed { modifier ?: Modifier }, Alignment.TopStart
     ) {
-        Box(modifier= Modifier
-            .clip(CircleShape)
-            .height(130.dp)
-            .width(130.dp)
-            .background(backGround)
-            .padding(15.dp)
-        ){
+        Box(
+            modifier = Modifier
+                .clip(CircleShape)
+                .height(130.dp)
+                .width(130.dp)
+                .background(backGround)
+                .padding(15.dp)
+        ) {
             Image(
                 painter = paintD,
                 contentDescription = "$title 아이콘",
@@ -64,8 +68,7 @@ fun MainSelectionButton(title: String, modifier:Modifier? = null, desc:String? =
 
                 modifier = Modifier
                     .height(90.dp)
-                    .width(90.dp)
-                ,   alignment = Alignment.Center
+                    .width(90.dp), alignment = Alignment.Center
             )
         }
 
@@ -79,18 +82,20 @@ fun MainSelectionButton(title: String, modifier:Modifier? = null, desc:String? =
                 ,   horizontalAlignment = Alignment.End
                 , verticalArrangement = Arrangement.Center
 
+
             ) {
 
 
                 Text(
+
                     text = title
                     , fontSize = 25.sp, fontWeight = FontWeight.Bold
 
                 )
 
 
-                desc?.let{
-                    Spacer(modifier= Modifier.height(5.dp))
+                desc?.let {
+                    Spacer(modifier = Modifier.height(5.dp))
 
                     /*Text(
                         text = desc
@@ -164,7 +169,7 @@ fun Home(navHostController: NavHostController) {
         val context = LocalContext.current
 
 
-        var toast:Toast? = null
+        var toast: Toast? = null
 
         // selection
         Column(
@@ -172,18 +177,19 @@ fun Home(navHostController: NavHostController) {
                 .fillMaxSize()
                 .background(backGround)
         ) {
-            Box(modifier = Modifier
-                .background(
-                    shape = RoundedCornerShape(
-                        topStart = CornerSize(25.dp),
-                        topEnd = CornerSize(25.dp),
-                        bottomEnd = CornerSize(0),
-                        bottomStart = CornerSize(0)
-                    ), color = Color.White
-                )
-                .padding(10.dp)
-                .fillMaxSize()
-            ){
+            Box(
+                modifier = Modifier
+                    .background(
+                        shape = RoundedCornerShape(
+                            topStart = CornerSize(25.dp),
+                            topEnd = CornerSize(25.dp),
+                            bottomEnd = CornerSize(0),
+                            bottomStart = CornerSize(0)
+                        ), color = Color.White
+                    )
+                    .padding(10.dp)
+                    .fillMaxSize()
+            ) {
                 Column {
                     MainSelectionButton("사용 지침서", func = {
                         navHostController.navigate(Screen.KioskTutorialSelection.route)
@@ -193,7 +199,7 @@ fun Home(navHostController: NavHostController) {
 //                toast = Toast.makeText(context, "키오스크 설명서 진행하기", Toast.LENGTH_SHORT)
 
 //                toast?.show()
-                    },paint=R.drawable.book)
+                    }, paint = R.drawable.book)
                     dSpacer()
                     MainSelectionButton("실전연습  ", func = {
                         navHostController.navigate(Screen.KioskExerciseSelection.route)
@@ -201,11 +207,11 @@ fun Home(navHostController: NavHostController) {
 //                toast = Toast.makeText(context, "실전연습", Toast.LENGTH_SHORT)
 //                toast?.show()
 
-                    },paint= R.drawable.note)
+                    }, paint = R.drawable.note)
                     dSpacer()
                     MainSelectionButton("뇌활력 게임", func = {
                         navHostController.navigate(Screen.GameHome.route)
-                    },paint= R.drawable.game)
+                    }, paint = R.drawable.game)
                 }
             }
 
@@ -217,7 +223,7 @@ fun Home(navHostController: NavHostController) {
 
 @Preview
 @Composable
-fun HomePreview(){
+fun HomePreview() {
     val navHostController = rememberNavController()
     Home(navHostController)
 }

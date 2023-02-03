@@ -1,24 +1,19 @@
 package com.example.kiosktutorial.Screen
 
-import android.content.res.Configuration
 import android.os.CountDownTimer
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Button
+import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,17 +21,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.kiosktutorial.R
-import com.example.kiosktutorial.Screen.Kiosk.dSpacer
 import com.example.kiosktutorial.ui.theme.backGround
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 
 @Composable
-fun Paywindow(navHostController: NavHostController, route: String) {
+fun Paywindow2(navHostController: NavHostController, route: String) {
     val mCountDown: CountDownTimer = object : CountDownTimer(2500, 1000) {
         override fun onTick(millisUntilFinished: Long) {
         }
@@ -49,7 +38,8 @@ fun Paywindow(navHostController: NavHostController, route: String) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(Color.White),
+        horizontalAlignment = Alignment.CenterHorizontally
     )
     {
         Box(
@@ -60,37 +50,34 @@ fun Paywindow(navHostController: NavHostController, route: String) {
         )
         {
         }
-        Spacer(modifier = Modifier.height(10.dp))
-        Text(
-            modifier = Modifier.fillMaxWidth(),
-            text = "신용카드를 투입구에 끝까지 넣어주세요. ",
-            fontWeight = FontWeight.Bold,
-            fontSize = 20.sp,
-            textAlign = TextAlign.Center
-        )
+        Spacer(modifier = Modifier.height(100.dp))
+
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(500.dp)
-                .padding(20.dp)
+                .background(
+                    shape = RoundedCornerShape(
+                        topStart = CornerSize(25.dp),
+                        topEnd = CornerSize(25.dp),
+                        bottomEnd = CornerSize(25.dp),
+                        bottomStart = CornerSize(25.dp)
+                    ), color = backGround
+                )
+                .height(250.dp)
+                .width(380.dp)
+                .padding(30.dp)
         ) {
-            Image(
+            Text(
                 modifier = Modifier.align(Alignment.Center),
-                painter = painterResource(id = R.drawable.credit),
-                contentDescription = ""
+                text = "거래가 정상적으로 처리되었습니다.\n놓고 가시는 물건이 없는지 확인하시기 바랍니다.",
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
+                textAlign = TextAlign.Center
             )
         }
-        Text(
-            modifier = Modifier.fillMaxWidth(),
-            text = "결제 중입니다. 잠시만 기다려 주세요.",
-            fontWeight = FontWeight.Bold,
-            fontSize = 20.sp,
-            textAlign = TextAlign.Center
-        )
-        Spacer(modifier = Modifier.height(10.dp))
+
         Box(modifier = Modifier.padding(20.dp)) {
             mCountDown.start()
-            AnimationGaugeBar(navHostController, 100, backGround, route)
+            AnimationGaugeBar2(navHostController, 100, backGround, route)
         }
 
 
@@ -99,7 +86,7 @@ fun Paywindow(navHostController: NavHostController, route: String) {
 }
 
 @Composable
-fun AnimationGaugeBar(
+fun AnimationGaugeBar2(
     navHostController: NavHostController,
     value: Int, // 표시할 값
     color: Color, // 게이지바의 색
@@ -136,15 +123,15 @@ fun AnimationGaugeBar(
         ) {
             Text(text = curValue.value.toString())
             if (curValue.value == 100) {
-//                navHostController.navigate(route)
+                navHostController.navigate(route)
             }
         }
     }
 }
 
-@Preview(showBackground = true)
+@Preview()
 @Composable
-fun Prepaywindow() {
-    val navCtrl = rememberNavController()
-    Paywindow(navCtrl, Screen.KioskExercise.route)
+fun PreviewDoneApp() {
+    val navHostController = rememberNavController()
+    Paywindow2(navHostController, Screen.KioskExercise.route)
 }

@@ -17,8 +17,9 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+
 @Composable
-fun residentForm(context: Context){
+fun residentForm(context: Context) {
 
     Column(
         modifier = Modifier
@@ -55,12 +56,13 @@ fun residentForm(context: Context){
         Button(
             onClick = {
 
-                if (username.value.isEmpty()){
+                if (username.value.isEmpty()) {
                     Toast.makeText(context, "Please Enter Username", Toast.LENGTH_SHORT).show()
-                }else if (password.value.isEmpty()){
+                } else if (password.value.isEmpty()) {
                     Toast.makeText(context, "Please Enter Password", Toast.LENGTH_SHORT).show()
-                }else{
-                    Toast.makeText(context, "Validation Successfully Completed", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, "Validation Successfully Completed", Toast.LENGTH_SHORT)
+                        .show()
                 }
 
             },

@@ -25,9 +25,9 @@ private val personType = arrayOf("어린이", "성인", "경로")
 @Composable
 fun TrainCheckPage(
     navHostController: NavHostController,
-    dpkg:dataPackage,
-    onSetDisplay:(Int)->Unit
-){
+    dpkg: dataPackage,
+    onSetDisplay: (Int) -> Unit
+) {
     Column(
         modifier = Modifier
             .background(Color(0xFFD3D3D3))
@@ -39,17 +39,17 @@ fun TrainCheckPage(
                 .background(Color(0xff1490df))
                 .padding(15.dp, 10.dp)
 
-        ){
+        ) {
             Text(
-                text="승차권 정보 확인",
+                text = "승차권 정보 확인",
                 fontSize = 24.sp,
                 modifier = Modifier
                     .align(Alignment.Center)
 
             )
             Text(
-                text="×",
-                fontSize=30.sp,
+                text = "×",
+                fontSize = 30.sp,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .align(Alignment.TopEnd)
@@ -61,8 +61,9 @@ fun TrainCheckPage(
         }
 
         val time = SimpleDateFormat("yyyy년 MM월 dd일").format(dpkg.startStation.ticketTime)
-        val ticketTotal = dpkg.TicketStorage[personType[0]]!!.count + dpkg.TicketStorage[personType[1]]!!.count +
-                dpkg.TicketStorage[personType[2]]!!.count
+        val ticketTotal =
+            dpkg.TicketStorage[personType[0]]!!.count + dpkg.TicketStorage[personType[1]]!!.count +
+                    dpkg.TicketStorage[personType[2]]!!.count
 
         Column(
             modifier = Modifier
@@ -70,11 +71,11 @@ fun TrainCheckPage(
                 .padding(20.dp)
                 .fillMaxWidth()
 
-        ){
+        ) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-            ){
+            ) {
                 Text(
                     text = "$time"
                 )
@@ -90,11 +91,11 @@ fun TrainCheckPage(
                 fontSize = 28.sp
             )
 
-            var s:String = ""
-            for(i:Int in 1..ticketTotal){
+            var s: String = ""
+            for (i: Int in 1..ticketTotal) {
                 s += "일반실 0호차 ${String.format("%02d", i)}, "
             }
-            s = s.substring(0, s.length-2)
+            s = s.substring(0, s.length - 2)
 
             Text(
                 text = "$s",
@@ -124,9 +125,9 @@ fun TrainCheckPage(
                 .padding(20.dp)
                 .weight(1f)
 
-        ){
+        ) {
             Text(
-                text ="승차권을 발권받은 휴대전화에서만 확인할 수 있습니다\n학인 승차권 이용시에는 관련 신분증 또는 증명서를 소지해야 합니다",
+                text = "승차권을 발권받은 휴대전화에서만 확인할 수 있습니다\n학인 승차권 이용시에는 관련 신분증 또는 증명서를 소지해야 합니다",
                 fontSize = 16.sp
             )
             Spacer(
@@ -138,7 +139,7 @@ fun TrainCheckPage(
 
             )
             Text(
-                text ="본 발권 시스템은 실제 열차 예매가 아닌, 연습을 위한 시스템입니다.",
+                text = "본 발권 시스템은 실제 열차 예매가 아닌, 연습을 위한 시스템입니다.",
                 fontSize = 16.sp
 
             )
@@ -150,15 +151,15 @@ fun TrainCheckPage(
             modifier = Modifier
                 .fillMaxWidth(0.9f)
                 .align(Alignment.CenterHorizontally),
-            onClick={
+            onClick = {
                 toast?.cancel()
                 toast = Toast.makeText(context, "발권 성공", Toast.LENGTH_LONG)
                 toast!!.show()
                 navHostController.popBackStack()
             }
-        ){
+        ) {
             Text(
-                text ="발권하기"
+                text = "발권하기"
             )
         }
     }
@@ -167,11 +168,12 @@ fun TrainCheckPage(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewTrainCheck(){
-    TrainCheckPage( rememberNavController(),
-        dataPackage(StationState("서울", Date()), StationState("용산", Date()),
-            mutableMapOf("어린이" to TicketCount(0), "성인" to TicketCount(1),"경로" to TicketCount(0))
+fun PreviewTrainCheck() {
+    TrainCheckPage(rememberNavController(),
+        dataPackage(
+            StationState("서울", Date()), StationState("용산", Date()),
+            mutableMapOf("어린이" to TicketCount(0), "성인" to TicketCount(1), "경로" to TicketCount(0))
         ),
-        {it}
+        { it }
     )
 }

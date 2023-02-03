@@ -13,14 +13,14 @@ import com.example.kiosktutorial.Screen.Kiosk.KioskTrain
 import kotlinx.coroutines.delay
 
 sealed class BackPress {
-    object Idle: BackPress()
-    object InitialTouch: BackPress()
+    object Idle : BackPress()
+    object InitialTouch : BackPress()
 }
 
 @Composable
 fun SetupNavGraph(navController: NavHostController) {
-    val startDest:String =
-        if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M) Screen.Splash.route
+    val startDest: String =
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M) Screen.Splash.route
         else Screen.Home.route
 
     NavHost(
@@ -35,56 +35,60 @@ fun SetupNavGraph(navController: NavHostController) {
             Home(navController)
 
 
-            var backPressState by remember{ mutableStateOf<BackPress>(BackPress.Idle) }
-            var showToast by remember{ mutableStateOf(false)}
+            var backPressState by remember { mutableStateOf<BackPress>(BackPress.Idle) }
+            var showToast by remember { mutableStateOf(false) }
 
-            if(showToast){
-                Toast.makeText(LocalContext.current, stringResource(R.string.exitToastMessage), Toast.LENGTH_SHORT).show()
-                showToast= false
+            if (showToast) {
+                Toast.makeText(
+                    LocalContext.current,
+                    stringResource(R.string.exitToastMessage),
+                    Toast.LENGTH_SHORT
+                ).show()
+                showToast = false
             }
 
-            LaunchedEffect(key1 = backPressState){
-                if(backPressState == BackPress.InitialTouch){
+            LaunchedEffect(key1 = backPressState) {
+                if (backPressState == BackPress.InitialTouch) {
                     delay(2000)
                     backPressState = BackPress.Idle
                 }
             }
 
-            BackHandler(backPressState == BackPress.Idle){
-                backPressState =BackPress.InitialTouch
+            BackHandler(backPressState == BackPress.Idle) {
+                backPressState = BackPress.InitialTouch
                 showToast = true
             }
 
         }
 
-        composable(route = Screen.KioskTutorialSelection.route){
+        composable(route = Screen.KioskTutorialSelection.route) {
             OfficeSelection(navController)
         }
 
-        composable(route = Screen.KioskExerciseSelection.route){
-            Secondhome(navController,true)
+        composable(route = Screen.KioskExerciseSelection.route) {
+            SecondHome(navController, true)
         }
 
-        composable(route = Screen.KioskTrain.route){
+        composable(route = Screen.KioskTrain.route) {
             KioskTrain(navController = navController)
 
         }
 
-        composable(route = Screen.KioskTutorial.route){
-            KioskSelection(navController, false)
+        composable(route = Screen.KioskTutorial.route) {
+            Secondhome2(navController)
         }
 
-        composable(route = Screen.KioskExercise.route){
+        composable(route = Screen.KioskExercise.route) {
             KioskSelection(navController, true)
         }
-        composable(route = Screen.GameHome.route){
+        composable(route = Screen.GameHome.route) {
             GameHomeScreen(navController)
         }
-        composable(route = Screen.TextGame.route){
+        composable(route = Screen.TextGame.route) {
             GamePlayScreen(navController, "글자색 맞추기")
         }
-        composable(route = Screen.NumberGame.route){
-            GamePlayScreen(navController, "숫자 순서 맞추기" )
+        composable(route = Screen.NumberGame.route) {
+            GamePlayScreen(navController, "숫자 순서 맞추기")
         }
         composable(route = Screen.CafeKiosk.route)
         {
@@ -107,12 +111,55 @@ fun SetupNavGraph(navController: NavHostController) {
             HambergurKiosk(navController)
         }
         composable("${Screen.PayWindow.route}/{move}")
-        {backStackEntry ->
-            Paywindow(navHostController = navController,route = backStackEntry.arguments?.getString("move") ?:"${Screen.CafeOrder.route}")
+        { backStackEntry ->
+            Paywindow(
+                navHostController = navController,
+                route = backStackEntry.arguments?.getString("move") ?: "${Screen.CafeOrder.route}"
+            )
         }
-        composable(route =Screen.OfficeHome.route){
+        composable(route = Screen.OfficeHome.route) {
             ResidentSelection()
         }
+        composable(Screen.Bank.route)
+        {
+            Secondhome2(navController)
+        }
+        composable(Screen.Bank1.route)
+        {
+            Secondhome1(navController)
+        }
 
+        composable(Screen.Bank1_1.route)
+        {
+            Secondhome1_1(navController)
+        }
+
+        composable(Screen.Bank2.route)
+        {
+            InputNumber(navController)
+        }
+        composable(Screen.Bank3.route)
+        {
+            Secondhome3(navController)
+        }
+        composable(Screen.Bank4.route)
+        {
+            Secondhome4(navController)
+        }
+        composable(Screen.Bank5.route)
+        {
+            Secondhome5(navController)
+        }
+        composable(Screen.Bank5_1.route)
+        {
+            Secondhome5_1(navController)
+        }
+        composable("${Screen.DoneApp.route}/{move}")
+        { backStackEntry ->
+            Paywindow2(
+                navHostController = navController,
+                route = backStackEntry.arguments?.getString("move") ?: "${Screen.Home.route}"
+            )
+        }
     }
 }
