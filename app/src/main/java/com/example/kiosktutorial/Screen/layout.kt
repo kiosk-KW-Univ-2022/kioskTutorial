@@ -33,8 +33,8 @@ fun ActMainContent( innerContent:@Composable() ()->Unit){
                 shape = RoundedCornerShape(
                     topStart = cornerRounded,
                     topEnd = cornerRounded,
-                    bottomStart = cornerRounded,
-                    bottomEnd = cornerRounded
+                    bottomStart = CornerSize(0.dp),
+                    bottomEnd = CornerSize(0.dp)
                 ), color = Color.White
             )
             .padding(10.dp)
