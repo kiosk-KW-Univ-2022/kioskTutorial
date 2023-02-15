@@ -62,11 +62,17 @@ fun Paywindow2(navHostController: NavHostController, route: String) {
                         bottomStart = CornerSize(25.dp)
                     ), color = backGround
                 )
-            .height(250.dp)
-            .width(380.dp)
-            .padding(30.dp)){
-            Text(modifier = Modifier.align(Alignment.Center),
-                text = "정상적으로 처리되었습니다.\n놓고 가시는 물건이 없는지 확인하시기 바랍니다.", fontWeight = FontWeight.Bold, fontSize = 20.sp, textAlign = TextAlign.Center)
+                .height(250.dp)
+                .width(380.dp)
+                .padding(30.dp)
+        ) {
+            Text(
+                modifier = Modifier.align(Alignment.Center),
+                text = "거래가 정상적으로 처리되었습니다.\n놓고 가시는 물건이 없는지 확인하시기 바랍니다.",
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
+                textAlign = TextAlign.Center
+            )
         }
 
         Box(modifier = Modifier.padding(20.dp)) {
