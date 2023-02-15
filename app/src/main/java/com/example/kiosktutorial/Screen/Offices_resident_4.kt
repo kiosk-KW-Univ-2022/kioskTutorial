@@ -10,17 +10,15 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Outline
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -31,12 +29,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.kiosktutorial.R
+import com.example.kiosktutorial.ui.theme.DarkBackground
 import com.example.kiosktutorial.ui.theme.Typography
 import com.example.kiosktutorial.ui.theme.KioskTutorialTheme
 import com.example.kiosktutorial.ui.theme.backGround
 
 @Composable
-fun officehome2(navHostController: NavHostController) {
+fun officehome4(navHostController: NavHostController) {
 
     Column(
         modifier = Modifier
@@ -108,53 +107,65 @@ fun officehome2(navHostController: NavHostController) {
                 .padding(10.dp)
                 .fillMaxSize()
             ){
-                OfficeSelection2(navHostController)
+                OfficeSelection4(navHostController)
             }
         }
     }
 }
-@Composable
-fun OfficeSelection2(navHostController: NavHostController){
-    Scaffold(
-        backgroundColor = MaterialTheme.colors.background
-    ) {
-        RecyclerViewContent2(navHostController)
-    }
-}
-
 
 @Composable
-fun RecyclerViewContent2(navHostController: NavHostController) {
-    val offices = remember { DataProvider.residnetList }
-    LazyColumn(contentPadding = PaddingValues(20.dp, 10.dp)) {
-        items(
-            items = offices,
-            itemContent = { OfficeListItem2(it,navHostController) }
-        )
-    }
-}
+fun OfficeSelection4(navHostController: NavHostController){
+    Column() {
+        Spacer(modifier = Modifier.height(10.dp))
 
-@Composable
-fun OfficeListItem2(office: Office,navHostController: NavHostController) {
-    Card(
-        modifier = Modifier
+        Box(modifier = Modifier
+            .background(
+                shape = RoundedCornerShape(
+                    topStart = CornerSize(25.dp),
+                    topEnd = CornerSize(25.dp),
+                    bottomEnd = CornerSize(25.dp),
+                    bottomStart = CornerSize(25.dp)
+                ), color = backGround
+            )
+            .height(250.dp)
+            .width(380.dp)
+            .padding(30.dp)){
+            Text(modifier = Modifier.align(Alignment.TopCenter),
+                text = "*수수료 면제 신청 여부를 선택하여 주십시오.", fontSize = 20.sp)
+            Text(modifier = Modifier.align(Alignment.Center),
+                fontWeight = FontWeight.Bold,
+                color= Color.Blue,
+                text = "\n국민기초생활수급자, 국가보훈대상자, 한부모가족지원대상자는 수수료 면제 대상자 입니다.", fontSize = 20.sp)
 
-            .fillMaxWidth()
-            .padding(0.dp, 12.dp)
-            .clickable { if (office.name == "주민등록표(초본)") navHostController.navigate(Screen.Offices_resident_1.route) },
 
-        elevation = 4.dp,
-        border = BorderStroke(1.dp, MaterialTheme.colors.primary)
-    ) {
-        Row {
-            OfficeImage(office=office)
-            Column(
-                modifier = Modifier
-                    .padding(8.dp)
-                    .align(Alignment.CenterVertically)
-            ) {
-                Text(text = office.name, style = Typography.h5)
-                Text(text = office.content, style = Typography.body1, modifier = Modifier.padding(0.dp,2.dp))
+        }
+        Spacer(modifier = Modifier.height(20.dp))
+        Row() {
+            Spacer(modifier = Modifier.width(15.dp))
+            Button(modifier = Modifier
+                .width(130.dp)
+                .height(80.dp)
+                .shadow(20.dp, shape = RectangleShape, clip = true),
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Yellow),
+                onClick = { navHostController.navigate(Screen.Offices_resident_5.route) }) {
+                Text(
+                    text = "일반",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 25.sp
+                )
+            }
+            Spacer(modifier = Modifier.width(80.dp))
+            Button(modifier = Modifier
+                .width(130.dp)
+                .height(80.dp)
+                .shadow(20.dp, shape = RectangleShape, clip = true),
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
+                onClick = { /*다음페이지로 이동*/  }) {
+                Text(
+                    text = "면제신청",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 25.sp
+                )
             }
         }
     }
@@ -162,9 +173,9 @@ fun OfficeListItem2(office: Office,navHostController: NavHostController) {
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview2() {
+fun DefaultPreview4() {
     KioskTutorialTheme {
         var navCtrl = rememberNavController()
-        officehome2(navCtrl)
+        officehome4(navCtrl)
     }
 }
