@@ -74,9 +74,6 @@ fun SetupNavGraph(navController: NavHostController) {
         composable(route = Screen.GameHome.route){
             
         }
-        composable(route =Screen.OfficeHome.route){
-            ResidentSelection()
-        }
         composable(Screen.Bank.route)
         {
             Secondhome2(navController)
@@ -112,8 +109,29 @@ fun SetupNavGraph(navController: NavHostController) {
             Secondhome5_1(navController)
         }
         composable("${Screen.DoneApp.route}/{move}")
-        {backStackEntry ->
-            Paywindow2(navHostController = navController,route = backStackEntry.arguments?.getString("move") ?:"${Screen.Home.route}")
+        { backStackEntry ->
+            Paywindow2(
+                navHostController = navController,
+                route = backStackEntry.arguments?.getString("move") ?: "${Screen.Home.route}"
+            )
+        }
+        composable(Screen.Offices_h.route){
+            officehome(navController)
+        }
+        composable(Screen.Offices_resident.route){
+            officehome2(navController)
+        }
+        composable(Screen.Offices_resident_1.route){
+            InputNumber2(navController)
+        }
+        composable(Screen.Offices_resident_2.route){
+            fingerpoint(navController)
+        }
+        composable(Screen.Offices_resident_4.route){
+            officehome4(navController)
+        }
+        composable(Screen.Offices_resident_5.route){
+            InputNumber3(navController)
         }
     }
 }
