@@ -32,9 +32,8 @@ import androidx.navigation.compose.rememberNavController
 
 //TODO 삭제 정정 눌렀을때 *모양이 -로 바뀌도록
 @Composable
-fun InputNumber(navHostController: NavHostController)
-{
-    var (number,setnumber) = remember {
+fun InputNumber(navHostController: NavHostController) {
+    var (number, setnumber) = remember {
         mutableStateOf(0)
     }
 
@@ -82,22 +81,22 @@ fun InputNumber(navHostController: NavHostController)
                         color = Color.White
                     )
             ) {
-                var (text1,Settext1) = remember {
+                var (text1, Settext1) = remember {
                     mutableStateOf("-")
                 }
-                var (text2,Settext2) = remember {
+                var (text2, Settext2) = remember {
                     mutableStateOf("-")
                 }
-                var (text3,Settext3) = remember {
+                var (text3, Settext3) = remember {
                     mutableStateOf("-")
                 }
-                var (text4,Settext4) = remember {
-                mutableStateOf("-")
-            }
-                if(number>=1) Settext1("*") else Settext1("-")
-                if(number>=2) Settext2("*") else Settext2("-")
-                if(number>=3) Settext3("*") else Settext3("-")
-                if(number>=4) Settext4("*") else Settext4("-")
+                var (text4, Settext4) = remember {
+                    mutableStateOf("-")
+                }
+                if (number >= 1) Settext1("*") else Settext1("-")
+                if (number >= 2) Settext2("*") else Settext2("-")
+                if (number >= 3) Settext3("*") else Settext3("-")
+                if (number >= 4) Settext4("*") else Settext4("-")
                 Column(
                     Modifier
                         .padding(top = 30.dp)
@@ -111,14 +110,17 @@ fun InputNumber(navHostController: NavHostController)
                         fontSize = 30.sp,
                         fontWeight = FontWeight.Bold
                     )
-                    Text(text = "   비밀번호는 타인이나 카메라 등에 노출되지 않도록 손이나 책 등으로 가린 후 입력해주세요",
-                        fontSize = 20.sp, color = Color.Red)
+                    Text(
+                        text = "   비밀번호는 타인이나 카메라 등에 노출되지 않도록 손이나 책 등으로 가린 후 입력해주세요",
+                        fontSize = 20.sp, color = Color.Red
+                    )
                 }
             }
 
-            Row(modifier= Modifier
-                .padding(10.dp)
-                .fillMaxWidth(100f),
+            Row(
+                modifier = Modifier
+                    .padding(10.dp)
+                    .fillMaxWidth(100f),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Button(modifier = Modifier
@@ -126,9 +128,9 @@ fun InputNumber(navHostController: NavHostController)
                     .height(90.dp)
                     .shadow(20.dp, shape = RectangleShape, clip = true),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
-                    onClick = {  if(number<4) setnumber(number+1) }) {
+                    onClick = { if (number < 4) setnumber(number + 1) }) {
                     Text(
-                        text = "1" ,
+                        text = "1",
                         fontSize = 30.sp
                     )
                 }
@@ -137,7 +139,7 @@ fun InputNumber(navHostController: NavHostController)
                     .height(90.dp)
                     .shadow(20.dp, shape = RectangleShape, clip = true),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
-                    onClick = { if(number<4) setnumber(number+1)}) {
+                    onClick = { if (number < 4) setnumber(number + 1) }) {
                     Text(
                         text = "2",
                         fontSize = 30.sp
@@ -148,16 +150,17 @@ fun InputNumber(navHostController: NavHostController)
                     .height(90.dp)
                     .shadow(20.dp, shape = RectangleShape, clip = true),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
-                    onClick = {  if(number<4)setnumber(number+1) }) {
+                    onClick = { if (number < 4) setnumber(number + 1) }) {
                     Text(
-                        text =  "3",
+                        text = "3",
                         fontSize = 30.sp
                     )
                 }
             }
-            Row(modifier= Modifier
-                .padding(10.dp)
-                .fillMaxWidth(100f),
+            Row(
+                modifier = Modifier
+                    .padding(10.dp)
+                    .fillMaxWidth(100f),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Button(modifier = Modifier
@@ -165,9 +168,9 @@ fun InputNumber(navHostController: NavHostController)
                     .height(90.dp)
                     .shadow(20.dp, shape = RectangleShape, clip = true),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
-                    onClick = { if(number<4) setnumber(number+1) }) {
+                    onClick = { if (number < 4) setnumber(number + 1) }) {
                     Text(
-                        text =  "4",
+                        text = "4",
                         fontSize = 30.sp
                     )
                 }
@@ -176,9 +179,9 @@ fun InputNumber(navHostController: NavHostController)
                     .height(90.dp)
                     .shadow(20.dp, shape = RectangleShape, clip = true),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
-                    onClick = { if(number<4) setnumber(number+1) }) {
+                    onClick = { if (number < 4) setnumber(number + 1) }) {
                     Text(
-                        text =  "5",
+                        text = "5",
                         fontSize = 30.sp
                     )
                 }
@@ -188,16 +191,17 @@ fun InputNumber(navHostController: NavHostController)
                     .height(90.dp)
                     .shadow(20.dp, shape = RectangleShape, clip = true),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
-                    onClick = { if(number<4) setnumber(number+1) }) {
+                    onClick = { if (number < 4) setnumber(number + 1) }) {
                     Text(
-                        text =  "6",
+                        text = "6",
                         fontSize = 30.sp
                     )
                 }
             }
-            Row(modifier= Modifier
-                .padding(10.dp)
-                .fillMaxWidth(100f),
+            Row(
+                modifier = Modifier
+                    .padding(10.dp)
+                    .fillMaxWidth(100f),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Button(modifier = Modifier
@@ -205,9 +209,9 @@ fun InputNumber(navHostController: NavHostController)
                     .height(90.dp)
                     .shadow(20.dp, shape = RectangleShape, clip = true),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
-                    onClick = { if(number<4) setnumber(number+1) }) {
+                    onClick = { if (number < 4) setnumber(number + 1) }) {
                     Text(
-                        text =  "7",
+                        text = "7",
                         fontSize = 30.sp
                     )
                 }
@@ -216,7 +220,7 @@ fun InputNumber(navHostController: NavHostController)
                     .height(90.dp)
                     .shadow(20.dp, shape = RectangleShape, clip = true),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
-                    onClick = { if(number<4) setnumber(number+1)}) {
+                    onClick = { if (number < 4) setnumber(number + 1) }) {
                     Text(
                         text = "8",
                         fontSize = 30.sp
@@ -227,16 +231,17 @@ fun InputNumber(navHostController: NavHostController)
                     .height(90.dp)
                     .shadow(20.dp, shape = RectangleShape, clip = true),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
-                    onClick = { if(number<4) setnumber(number+1) }) {
+                    onClick = { if (number < 4) setnumber(number + 1) }) {
                     Text(
-                        text =  "9",
+                        text = "9",
                         fontSize = 30.sp
                     )
                 }
             }
-            Row(modifier= Modifier
-                .padding(10.dp)
-                .fillMaxWidth(100f),
+            Row(
+                modifier = Modifier
+                    .padding(10.dp)
+                    .fillMaxWidth(100f),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Button(modifier = Modifier
@@ -244,9 +249,9 @@ fun InputNumber(navHostController: NavHostController)
                     .height(90.dp)
                     .shadow(20.dp, shape = RectangleShape, clip = true),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
-                    onClick = { setnumber(number-1) }) {
+                    onClick = { setnumber(number - 1) }) {
                     Text(
-                        text =  "삭제",
+                        text = "삭제",
                         fontSize = 30.sp
                     )
                 }
@@ -255,7 +260,7 @@ fun InputNumber(navHostController: NavHostController)
                     .height(90.dp)
                     .shadow(20.dp, shape = RectangleShape, clip = true),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
-                    onClick = { if(number<4) setnumber(number+1)}) {
+                    onClick = { if (number < 4) setnumber(number + 1) }) {
                     Text(
                         text = "0",
                         fontSize = 30.sp
@@ -268,13 +273,12 @@ fun InputNumber(navHostController: NavHostController)
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
                     onClick = { setnumber(0) }) {
                     Text(
-                        text =  "정정",
+                        text = "정정",
                         fontSize = 30.sp
                     )
                 }
             }
-            if(number== 4)
-            {
+            if (number == 4) {
                 Button(modifier = Modifier
                     .width(90.dp)
                     .height(80.dp)
@@ -295,7 +299,7 @@ fun InputNumber(navHostController: NavHostController)
 
 @Preview
 @Composable
-fun Previewnumber(){
+fun Previewnumber() {
     val navHostController = rememberNavController()
     InputNumber(navHostController)
 }

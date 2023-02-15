@@ -48,7 +48,7 @@ fun Secondhome3(navHostController: NavHostController) {
                 .padding(30.dp)
         ) {
             val paintD = painterResource(R.drawable._1_kt_wordmark__standard__01)
-            Row(){
+            Row() {
                 Image(
                     painter = paintD,
                     contentDescription = "아이콘",
@@ -59,17 +59,18 @@ fun Secondhome3(navHostController: NavHostController) {
                         .width(50.dp)
 
                 )
-                Box(modifier = Modifier.height(70.dp)
-                ){
+                Box(
+                    modifier = Modifier.height(70.dp)
+                ) {
                     Text(
-                        text= " 은행",
+                        text = " 은행",
                         modifier = Modifier
                             .fillMaxWidth(),
                         fontSize = 30.sp,
                         fontWeight = FontWeight.Bold,
 
                         )
-                   /* Button(onClick = { *//* 종료버튼 클릭 이벤트 *//* }) {
+                    /* Button(onClick = { *//* 종료버튼 클릭 이벤트 *//* }) {
                         Text("종료")
                     }*/
                 }
@@ -90,18 +91,19 @@ fun Secondhome3(navHostController: NavHostController) {
                 .fillMaxSize()
                 .background(backGround)
         ) {
-            Box(modifier = Modifier
-                .background(
-                    shape = RoundedCornerShape(
-                        topStart = CornerSize(25.dp),
-                        topEnd = CornerSize(25.dp),
-                        bottomEnd = CornerSize(0),
-                        bottomStart = CornerSize(0)
-                    ), color = Color.White
-                )
-                .padding(10.dp)
-                .fillMaxSize()
-            ){
+            Box(
+                modifier = Modifier
+                    .background(
+                        shape = RoundedCornerShape(
+                            topStart = CornerSize(25.dp),
+                            topEnd = CornerSize(25.dp),
+                            bottomEnd = CornerSize(0),
+                            bottomStart = CornerSize(0)
+                        ), color = Color.White
+                    )
+                    .padding(10.dp)
+                    .fillMaxSize()
+            ) {
                 BankScreen3(navHostController)
 
             }
@@ -116,7 +118,8 @@ fun BankScreen3(navHostController: NavHostController) {
         Row(modifier = Modifier.padding(20.dp)) {
             Column {
                 Button(
-                    shape = RoundedCornerShape(5.dp), onClick = { navHostController.navigate(Screen.Bank4.route)},
+                    shape = RoundedCornerShape(5.dp),
+                    onClick = { navHostController.navigate(Screen.Bank4.route) },
                     colors = ButtonDefaults.buttonColors(
                         backgroundColor = backGround,
                     ),
@@ -236,33 +239,42 @@ fun BankScreen3(navHostController: NavHostController) {
         }
         Spacer(modifier = Modifier.height(30.dp))
 
-        Box(modifier = Modifier
-            .background(
-                shape = RoundedCornerShape(
-                    topStart = CornerSize(25.dp),
-                    topEnd = CornerSize(25.dp),
-                    bottomEnd = CornerSize(25.dp),
-                    bottomStart = CornerSize(25.dp)
-                ), color = backGround
+        Box(
+            modifier = Modifier
+                .background(
+                    shape = RoundedCornerShape(
+                        topStart = CornerSize(25.dp),
+                        topEnd = CornerSize(25.dp),
+                        bottomEnd = CornerSize(25.dp),
+                        bottomStart = CornerSize(25.dp)
+                    ), color = backGround
+                )
+                .height(300.dp)
+                .width(380.dp)
+                .padding(30.dp)
+        ) {
+            Text(
+                modifier = Modifier.align(Alignment.TopCenter),
+                text = "찾으실 금액의 버튼을\n하나만 눌러주십시오.",
+                fontSize = 20.sp
             )
-            .height(300.dp)
-            .width(380.dp)
-            .padding(30.dp)){
-            Text(modifier = Modifier.align(Alignment.TopCenter),text = "찾으실 금액의 버튼을\n하나만 눌러주십시오.", fontSize = 20.sp)
-            Text(modifier = Modifier.align(Alignment.Center),text = "ATM 인출한도",
-                fontSize = 25.sp, color = Color.Blue)
-            Text(modifier = Modifier.align(Alignment.BottomCenter), text = "전액 현금: 100만원\n전액 수표:500\n현금+수표:500", fontSize = 20.sp)
+            Text(
+                modifier = Modifier.align(Alignment.Center), text = "ATM 인출한도",
+                fontSize = 25.sp, color = Color.Blue
+            )
+            Text(
+                modifier = Modifier.align(Alignment.BottomCenter),
+                text = "전액 현금: 100만원\n전액 수표:500\n현금+수표:500",
+                fontSize = 20.sp
+            )
         }
     }
 }
 
 
-
-
-
 @Preview
 @Composable
-fun bankPreview3(){
+fun bankPreview3() {
     val navHostController = rememberNavController()
     Secondhome3(navHostController)
 }

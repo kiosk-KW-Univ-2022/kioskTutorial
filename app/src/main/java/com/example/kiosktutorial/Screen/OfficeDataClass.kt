@@ -2,11 +2,12 @@ package com.example.kiosktutorial.Screen
 
 import com.example.kiosktutorial.R
 
-data class Office (
+data class Office(
     val name: String,
     val content: String,
     val image: Int
 )
+
 object DataProvider {
     val officeList = listOf(
         Office("주민등록", "200원",R.drawable.document),

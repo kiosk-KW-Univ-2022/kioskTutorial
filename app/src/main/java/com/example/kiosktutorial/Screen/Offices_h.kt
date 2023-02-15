@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -114,6 +115,7 @@ fun officehome(navHostController: NavHostController) {
 }
 @Composable
 fun OfficeSelection(navHostController: NavHostController){
+
     Scaffold(
         backgroundColor = MaterialTheme.colors.background
     ) {
@@ -128,7 +130,7 @@ fun RecyclerViewContent(navHostController: NavHostController) {
     LazyColumn(contentPadding = PaddingValues(20.dp, 10.dp)) {
         items(
             items = offices,
-            itemContent = { OfficeListItem(it,navHostController) }
+            itemContent = { OfficeListItem(it, navHostController) }
         )
     }
 }
@@ -145,14 +147,14 @@ fun OfficeImage(office: Office) {
     )
 }
 @Composable
-fun OfficeListItem(office: Office,navHostController: NavHostController) {
+fun OfficeListItem(office: Office, navHostController: NavHostController) {
     Card(
         modifier = Modifier
+            .clip(RoundedCornerShape(16.dp))
             .fillMaxWidth()
             .padding(0.dp, 12.dp)
             .clickable { if (office.name == "주민등록") navHostController.navigate(Screen.Offices_resident.route) },
         elevation = 4.dp,
-        shape = RoundedCornerShape(corner = CornerSize(16.dp)),
         border = BorderStroke(1.dp, MaterialTheme.colors.primary)
     ) {
         Row {
@@ -162,8 +164,10 @@ fun OfficeListItem(office: Office,navHostController: NavHostController) {
                     .padding(8.dp)
                     .align(Alignment.CenterVertically)
             ) {
+
                 Text(text = office.name, style = Typography.h5)
                 Text(text = office.content, style = Typography.body1, modifier = Modifier.padding(0.dp,2.dp))
+
             }
 
         }

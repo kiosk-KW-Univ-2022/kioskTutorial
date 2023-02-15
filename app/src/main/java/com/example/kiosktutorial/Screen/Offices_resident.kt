@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -137,11 +138,12 @@ fun RecyclerViewContent2(navHostController: NavHostController) {
 fun OfficeListItem2(office: Office,navHostController: NavHostController) {
     Card(
         modifier = Modifier
+
             .fillMaxWidth()
             .padding(0.dp, 12.dp)
             .clickable { if (office.name == "주민등록표(초본)") navHostController.navigate(Screen.Offices_resident_1.route) },
+
         elevation = 4.dp,
-        shape = RoundedCornerShape(corner = CornerSize(16.dp)),
         border = BorderStroke(1.dp, MaterialTheme.colors.primary)
     ) {
         Row {

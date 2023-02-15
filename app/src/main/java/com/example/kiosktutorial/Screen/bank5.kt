@@ -44,7 +44,7 @@ fun Secondhome5(navHostController: NavHostController) {
                 .padding(30.dp)
         ) {
             val paintD = painterResource(R.drawable._1_kt_wordmark__standard__01)
-            Row(){
+            Row() {
                 Image(
                     painter = paintD,
                     contentDescription = "아이콘",
@@ -55,10 +55,11 @@ fun Secondhome5(navHostController: NavHostController) {
                         .width(50.dp)
 
                 )
-                Box(modifier = Modifier.height(70.dp)
-                ){
+                Box(
+                    modifier = Modifier.height(70.dp)
+                ) {
                     Text(
-                        text= " 은행",
+                        text = " 은행",
                         modifier = Modifier
                             .fillMaxWidth(),
                         fontSize = 30.sp,
@@ -86,18 +87,19 @@ fun Secondhome5(navHostController: NavHostController) {
                 .fillMaxSize()
                 .background(backGround)
         ) {
-            Box(modifier = Modifier
-                .background(
-                    shape = RoundedCornerShape(
-                        topStart = CornerSize(25.dp),
-                        topEnd = CornerSize(25.dp),
-                        bottomEnd = CornerSize(0),
-                        bottomStart = CornerSize(0)
-                    ), color = Color.White
-                )
-                .padding(10.dp)
-                .fillMaxSize()
-            ){
+            Box(
+                modifier = Modifier
+                    .background(
+                        shape = RoundedCornerShape(
+                            topStart = CornerSize(25.dp),
+                            topEnd = CornerSize(25.dp),
+                            bottomEnd = CornerSize(0),
+                            bottomStart = CornerSize(0)
+                        ), color = Color.White
+                    )
+                    .padding(10.dp)
+                    .fillMaxSize()
+            ) {
                 BankScreen5(navHostController)
             }
         }
@@ -114,30 +116,43 @@ fun BankScreen5(navHostController: NavHostController) {
                 .fillMaxWidth()
                 .height(50.dp)
                 .padding(3.dp)
-        ){
-            Text(fontWeight = FontWeight.Bold,
-                text = "\t\t명세표를 받으시겠습니까?", fontSize = 25.sp)
+        ) {
+            Text(
+                fontWeight = FontWeight.Bold,
+                text = "\t\t명세표를 받으시겠습니까?", fontSize = 25.sp
+            )
         }
         Spacer(modifier = Modifier.height(10.dp))
-        Box(modifier = Modifier
-            .background(
-                shape = RoundedCornerShape(
-                    topStart = CornerSize(25.dp),
-                    topEnd = CornerSize(25.dp),
-                    bottomEnd = CornerSize(25.dp),
-                    bottomStart = CornerSize(25.dp)
-                ), color = Color.LightGray
-            )
-            .height(300.dp)
-            .width(380.dp)
-            .padding(30.dp)){
-            Text(modifier = Modifier.align(Alignment.TopCenter),
+        Box(
+            modifier = Modifier
+                .background(
+                    shape = RoundedCornerShape(
+                        topStart = CornerSize(25.dp),
+                        topEnd = CornerSize(25.dp),
+                        bottomEnd = CornerSize(25.dp),
+                        bottomStart = CornerSize(25.dp)
+                    ), color = Color.LightGray
+                )
+                .height(300.dp)
+                .width(380.dp)
+                .padding(30.dp)
+        ) {
+            Text(
+                modifier = Modifier.align(Alignment.TopCenter),
                 fontWeight = FontWeight.Bold,
-                color= Color.Blue,
-                text = "찾으시는 금액의 내용입니다", fontSize = 25.sp)
-            Text(modifier = Modifier.align(Alignment.Center),text = "현금:\t\t\t\t\t 5만원\n수표:\t\t\t\t\t 0만원",
-                fontSize = 25.sp)
-            Text(modifier = Modifier.align(Alignment.BottomCenter), text = "합계금액:\t\t\t\t\t 5만원", fontSize = 25.sp)
+                color = Color.Blue,
+                text = "찾으시는 금액의 내용입니다", fontSize = 25.sp
+            )
+            Text(
+                modifier = Modifier.align(Alignment.Center),
+                text = "현금:\t\t\t\t\t 5만원\n수표:\t\t\t\t\t 0만원",
+                fontSize = 25.sp
+            )
+            Text(
+                modifier = Modifier.align(Alignment.BottomCenter),
+                text = "합계금액:\t\t\t\t\t 5만원",
+                fontSize = 25.sp
+            )
 
 
         }
@@ -162,7 +177,7 @@ fun BankScreen5(navHostController: NavHostController) {
                 .height(80.dp)
                 .shadow(20.dp, shape = RectangleShape, clip = true),
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.Yellow),
-                onClick = {navHostController.navigate(Screen.Bank5_1.route)  }) {
+                onClick = { navHostController.navigate(Screen.Bank5_1.route) }) {
                 Text(
                     text = "예",
                     fontSize = 30.sp
@@ -175,7 +190,7 @@ fun BankScreen5(navHostController: NavHostController) {
 
 @Preview
 @Composable
-fun bankPreview5(){
+fun bankPreview5() {
     val navHostController = rememberNavController()
     Secondhome5(navHostController)
 }

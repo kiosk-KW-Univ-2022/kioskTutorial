@@ -50,7 +50,7 @@ fun Secondhome5_1(navHostController: NavHostController) {
                 .padding(30.dp)
         ) {
             val paintD = painterResource(R.drawable._1_kt_wordmark__standard__01)
-            Row(){
+            Row() {
                 Image(
                     painter = paintD,
                     contentDescription = "아이콘",
@@ -61,10 +61,11 @@ fun Secondhome5_1(navHostController: NavHostController) {
                         .width(50.dp)
 
                 )
-                Box(modifier = Modifier.height(70.dp)
-                ){
+                Box(
+                    modifier = Modifier.height(70.dp)
+                ) {
                     Text(
-                        text= " 은행",
+                        text = " 은행",
                         modifier = Modifier
                             .fillMaxWidth(),
                         fontSize = 30.sp,
@@ -92,18 +93,19 @@ fun Secondhome5_1(navHostController: NavHostController) {
                 .fillMaxSize()
                 .background(backGround)
         ) {
-            Box(modifier = Modifier
-                .background(
-                    shape = RoundedCornerShape(
-                        topStart = CornerSize(25.dp),
-                        topEnd = CornerSize(25.dp),
-                        bottomEnd = CornerSize(0),
-                        bottomStart = CornerSize(0)
-                    ), color = Color.White
-                )
-                .padding(10.dp)
-                .fillMaxSize()
-            ){
+            Box(
+                modifier = Modifier
+                    .background(
+                        shape = RoundedCornerShape(
+                            topStart = CornerSize(25.dp),
+                            topEnd = CornerSize(25.dp),
+                            bottomEnd = CornerSize(0),
+                            bottomStart = CornerSize(0)
+                        ), color = Color.White
+                    )
+                    .padding(10.dp)
+                    .fillMaxSize()
+            ) {
                 BankScreen5_1(navHostController)
             }
         }
@@ -115,25 +117,29 @@ fun BankScreen5_1(navHostController: NavHostController) {
     Column {
         Spacer(modifier = Modifier.height(10.dp))
 
-        Box(modifier = Modifier
-            .background(
-                shape = RoundedCornerShape(
-                    topStart = CornerSize(25.dp),
-                    topEnd = CornerSize(25.dp),
-                    bottomEnd = CornerSize(25.dp),
-                    bottomStart = CornerSize(25.dp)
-                ), color = Color.LightGray
+        Box(
+            modifier = Modifier
+                .background(
+                    shape = RoundedCornerShape(
+                        topStart = CornerSize(25.dp),
+                        topEnd = CornerSize(25.dp),
+                        bottomEnd = CornerSize(25.dp),
+                        bottomStart = CornerSize(25.dp)
+                    ), color = Color.LightGray
+                )
+                .height(130.dp)
+                .width(380.dp)
+                .padding(30.dp)
+        ) {
+            Text(
+                modifier = Modifier.align(Alignment.Center), text = "카드와 명세표를 받으십시오",
+                fontSize = 20.sp, fontWeight = FontWeight.Bold
             )
-            .height(130.dp)
-            .width(380.dp)
-            .padding(30.dp)){
-            Text(modifier = Modifier.align(Alignment.Center),text = "카드와 명세표를 받으십시오",
-                fontSize = 20.sp, fontWeight = FontWeight.Bold)
         }
-        Box(modifier = Modifier.height(200.dp)){
+        Box(modifier = Modifier.height(200.dp)) {
             val painterd = painterResource(id = R.drawable.card)
             Image(
-                modifier =Modifier
+                modifier = Modifier
                     .fillMaxSize(),
                 painter = painterd,
                 contentDescription = "card",
@@ -158,7 +164,7 @@ fun BankScreen5_1(navHostController: NavHostController) {
 
 @Preview
 @Composable
-fun bankPreview5_1(){
+fun bankPreview5_1() {
     val navHostController = rememberNavController()
     Secondhome5_1(navHostController)
 }
