@@ -14,7 +14,7 @@ object HomeDataProvider {
         Kioskicon("햄버거 키오스크", R.drawable.burger, Screen.HamburgerHome.route),
         Kioskicon("병원 키오스크", R.drawable.hospital, Screen.KioskHospital.route),
         Kioskicon("기차 키오스크", R.drawable.train, Screen.KioskTrain.route),
-        Kioskicon("무인발권기 키오스크", R.drawable.selfservice, ""),
-        Kioskicon("관공서 키오스크", R.drawable.office, ""),
+        Kioskicon("관공서 키오스크", R.drawable.office, Screen.Offices_h.route),
+        Kioskicon("은행 키오스크", R.drawable.bank, Screen.Bank.route),
     )
 }

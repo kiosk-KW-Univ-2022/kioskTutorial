@@ -231,7 +231,7 @@ fun InputNumber3(navHostController: NavHostController)
                     .shadow(20.dp, shape = RectangleShape, clip = true)
                     .align(Alignment.CenterHorizontally),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.Yellow),
-                    onClick = { navHostController.navigate(Screen.DoneApp.route) }) {
+                    onClick = { navHostController.navigate("${Screen.DoneApp.route}/${Screen.Home.route}") }) {
                     Text(
                         text = "확인",
                         fontSize = 30.sp

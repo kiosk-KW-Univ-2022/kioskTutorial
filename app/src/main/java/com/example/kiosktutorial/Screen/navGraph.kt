@@ -117,9 +117,6 @@ fun SetupNavGraph(navController: NavHostController) {
                 route = backStackEntry.arguments?.getString("move") ?: "${Screen.CafeOrder.route}"
             )
         }
-        composable(route = Screen.OfficeHome.route) {
-            ResidentSelection()
-        }
         composable(Screen.Bank.route)
         {
             Secondhome2(navController)
