@@ -30,7 +30,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 
 
-//TODO 삭제 정정 눌렀을때 *모양이 -로 바뀌도록
+
 @Composable
 fun InputNumber3(navHostController: NavHostController)
 {
@@ -227,14 +227,14 @@ fun InputNumber3(navHostController: NavHostController)
             }
                 Button(modifier = Modifier
                     .width(90.dp)
-                    .height(80.dp)
+                    .height(90.dp)
                     .shadow(20.dp, shape = RectangleShape, clip = true)
                     .align(Alignment.CenterHorizontally),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.Yellow),
                     onClick = { navHostController.navigate("${Screen.DoneApp.route}/${Screen.Home.route}") }) {
                     Text(
                         text = "확인",
-                        fontSize = 30.sp
+                        fontSize = 25.sp
                     )
                 }
         }

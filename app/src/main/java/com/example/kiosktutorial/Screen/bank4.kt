@@ -133,12 +133,12 @@ fun BankScreen4(navHostController: NavHostController) {
             )
             Text(
                 modifier = Modifier.align(Alignment.Center),
-                text = "현금:\t\t\t\t\t 5만원\n수표:\t\t\t\t\t 0만원",
+                text = "현금:\t\t\t\t\t 1만원\n수표:\t\t\t\t\t 0만원",
                 fontSize = 25.sp
             )
             Text(
                 modifier = Modifier.align(Alignment.BottomCenter),
-                text = "합계금액:\t\t\t\t\t 5만원",
+                text = "합계금액:\t\t\t\t\t 1만원",
                 fontSize = 25.sp
             )
 
@@ -153,7 +153,7 @@ fun BankScreen4(navHostController: NavHostController) {
             onClick = { navHostController.navigate(Screen.Bank5.route) }) {
             Text(
                 text = "확인",
-                fontSize = 30.sp
+                fontSize = 25.sp
             )
         }
     }

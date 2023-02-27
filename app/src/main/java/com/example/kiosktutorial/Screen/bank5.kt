@@ -141,16 +141,16 @@ fun BankScreen5(navHostController: NavHostController) {
                 modifier = Modifier.align(Alignment.TopCenter),
                 fontWeight = FontWeight.Bold,
                 color = Color.Blue,
-                text = "찾으시는 금액의 내용입니다", fontSize = 25.sp
+                text = "찾으시는 금액의 내용입니다", fontSize = 20.sp
             )
             Text(
                 modifier = Modifier.align(Alignment.Center),
-                text = "현금:\t\t\t\t\t 5만원\n수표:\t\t\t\t\t 0만원",
+                text = "현금:\t\t\t\t\t 1만원\n수표:\t\t\t\t\t 0만원",
                 fontSize = 25.sp
             )
             Text(
                 modifier = Modifier.align(Alignment.BottomCenter),
-                text = "합계금액:\t\t\t\t\t 5만원",
+                text = "합계금액:\t\t\t\t\t 1만원",
                 fontSize = 25.sp
             )
 
@@ -168,10 +168,10 @@ fun BankScreen5(navHostController: NavHostController) {
                 onClick = { /*다음페이지로 이동*/ }) {
                 Text(
                     text = "아니오",
-                    fontSize = 30.sp
+                    fontSize = 20.sp
                 )
             }
-            Spacer(modifier = Modifier.width(100.dp))
+            Spacer(modifier = Modifier.width(70.dp))
             Button(modifier = Modifier
                 .width(120.dp)
                 .height(80.dp)
@@ -180,7 +180,7 @@ fun BankScreen5(navHostController: NavHostController) {
                 onClick = { navHostController.navigate(Screen.Bank5_1.route) }) {
                 Text(
                     text = "예",
-                    fontSize = 30.sp
+                    fontSize = 20.sp
                 )
             }
         }

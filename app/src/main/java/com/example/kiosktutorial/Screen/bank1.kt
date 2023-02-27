@@ -26,7 +26,7 @@ import com.example.kiosktutorial.R
 import com.example.kiosktutorial.ui.theme.KioskTutorialTheme
 import com.example.kiosktutorial.ui.theme.backGround
 
-//TODO nav연결, topappbar로 변경, 다음페이지는 결제페이지
+//TODO topappbar로 변경, 다음페이지는 결제페이지
 
 @Composable
 fun Secondhome1(navHostController: NavHostController) {
@@ -121,12 +121,12 @@ fun BankScreen2(navHostController: NavHostController) {
                     modifier = Modifier
                         .wrapContentSize()
                         .height(70.dp)
-                        .width(110.dp)
+                        .width(100.dp)
                 ) {
                     Text(
                         "카드출금",
                         modifier = Modifier,
-                        fontSize = 18.sp,
+                        fontSize = 13.sp,
                         fontWeight = FontWeight.Bold
                     )
 
@@ -139,12 +139,12 @@ fun BankScreen2(navHostController: NavHostController) {
                     modifier = Modifier
                         .wrapContentSize()
                         .height(70.dp)
-                        .width(110.dp)
+                        .width(100.dp)
                 ) {
                     Text(
                         "통장출금",
                         modifier = Modifier,
-                        fontSize = 18.sp,
+                        fontSize = 13.sp,
                         fontWeight = FontWeight.Bold
                     )
                 }
@@ -156,12 +156,12 @@ fun BankScreen2(navHostController: NavHostController) {
                     modifier = Modifier
                         .wrapContentSize()
                         .height(70.dp)
-                        .width(110.dp)
+                        .width(100.dp)
                 ) {
                     Text(
                         "무통장/\n무카드출금",
                         modifier = Modifier,
-                        fontSize = 18.sp,
+                        fontSize = 12.sp,
                         fontWeight = FontWeight.Bold
                     )
                 }
