@@ -422,7 +422,7 @@ fun CafeKiosk(navHostController: NavHostController, number: Int = 0, fee: Int = 
                         }) {
                         Text(text = "주문 취소", fontWeight = FontWeight.Bold)
                     }
-                    Box(modifier = Modifier.width(20.dp)) {
+                    Box(modifier = Modifier.width(40.dp)) {
 
                     }
                     Button(modifier = Modifier

@@ -158,7 +158,7 @@ fun HambergurKiosk(navHostController: NavHostController) {
                         Text(
                             text = "사이드",
                             color = if (Category == 3) Color.Black else Color.White,
-                            fontSize = 15.sp,
+                            fontSize = 10.sp,
                             textAlign = TextAlign.Center,
                             fontWeight = FontWeight.Bold
                         )
@@ -310,7 +310,7 @@ fun HambergurKiosk(navHostController: NavHostController) {
                         }) {
                         Text(text = "주문 취소", fontWeight = FontWeight.Bold)
                     }
-                    Box(modifier = Modifier.width(20.dp)) {
+                    Box(modifier = Modifier.width(40.dp)) {
 
                     }
                     Button(modifier = Modifier
