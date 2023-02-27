@@ -1,6 +1,7 @@
 package com.example.kiosktutorial.Screen
 
 import android.os.CountDownTimer
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
@@ -22,19 +23,18 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.kiosktutorial.ui.theme.backGround
+import kotlinx.coroutines.delay
+import kotlin.concurrent.timer
 
 
 @Composable
 fun Paywindow2(navHostController: NavHostController, route: String) {
-    val mCountDown: CountDownTimer = object : CountDownTimer(2500, 1000) {
-        override fun onTick(millisUntilFinished: Long) {
-        }
-
-        override fun onFinish() {
-            //countdown finish
-            navHostController.navigate(route)
-        }
+    LaunchedEffect(key1 = true) {
+        delay(2500)
+        navHostController.popBackStack()
+        navHostController.navigate(Screen.Home.route)
     }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -70,7 +70,6 @@ fun Paywindow2(navHostController: NavHostController, route: String) {
         }
 
         Box(modifier = Modifier.padding(20.dp)) {
-            mCountDown.start()
             AnimationGaugeBar2(navHostController, 100, backGround, route)
         }
 
@@ -116,9 +115,6 @@ fun AnimationGaugeBar2(
                 .padding(8.dp)
         ) {
             Text(text = curValue.value.toString())
-            if (curValue.value == 100) {
-                navHostController.navigate(route)
-            }
         }
     }
 }
