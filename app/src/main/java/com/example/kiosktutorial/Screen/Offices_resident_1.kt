@@ -311,7 +311,7 @@ fun InputNumber2(navHostController: NavHostController)
                     )
                 }
             }
-            if(number== 4)
+            if(number== 13)
             {
                 Button(modifier = Modifier
                     .width(80.dp)
