@@ -60,7 +60,7 @@ fun Paywindow(navHostController: NavHostController, route: String) {
         Spacer(modifier = Modifier.height(10.dp))
         Text(
             modifier = Modifier.fillMaxWidth(),
-            text = "신용카드를 투입구에 끝까지 넣어주세요. ",
+            text = "신용카드를 투입구에 끝까지 넣어주세요.",
             fontWeight = FontWeight.Bold,
             fontSize = 20.sp,
             textAlign = TextAlign.Center

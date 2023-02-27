@@ -141,7 +141,7 @@ fun OfficeSelection4(navHostController: NavHostController){
         }
         Spacer(modifier = Modifier.height(20.dp))
         Row() {
-            Spacer(modifier = Modifier.width(15.dp))
+            Spacer(modifier = Modifier.width(5.dp))
             Button(modifier = Modifier
                 .width(130.dp)
                 .height(80.dp)
@@ -151,7 +151,7 @@ fun OfficeSelection4(navHostController: NavHostController){
                 Text(
                     text = "일반",
                     fontWeight = FontWeight.Bold,
-                    fontSize = 25.sp
+                    fontSize = 20.sp
                 )
             }
             Spacer(modifier = Modifier.width(80.dp))
@@ -164,7 +164,7 @@ fun OfficeSelection4(navHostController: NavHostController){
                 Text(
                     text = "면제신청",
                     fontWeight = FontWeight.Bold,
-                    fontSize = 25.sp
+                    fontSize = 20.sp
                 )
             }
         }

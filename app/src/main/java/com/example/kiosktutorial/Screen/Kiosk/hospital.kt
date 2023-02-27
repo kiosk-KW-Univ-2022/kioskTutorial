@@ -175,17 +175,19 @@ fun HospitalMain(
                     Button(
                         modifier = Modifier
                             .padding(5.dp)
-                            .weight(1f),
+                            .weight(1f)
+                            .height(57.dp),
                         onClick = {
                             viewModel.clearId()
                         }
                     ){
-                        Text("정정", fontSize = 30.sp)
+                        Text("정정", fontSize = 25.sp)
                     }
                     Button(
                         modifier = Modifier
                             .padding(5.dp)
-                            .weight(1f),
+                            .weight(1f)
+                            .height(57.dp),
                         onClick = {
                             viewModel.addId("0")
                         }
@@ -197,7 +199,8 @@ fun HospitalMain(
                     Button(
                         modifier = Modifier
                             .padding(5.dp)
-                            .weight(1f),
+                            .weight(1f)
+                            .height(57.dp),
                         onClick = {
                             if(viewModel.id.length != 6){
                                 toast?.cancel()
@@ -209,7 +212,7 @@ fun HospitalMain(
                             navHostController.navigate(Screen.KioskHospitalCheck.route)
                         }
                     ){
-                        Text("확인", fontSize = 30.sp)
+                        Text("확인", fontSize = 25.sp)
                     }
 
                 }
@@ -334,7 +337,7 @@ fun CardPayingSelectionButton(viewModel: HospitalVModel){
         fontSize = 20.sp,
         textAlign = TextAlign.Center,
         modifier = Modifier
-            .padding(5.dp)
+            .padding(5.dp,0.dp)
             .fillMaxWidth()
 
     )
@@ -349,7 +352,6 @@ fun CardPayingSelectionButton(viewModel: HospitalVModel){
             for(k:Int in 0..1){
                 Button(
                     modifier = Modifier
-                        .padding(5.dp)
                         .weight(1f)
                         //.background(Color(0xfffbe872))
                         .padding(5.dp),
@@ -389,7 +391,7 @@ fun ReCheck(navHostController: NavHostController, viewModel:HospitalVModel){
                     .fillMaxWidth(0.9f)
                     .clip(RoundedCornerShape(5.dp))
                     .background(Color(0xffffffff))
-                    .padding(10.dp, 20.dp)
+                    .padding(10.dp, 10.dp)
                     .clickable(false){},
                 horizontalAlignment = Alignment.CenterHorizontally
 

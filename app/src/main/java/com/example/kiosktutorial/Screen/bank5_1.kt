@@ -155,7 +155,7 @@ fun BankScreen5_1(navHostController: NavHostController) {
             onClick = { navHostController.navigate("${Screen.DoneApp.route}/${Screen.Home.route}")  }) {
             Text(
                 text = "확인",
-                fontSize = 30.sp
+                fontSize = 20.sp
             )
         }
     }

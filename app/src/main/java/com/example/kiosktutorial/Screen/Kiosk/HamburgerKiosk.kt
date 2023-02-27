@@ -73,7 +73,7 @@ fun hamburgerMenuUI(hamburgerMenu: HamburgerMenu) {
 @Composable
 fun HambergurKiosk(navHostController: NavHostController) {
     var CafeColor = backGround
-    var (Category, SetCategory) = remember { mutableStateOf(0) }
+    var (Category, SetCategory) = remember { mutableStateOf(3) }
     var (order, Setorder) = remember { mutableStateOf(false) }
     var (currentnumber, Setcurrentnumber) = remember { mutableStateOf(0) }
     var (orderfee, Setorderfee) = remember { mutableStateOf(0) }
@@ -101,28 +101,26 @@ fun HambergurKiosk(navHostController: NavHostController) {
                     .background(color = CafeColor)
             ) {
                 Row(
-                    horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    Box(modifier = Modifier.width(10.dp)) {
-
-                    }
                     Button(
+                        modifier = Modifier.width(80.dp)
+                            .height(50.dp),
                         colors = if (Category == 0) ButtonDefaults.buttonColors(Color.White)
                         else ButtonDefaults.buttonColors(CafeColor),
                         onClick = { SetCategory(0) }
                     ) {
                         Text(
+                            modifier = Modifier.fillMaxWidth(),
                             text = "단품",
                             color = if (Category == 0) Color.Black else Color.White,
-                            fontSize = 25.sp,
+                            fontSize = 15.sp,
                             textAlign = TextAlign.Center,
                             fontWeight = FontWeight.Bold
                         )
                     }
-                    Box(modifier = Modifier.width(10.dp)) {
-
-                    }
                     Button(
+                        modifier = Modifier.width(80.dp)
+                            .height(50.dp),
                         colors = if (Category == 1) ButtonDefaults.buttonColors(Color.White)
                         else ButtonDefaults.buttonColors(CafeColor),
                         onClick = { SetCategory(1) }
@@ -130,15 +128,14 @@ fun HambergurKiosk(navHostController: NavHostController) {
                         Text(
                             text = "세트",
                             color = if (Category == 1) Color.Black else Color.White,
-                            fontSize = 25.sp,
+                            fontSize = 15.sp,
                             textAlign = TextAlign.Center,
                             fontWeight = FontWeight.Bold
                         )
                     }
-                    Box(modifier = Modifier.width(10.dp)) {
-
-                    }
                     Button(
+                        modifier = Modifier.width(80.dp)
+                            .height(50.dp),
                         colors = if (Category == 2) ButtonDefaults.buttonColors(Color.White)
                         else ButtonDefaults.buttonColors(CafeColor),
                         onClick = { SetCategory(2) }
@@ -146,15 +143,14 @@ fun HambergurKiosk(navHostController: NavHostController) {
                         Text(
                             text = "음료",
                             color = if (Category == 2) Color.Black else Color.White,
-                            fontSize = 25.sp,
+                            fontSize = 15.sp,
                             textAlign = TextAlign.Center,
                             fontWeight = FontWeight.Bold
                         )
                     }
-                    Box(modifier = Modifier.width(10.dp)) {
-
-                    }
                     Button(
+                        modifier = Modifier.width(80.dp)
+                            .height(50.dp),
                         colors = if (Category == 3) ButtonDefaults.buttonColors(Color.White)
                         else ButtonDefaults.buttonColors(CafeColor),
                         onClick = { SetCategory(3) }
@@ -162,7 +158,7 @@ fun HambergurKiosk(navHostController: NavHostController) {
                         Text(
                             text = "사이드",
                             color = if (Category == 3) Color.Black else Color.White,
-                            fontSize = 25.sp,
+                            fontSize = 10.sp,
                             textAlign = TextAlign.Center,
                             fontWeight = FontWeight.Bold
                         )
@@ -302,11 +298,8 @@ fun HambergurKiosk(navHostController: NavHostController) {
                         .fillMaxWidth()
                         .height(70.dp)
                         .background(color = Color.LightGray)
-                        .padding(3.dp)
+                        .padding(10.dp)
                 ) {
-                    Box(modifier = Modifier.width(40.dp)) {
-
-                    }
                     Button(modifier = Modifier
                         .width(150.dp)
                         .fillMaxHeight(),
@@ -317,7 +310,7 @@ fun HambergurKiosk(navHostController: NavHostController) {
                         }) {
                         Text(text = "주문 취소", fontWeight = FontWeight.Bold)
                     }
-                    Box(modifier = Modifier.width(20.dp)) {
+                    Box(modifier = Modifier.width(40.dp)) {
 
                     }
                     Button(modifier = Modifier

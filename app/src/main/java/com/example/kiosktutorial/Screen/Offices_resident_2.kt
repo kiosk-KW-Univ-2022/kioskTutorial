@@ -72,7 +72,7 @@ fun fingerpoint(navHostController: NavHostController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(alignment = Alignment.Center),
-                fontSize = 35.sp,
+                fontSize = 27.sp,
                 color = Color.White,
                 fontWeight = FontWeight.Bold
             )
@@ -86,7 +86,7 @@ fun fingerpoint(navHostController: NavHostController) {
             Text(
                 modifier = Modifier.align(Alignment.CenterStart),
                 text = "\t[왼손으로 전산지문을 등록하신 분은 \t왼손 엄지손가락을 대어 \t주십시오]",
-                fontSize = 25.sp,
+                fontSize = 20.sp,
                 color = Color.Black
             )
         }
@@ -125,7 +125,7 @@ fun fingerpoint(navHostController: NavHostController) {
             }
         Spacer(modifier = Modifier.height(50.dp))
         Row() {
-            Spacer(modifier = Modifier.width(15.dp))
+            Spacer(modifier = Modifier.width(5.dp))
             Button(modifier = Modifier
                 .width(120.dp)
                 .height(80.dp)
