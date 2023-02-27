@@ -40,8 +40,7 @@ import java.time.format.TextStyle
 fun CafeOrder(navHostController: NavHostController) {
     LaunchedEffect(key1 = true) {
         delay(3000)
-        navHostController.popBackStack()
-        navHostController.navigate(Screen.Home.route)
+        navHostController.popBackStack(Screen.Home.route, false)
     }
     Box(
         modifier = Modifier

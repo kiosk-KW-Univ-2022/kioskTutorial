@@ -40,7 +40,6 @@ import kotlinx.coroutines.launch
 fun Paywindow(navHostController: NavHostController, route: String) {
     LaunchedEffect(key1 = true) {
         delay(2500)
-        navHostController.popBackStack()
         navHostController.navigate(route)
     }
     Column(

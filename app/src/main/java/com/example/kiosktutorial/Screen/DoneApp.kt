@@ -31,8 +31,7 @@ import kotlin.concurrent.timer
 fun Paywindow2(navHostController: NavHostController, route: String) {
     LaunchedEffect(key1 = true) {
         delay(2500)
-        navHostController.popBackStack()
-        navHostController.navigate(Screen.Home.route)
+        navHostController.popBackStack(Screen.Home.route, false)
     }
 
     Column(
