@@ -410,11 +410,8 @@ fun CafeKiosk(navHostController: NavHostController, number: Int = 0, fee: Int = 
                         .fillMaxWidth()
                         .height(70.dp)
                         .background(color = Color.LightGray)
-                        .padding(3.dp)
+                        .padding(10.dp)
                 ) {
-                    Box(modifier = Modifier.width(40.dp)) {
-
-                    }
                     Button(modifier = Modifier
                         .width(150.dp)
                         .fillMaxHeight(),
