@@ -1,10 +1,7 @@
 package com.example.kiosktutorial.Screen.Kiosk
 
 import android.widget.Toast
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -164,14 +161,17 @@ fun HospitalMain(
                             ){
                                 Text(
                                     text = "$code",
-                                    fontSize = 30.sp
+                                    fontSize = 25.sp
                                 )
                             }
                         }
                     }
                 }
 
-                Row(modifier = Modifier.fillMaxWidth()){
+                Row(modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+
+                ){
                     Button(
                         modifier = Modifier
                             .padding(5.dp)
@@ -192,7 +192,7 @@ fun HospitalMain(
                             viewModel.addId("0")
                         }
                     ){
-                        Text("0", fontSize = 30.sp)
+                        Text("0", fontSize = 25.sp)
                     }
                     val context = LocalContext.current
                     var toast: Toast? = null
@@ -235,9 +235,11 @@ fun HospitalCheck(
         modifier = Modifier
             .fillMaxSize()
     ){
+        val scrollState = rememberScrollState();
         Column(
             modifier = Modifier
-                .fillMaxSize(),
+                .fillMaxSize()
+                .verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally
         ){
             Title()

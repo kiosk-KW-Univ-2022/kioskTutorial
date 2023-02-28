@@ -27,13 +27,13 @@ import com.example.kiosktutorial.R
 
 
 @Composable
-fun CafeMainScreen(navHostController: NavHostController) {
+fun CafeMainScreen(navHostController: NavHostController? = null) {
     var paintD = painterResource(id = R.drawable.cafeimg)
     Column(modifier = Modifier
         .fillMaxWidth()
 
         .clickable {
-            navHostController.navigate(Screen.CafeKiosk.route)
+            navHostController?.navigate(Screen.CafeKiosk.route)
         }
         .paint(painterResource(id = R.drawable.cafeimg), contentScale = ContentScale.Crop)
     ) {

@@ -37,10 +37,7 @@ fun Home(navHostController: NavHostController) {
                 title = "사용 지침서",
                 icon = R.drawable.book,
             ) {
-                toast?.cancel()
-                toast = Toast.makeText(context, "현재 미구현된 항목입니다.", Toast.LENGTH_SHORT)
-                toast?.show()
-                //navHostController.navigate(Screen.KioskTutorialSelection.route)
+                navHostController.navigate(Screen.KioskTutorialSelection.route)
             }
 
             Spacer(
