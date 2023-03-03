@@ -1,10 +1,7 @@
 package com.example.kiosktutorial.Screen.Kiosk
 
 import android.widget.Toast
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -164,40 +161,46 @@ fun HospitalMain(
                             ){
                                 Text(
                                     text = "$code",
-                                    fontSize = 30.sp
+                                    fontSize = 25.sp
                                 )
                             }
                         }
                     }
                 }
 
-                Row(modifier = Modifier.fillMaxWidth()){
+                Row(modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+
+                ){
                     Button(
                         modifier = Modifier
                             .padding(5.dp)
-                            .weight(1f),
+                            .weight(1f)
+                            .height(57.dp),
                         onClick = {
                             viewModel.clearId()
                         }
                     ){
-                        Text("정정", fontSize = 30.sp)
+                        Text("정정", fontSize = 25.sp)
                     }
                     Button(
                         modifier = Modifier
                             .padding(5.dp)
-                            .weight(1f),
+                            .weight(1f)
+                            .height(57.dp),
                         onClick = {
                             viewModel.addId("0")
                         }
                     ){
-                        Text("0", fontSize = 30.sp)
+                        Text("0", fontSize = 25.sp)
                     }
                     val context = LocalContext.current
                     var toast: Toast? = null
                     Button(
                         modifier = Modifier
                             .padding(5.dp)
-                            .weight(1f),
+                            .weight(1f)
+                            .height(57.dp),
                         onClick = {
                             if(viewModel.id.length != 6){
                                 toast?.cancel()
@@ -209,7 +212,7 @@ fun HospitalMain(
                             navHostController.navigate(Screen.KioskHospitalCheck.route)
                         }
                     ){
-                        Text("확인", fontSize = 30.sp)
+                        Text("확인", fontSize = 25.sp)
                     }
 
                 }
@@ -232,9 +235,11 @@ fun HospitalCheck(
         modifier = Modifier
             .fillMaxSize()
     ){
+        val scrollState = rememberScrollState();
         Column(
             modifier = Modifier
-                .fillMaxSize(),
+                .fillMaxSize()
+                .verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally
         ){
             Title()
@@ -334,7 +339,7 @@ fun CardPayingSelectionButton(viewModel: HospitalVModel){
         fontSize = 20.sp,
         textAlign = TextAlign.Center,
         modifier = Modifier
-            .padding(5.dp)
+            .padding(5.dp,0.dp)
             .fillMaxWidth()
 
     )
@@ -349,7 +354,6 @@ fun CardPayingSelectionButton(viewModel: HospitalVModel){
             for(k:Int in 0..1){
                 Button(
                     modifier = Modifier
-                        .padding(5.dp)
                         .weight(1f)
                         //.background(Color(0xfffbe872))
                         .padding(5.dp),
@@ -389,7 +393,7 @@ fun ReCheck(navHostController: NavHostController, viewModel:HospitalVModel){
                     .fillMaxWidth(0.9f)
                     .clip(RoundedCornerShape(5.dp))
                     .background(Color(0xffffffff))
-                    .padding(10.dp, 20.dp)
+                    .padding(10.dp, 10.dp)
                     .clickable(false){},
                 horizontalAlignment = Alignment.CenterHorizontally
 

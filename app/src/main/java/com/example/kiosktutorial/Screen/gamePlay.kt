@@ -162,7 +162,7 @@ fun GamePlayScreen(navHostController: NavHostController, title: String) {
                     .background(Color(0x00000000))
             ) {
                 Row(
-                    Modifier.padding(40.dp, 30.dp)
+                    Modifier.padding(20.dp, 30.dp)
                 ) {
                     Button(
                         modifier = Modifier
@@ -216,7 +216,7 @@ fun GamePlayScreen(navHostController: NavHostController, title: String) {
                     .background(Color(0x00000000))
             ) {
                 Row(
-                    Modifier.padding(40.dp)
+                    Modifier.padding(20.dp)
                 ) {
                     Button(
                         modifier = Modifier

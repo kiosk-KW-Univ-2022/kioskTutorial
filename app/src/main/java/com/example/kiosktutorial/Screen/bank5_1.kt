@@ -152,10 +152,10 @@ fun BankScreen5_1(navHostController: NavHostController) {
             .height(80.dp)
             .shadow(20.dp, shape = RectangleShape, clip = true),
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.Yellow),
-            onClick = { navHostController.navigate(Screen.DoneApp.route)  }) {
+            onClick = { navHostController.navigate("${Screen.DoneApp.route}/${Screen.Home.route}")  }) {
             Text(
                 text = "확인",
-                fontSize = 30.sp
+                fontSize = 20.sp
             )
         }
     }

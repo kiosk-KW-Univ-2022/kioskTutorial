@@ -32,27 +32,27 @@ import com.example.kiosktutorial.ui.theme.Typography
 import com.example.kiosktutorial.ui.theme.backGround
 
 @Composable
-fun KioskHomeSelectionButton(navHostController: NavHostController) {
+fun KioskHomeSelectionButton(navHostController: NavHostController, bExercise: Boolean) {
     Scaffold(
         backgroundColor = MaterialTheme.colors.background
     ) {
-        RecyclerViewContent1(navHostController)
+        RecyclerViewContent1(navHostController, bExercise)
     }
 }
 
 @Composable
-fun RecyclerViewContent1(navHostController: NavHostController) {
+fun RecyclerViewContent1(navHostController: NavHostController, bExercise: Boolean) {
     val kiosks = remember { HomeDataProvider.kioskList }
     LazyColumn(contentPadding = PaddingValues(30.dp, 8.dp)) {
         items(
             items = kiosks,
-            itemContent = { KioskListItem(navHostController, it) }
+            itemContent = { KioskListItem(navHostController, it, bExercise) }
         )
     }
 }
 
 @Composable
-fun KioskListItem(navHostController: NavHostController, kiosk: Kioskicon) {
+fun KioskListItem(navHostController: NavHostController, kiosk: Kioskicon, bExercise: Boolean) {
     val context = LocalContext.current
     var toast: Toast? = null
     Column(
@@ -71,7 +71,10 @@ fun KioskListItem(navHostController: NavHostController, kiosk: Kioskicon) {
                         return@clickable
                     }
 
-                    navHostController.navigate((kiosk.route))
+                    if(bExercise)
+                        navHostController.navigate((kiosk.route))
+                    else
+                        navHostController.navigate("${Screen.KioskTutorialContainer.route}/${kiosk.route}")
                 }
                 .padding(5.dp)
         ) {
@@ -145,7 +148,7 @@ fun SecondHome(navHostController: NavHostController, bExercise: Boolean) {
                     .padding(10.dp)
                     .fillMaxSize()
             ) {
-                KioskHomeSelectionButton(navHostController)
+                KioskHomeSelectionButton(navHostController, bExercise)
             }
 
         }
@@ -153,7 +156,6 @@ fun SecondHome(navHostController: NavHostController, bExercise: Boolean) {
     }
 
 }
-
 
 @Composable
 fun KioskImage(kiosk: Kioskicon) {

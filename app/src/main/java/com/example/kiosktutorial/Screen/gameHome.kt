@@ -125,7 +125,7 @@ fun GameHomeScreen(navHostController: NavHostController) {
     ) {
         ActMainTitle(
             title = "키오스크 교육용 체험 앱",
-            subTitle = "아래의 메뉴에서 하고싶은 게임을 골라주세요."
+//            subTitle = "아래의 메뉴에서 하고싶은 게임을 골라주세요."
         )
 
         val context = LocalContext.current
@@ -133,21 +133,7 @@ fun GameHomeScreen(navHostController: NavHostController) {
 
         var toast: Toast? = null
 
-        // selection
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(
-                    shape = RoundedCornerShape(
-                        topStart = CornerSize(25.dp),
-                        topEnd = CornerSize(25.dp),
-                        bottomEnd = CornerSize(0),
-                        bottomStart = CornerSize(0),
-                    ),
-                    color = Color.White
-                )
-                .padding(all = 5.dp)
-        ) {
+        ActMainContent {
             GameSelectionButton("숫자 순서 맞추기", desc = "1부터 9까지의 순서에\n 맞추어 누르는 게임입니다.", func = {
                 navHostController.navigate(Screen.NumberGame.route)
 
@@ -156,7 +142,6 @@ fun GameHomeScreen(navHostController: NavHostController) {
             GameSelectionButton("글자 색 맞추기", desc = "글자안의 색상을 맞추는 게임입니다.", func = {
                 navHostController.navigate(Screen.TextGame.route)
             })
-
 
         }
 

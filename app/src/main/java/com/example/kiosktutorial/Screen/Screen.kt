@@ -7,6 +7,7 @@ sealed class Screen(val route: String) {
     object KioskExerciseSelection : Screen("kiosk_exercise_selection_screen")
     object KioskTutorial : Screen("kiosk_tutorial_screen")
     object KioskExercise : Screen("kiosk_exercise_screen")
+    object KioskTutorialContainer: Screen("kiosk_tutorial_container")
     object GameHome : Screen("game_home")
     object OfficeHome : Screen("office_home")
     object Bank : Screen("bank")
@@ -36,5 +37,6 @@ sealed class Screen(val route: String) {
 
     object KioskHospital: Screen("hospital-main")
     object KioskHospitalCheck: Screen("hospital-check")
+
 
 }

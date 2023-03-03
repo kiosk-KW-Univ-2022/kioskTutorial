@@ -176,7 +176,7 @@ fun BankScreen3(navHostController: NavHostController) {
                     )
                 }
             }
-            Spacer(modifier = Modifier.width(130.dp))
+            Spacer(modifier = Modifier.width(90.dp))
             // 오른쪽 버튼
             Column {
                 Button(

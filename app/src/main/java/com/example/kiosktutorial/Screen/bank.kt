@@ -161,7 +161,7 @@ fun BankScreen(navHostController: NavHostController) {
                     )
                 }
             }
-            Spacer(modifier = Modifier.width(100.dp))
+            Spacer(modifier = Modifier.width(60.dp))
             // 오른쪽 버튼
             Column {
                 Button(
@@ -237,7 +237,7 @@ fun BankScreen(navHostController: NavHostController) {
             )
             Text(
                 modifier = Modifier.align(Alignment.BottomCenter),
-                text = "눈이 편한 ATM\n\n",
+                text = "눈이 편한 ATM",
                 fontSize = 30.sp
             )
         }

@@ -9,10 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.kiosktutorial.R
-import com.example.kiosktutorial.Screen.Kiosk.HospitalCheck
-import com.example.kiosktutorial.Screen.Kiosk.HospitalMain
-import com.example.kiosktutorial.Screen.Kiosk.HospitalVModel
-import com.example.kiosktutorial.Screen.Kiosk.KioskTrain
+import com.example.kiosktutorial.Screen.Kiosk.*
 import kotlinx.coroutines.delay
 
 sealed class BackPress {
@@ -64,8 +61,17 @@ fun SetupNavGraph(navController: NavHostController) {
 
         }
 
+        // TODO: 다른 키오스크의 설명도 나오면 선택하도록 구성
         composable(route = Screen.KioskTutorialSelection.route) {
-            OfficeSelection(navController)
+            // SecondHome(navController, false)
+//        }
+//
+//        composable(route = "${Screen.KioskTutorialContainer.route}/{route}"){
+            backStackEntry ->
+            val view = KioskTutorialContainer()
+            view.navHostController = navController
+            view.route = backStackEntry.arguments?.getString("route") ?: Screen.CafeHome.route
+            view.View()
         }
 
         composable(route = Screen.KioskExerciseSelection.route) {
@@ -81,9 +87,6 @@ fun SetupNavGraph(navController: NavHostController) {
             Secondhome2(navController)
         }
 
-        composable(route = Screen.KioskExercise.route) {
-            KioskSelection(navController, true)
-        }
         composable(route = Screen.GameHome.route) {
             GameHomeScreen(navController)
         }
@@ -119,9 +122,6 @@ fun SetupNavGraph(navController: NavHostController) {
                 navHostController = navController,
                 route = backStackEntry.arguments?.getString("move") ?: "${Screen.CafeOrder.route}"
             )
-        }
-        composable(route = Screen.OfficeHome.route) {
-            ResidentSelection()
         }
         composable(Screen.Bank.route)
         {

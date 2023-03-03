@@ -2,6 +2,8 @@ package com.example.kiosktutorial.Screen
 
 import android.content.res.Configuration.*
 import android.os.CountDownTimer
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -11,9 +13,6 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,24 +28,20 @@ import androidx.navigation.compose.rememberNavController
 import com.example.kiosktutorial.R
 import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 import androidx.compose.foundation.lazy.items
+import androidx.compose.runtime.*
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.text.style.TextDecoration
 import com.example.kiosktutorial.ui.theme.backGround
+import kotlinx.coroutines.delay
 import java.time.format.TextStyle
 
 
 @Composable
 fun CafeOrder(navHostController: NavHostController) {
-    val mCountDown: CountDownTimer = object : CountDownTimer(3500, 1000) {
-        override fun onTick(millisUntilFinished: Long) {
-        }
-
-        override fun onFinish() {
-            //countdown finish
-            navHostController.popBackStack(Screen.Home.route, false)
-        }
+    LaunchedEffect(key1 = true) {
+        delay(3000)
+        navHostController.popBackStack(Screen.Home.route, false)
     }
-    mCountDown.start()
     Box(
         modifier = Modifier
             .fillMaxSize()

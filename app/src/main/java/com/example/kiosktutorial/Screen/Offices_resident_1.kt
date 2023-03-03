@@ -30,7 +30,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 
 
-//TODO 삭제 정정 눌렀을때 *모양이 -로 바뀌도록
+
 @Composable
 fun InputNumber2(navHostController: NavHostController)
 {
@@ -71,7 +71,7 @@ fun InputNumber2(navHostController: NavHostController)
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(150.dp)
+                    .height(120.dp)
                     .background(
                         shape = RoundedCornerShape(
                             topStart = CornerSize(25.dp),
@@ -125,15 +125,15 @@ fun InputNumber2(navHostController: NavHostController)
                 if(number>=2) Settext2("*") else Settext2("-")
                 if(number>=3) Settext3("*") else Settext3("-")
                 if(number>=4) Settext4("*") else Settext4("-")
-                if(number>=5) Settext5("*") else Settext4("-")
-                if(number>=6) Settext6("*") else Settext4("-")
-                if(number>=7) Settext7("*") else Settext4("-")
-                if(number>=8) Settext8("*") else Settext4("-")
-                if(number>=9) Settext9("*") else Settext4("-")
-                if(number>=10) Settext10("*") else Settext4("-")
-                if(number>=11) Settext11("*") else Settext4("-")
-                if(number>=12) Settext12("*") else Settext4("-")
-                if(number>=13) Settext13("*") else Settext4("-")
+                if(number>=5) Settext5("*") else Settext5("-")
+                if(number>=6) Settext6("*") else Settext6("-")
+                if(number>=7) Settext7("*") else Settext7("-")
+                if(number>=8) Settext8("*") else Settext8("-")
+                if(number>=9) Settext9("*") else Settext9("-")
+                if(number>=10) Settext10("*") else Settext10("-")
+                if(number>=11) Settext11("*") else Settext11("-")
+                if(number>=12) Settext12("*") else Settext12("-")
+                if(number>=13) Settext13("*") else Settext13("-")
                 Column(
                     Modifier
                         .padding(top = 30.dp)
@@ -160,33 +160,33 @@ fun InputNumber2(navHostController: NavHostController)
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Button(modifier = Modifier
-                    .width(90.dp)
-                    .height(90.dp)
+                    .width(80.dp)
+                    .height(80.dp)
                     .shadow(20.dp, shape = RectangleShape, clip = true),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
-                    onClick = {  if(number<4) setnumber(number+1) }) {
+                    onClick = {  if(number<13) setnumber(number+1) }) {
                     Text(
                         text = "1" ,
                         fontSize = 30.sp
                     )
                 }
                 Button(modifier = Modifier
-                    .width(90.dp)
-                    .height(90.dp)
+                    .width(80.dp)
+                    .height(80.dp)
                     .shadow(20.dp, shape = RectangleShape, clip = true),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
-                    onClick = { if(number<4) setnumber(number+1)}) {
+                    onClick = { if(number<13) setnumber(number+1)}) {
                     Text(
                         text = "2",
                         fontSize = 30.sp
                     )
                 }
                 Button(modifier = Modifier
-                    .width(90.dp)
-                    .height(90.dp)
+                    .width(80.dp)
+                    .height(80.dp)
                     .shadow(20.dp, shape = RectangleShape, clip = true),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
-                    onClick = {  if(number<4)setnumber(number+1) }) {
+                    onClick = {  if(number<13)setnumber(number+1) }) {
                     Text(
                         text =  "3",
                         fontSize = 30.sp
@@ -199,22 +199,22 @@ fun InputNumber2(navHostController: NavHostController)
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Button(modifier = Modifier
-                    .width(90.dp)
-                    .height(90.dp)
+                    .width(80.dp)
+                    .height(80.dp)
                     .shadow(20.dp, shape = RectangleShape, clip = true),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
-                    onClick = { if(number<4) setnumber(number+1) }) {
+                    onClick = { if(number<13) setnumber(number+1) }) {
                     Text(
                         text =  "4",
                         fontSize = 30.sp
                     )
                 }
                 Button(modifier = Modifier
-                    .width(90.dp)
-                    .height(90.dp)
+                    .width(80.dp)
+                    .height(80.dp)
                     .shadow(20.dp, shape = RectangleShape, clip = true),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
-                    onClick = { if(number<4) setnumber(number+1) }) {
+                    onClick = { if(number<13) setnumber(number+1) }) {
                     Text(
                         text =  "5",
                         fontSize = 30.sp
@@ -222,11 +222,11 @@ fun InputNumber2(navHostController: NavHostController)
                 }
 
                 Button(modifier = Modifier
-                    .width(90.dp)
-                    .height(90.dp)
+                    .width(80.dp)
+                    .height(80.dp)
                     .shadow(20.dp, shape = RectangleShape, clip = true),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
-                    onClick = { if(number<4) setnumber(number+1) }) {
+                    onClick = { if(number<13) setnumber(number+1) }) {
                     Text(
                         text =  "6",
                         fontSize = 30.sp
@@ -239,33 +239,33 @@ fun InputNumber2(navHostController: NavHostController)
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Button(modifier = Modifier
-                    .width(90.dp)
-                    .height(90.dp)
+                    .width(80.dp)
+                    .height(80.dp)
                     .shadow(20.dp, shape = RectangleShape, clip = true),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
-                    onClick = { if(number<4) setnumber(number+1) }) {
+                    onClick = { if(number<13) setnumber(number+1) }) {
                     Text(
                         text =  "7",
                         fontSize = 30.sp
                     )
                 }
                 Button(modifier = Modifier
-                    .width(90.dp)
-                    .height(90.dp)
+                    .width(80.dp)
+                    .height(80.dp)
                     .shadow(20.dp, shape = RectangleShape, clip = true),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
-                    onClick = { if(number<4) setnumber(number+1)}) {
+                    onClick = { if(number<13) setnumber(number+1)}) {
                     Text(
                         text = "8",
                         fontSize = 30.sp
                     )
                 }
                 Button(modifier = Modifier
-                    .width(90.dp)
-                    .height(90.dp)
+                    .width(80.dp)
+                    .height(80.dp)
                     .shadow(20.dp, shape = RectangleShape, clip = true),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
-                    onClick = { if(number<4) setnumber(number+1) }) {
+                    onClick = { if(number<13) setnumber(number+1) }) {
                     Text(
                         text =  "9",
                         fontSize = 30.sp
@@ -278,43 +278,43 @@ fun InputNumber2(navHostController: NavHostController)
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Button(modifier = Modifier
-                    .width(90.dp)
-                    .height(90.dp)
+                    .width(80.dp)
+                    .height(80.dp)
                     .shadow(20.dp, shape = RectangleShape, clip = true),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
                     onClick = { setnumber(number-1) }) {
                     Text(
                         text =  "삭제",
-                        fontSize = 30.sp
+                        fontSize = 22.sp
                     )
                 }
                 Button(modifier = Modifier
-                    .width(90.dp)
-                    .height(90.dp)
+                    .width(80.dp)
+                    .height(80.dp)
                     .shadow(20.dp, shape = RectangleShape, clip = true),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
-                    onClick = { if(number<4) setnumber(number+1)}) {
+                    onClick = { if(number<13) setnumber(number+1)}) {
                     Text(
                         text = "0",
                         fontSize = 30.sp
                     )
                 }
                 Button(modifier = Modifier
-                    .width(90.dp)
-                    .height(90.dp)
+                    .width(80.dp)
+                    .height(80.dp)
                     .shadow(20.dp, shape = RectangleShape, clip = true),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
                     onClick = { setnumber(0) }) {
                     Text(
                         text =  "정정",
-                        fontSize = 30.sp
+                        fontSize = 22.sp
                     )
                 }
             }
-            if(number== 4)
+            if(number== 13)
             {
                 Button(modifier = Modifier
-                    .width(90.dp)
+                    .width(80.dp)
                     .height(80.dp)
                     .shadow(20.dp, shape = RectangleShape, clip = true)
                     .align(Alignment.CenterHorizontally),
@@ -322,7 +322,7 @@ fun InputNumber2(navHostController: NavHostController)
                     onClick = { navHostController.navigate(Screen.Offices_resident_2.route) }) {
                     Text(
                         text = "확인",
-                        fontSize = 30.sp
+                        fontSize = 22.sp
                     )
                 }
             }

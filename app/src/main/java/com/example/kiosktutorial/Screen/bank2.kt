@@ -30,7 +30,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 
 
-//TODO 삭제 정정 눌렀을때 *모양이 -로 바뀌도록
 @Composable
 fun InputNumber(navHostController: NavHostController) {
     var (number, setnumber) = remember {
@@ -57,7 +56,7 @@ fun InputNumber(navHostController: NavHostController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(alignment = Alignment.Center),
-                fontSize = 25.sp,
+                fontSize = 20.sp,
                 color = Color.White,
                 fontWeight = FontWeight.Bold
             )
@@ -70,7 +69,7 @@ fun InputNumber(navHostController: NavHostController) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(150.dp)
+                    .height(120.dp)
                     .background(
                         shape = RoundedCornerShape(
                             topStart = CornerSize(25.dp),
@@ -112,7 +111,7 @@ fun InputNumber(navHostController: NavHostController) {
                     )
                     Text(
                         text = "   비밀번호는 타인이나 카메라 등에 노출되지 않도록 손이나 책 등으로 가린 후 입력해주세요",
-                        fontSize = 20.sp, color = Color.Red
+                        fontSize = 16.sp, color = Color.Red
                     )
                 }
             }
@@ -252,7 +251,7 @@ fun InputNumber(navHostController: NavHostController) {
                     onClick = { setnumber(number - 1) }) {
                     Text(
                         text = "삭제",
-                        fontSize = 30.sp
+                        fontSize = 20.sp
                     )
                 }
                 Button(modifier = Modifier
@@ -274,7 +273,7 @@ fun InputNumber(navHostController: NavHostController) {
                     onClick = { setnumber(0) }) {
                     Text(
                         text = "정정",
-                        fontSize = 30.sp
+                        fontSize = 20.sp
                     )
                 }
             }
@@ -288,7 +287,7 @@ fun InputNumber(navHostController: NavHostController) {
                     onClick = { navHostController.navigate(Screen.Bank3.route) }) {
                     Text(
                         text = "확인",
-                        fontSize = 30.sp
+                        fontSize = 20.sp
                     )
                 }
             }

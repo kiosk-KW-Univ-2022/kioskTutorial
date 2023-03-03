@@ -2,6 +2,7 @@ package com.example.kiosktutorial.Screen
 
 import android.content.res.Configuration
 import android.os.CountDownTimer
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -37,14 +38,9 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun Paywindow(navHostController: NavHostController, route: String) {
-    val mCountDown: CountDownTimer = object : CountDownTimer(2500, 1000) {
-        override fun onTick(millisUntilFinished: Long) {
-        }
-
-        override fun onFinish() {
-            //countdown finish
-            navHostController.navigate(route)
-        }
+    LaunchedEffect(key1 = true) {
+        delay(2500)
+        navHostController.navigate(route)
     }
     Column(
         modifier = Modifier
@@ -63,7 +59,7 @@ fun Paywindow(navHostController: NavHostController, route: String) {
         Spacer(modifier = Modifier.height(10.dp))
         Text(
             modifier = Modifier.fillMaxWidth(),
-            text = "신용카드를 투입구에 끝까지 넣어주세요. ",
+            text = "신용카드를 투입구에 끝까지 넣어주세요.",
             fontWeight = FontWeight.Bold,
             fontSize = 20.sp,
             textAlign = TextAlign.Center
@@ -89,7 +85,6 @@ fun Paywindow(navHostController: NavHostController, route: String) {
         )
         Spacer(modifier = Modifier.height(10.dp))
         Box(modifier = Modifier.padding(20.dp)) {
-            mCountDown.start()
             AnimationGaugeBar(navHostController, 100, backGround, route)
         }
 
