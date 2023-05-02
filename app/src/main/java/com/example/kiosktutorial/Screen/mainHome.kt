@@ -69,6 +69,12 @@ fun Home(navHostController: NavHostController) {
             ) {
                 navHostController.navigate(Screen.GameHome.route)
             }
+//            MovButton(
+//                title = "Test",
+//                icon = R.drawable.game
+//            ) {
+//                navHostController.navigate("1234test")
+//            }
 
         }
 
