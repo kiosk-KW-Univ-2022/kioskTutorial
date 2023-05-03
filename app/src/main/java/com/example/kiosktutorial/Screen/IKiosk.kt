@@ -137,24 +137,24 @@ abstract class IKiosk {
                     design()
                 }
 
-                var descBoxModifier: Modifier? = GetTutorialDescriptionModifier[GetCounter()]
-                if (descBoxModifier == null) descBoxModifier =
-                    GetTutorialDescriptionDefaultModifier()
+                var descBoxModifier: Modifier = GetTutorialDescriptionModifier[GetCounter()] ?: Modifier
 
                 Box(
                     modifier = Modifier
                         .fillMaxSize(),
                     contentAlignment = Alignment.BottomCenter
                 ) {
+                    val background = 0xAF000000 or 0x000000
+
                     Column(
                         modifier = Modifier
-                            .background(Color(0xAF_FFFFFF)),
+                            .background(Color(background)),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Bottom
 
                     ) {
                         Box(
-                            modifier = descBoxModifier,
+                            modifier = GetTutorialDescriptionDefaultModifier().composed{descBoxModifier},
                             contentAlignment = Alignment.Center
                         ) {
                             if (GetCounter() < GetTutorialDescription.count()) {
