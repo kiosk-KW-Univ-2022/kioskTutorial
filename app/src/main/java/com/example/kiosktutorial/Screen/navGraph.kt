@@ -74,6 +74,14 @@ fun SetupNavGraph(navController: NavHostController) {
             view.View()
         }
 
+        lateinit var test: KioskTest
+        composable(route = "1234test"){
+            test = KioskTest(true)
+            test.Layout{
+                test.MainAct()
+            }
+        }
+
         composable(route = Screen.KioskExerciseSelection.route) {
             SecondHome(navController, true)
         }
