@@ -15,9 +15,14 @@ import com.example.kiosktutorial.Screen.IKiosk
 
 class KioskTest(isTutorial: Boolean) : IKiosk(isTutorial) {
 
-    override fun GetTutorialDescrption() = arrayListOf<String>(
-        "st"
+    override var GetTutorialDescription = arrayListOf<String>(
+        "테스트1 테스트2 테스트1 테스트2 테스트1 테스트2 테스트1 테스트2 테스트1 테스트2 테스트1 테스트2 테스트1 테스트2 "
     )
+
+    override var GetTutorialDescriptionModifier = mutableMapOf<Int, Modifier>(
+        1 to Modifier.fillMaxWidth()
+    )
+
 
     @Composable
     fun MainAct() {
@@ -38,7 +43,7 @@ class KioskTest(isTutorial: Boolean) : IKiosk(isTutorial) {
                         1,
                         defaultModifier = Modifier
                             .background(Color(0xffff00ff)),
-                        tutorialModifier = Modifier
+                        overrideModifier = Modifier
                             .background(Color(0xff00ff00))
                     ) {
                         toast?.cancel()
