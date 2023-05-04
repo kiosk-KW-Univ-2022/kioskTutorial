@@ -5,9 +5,12 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavController
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigation
 import com.example.kiosktutorial.R
 import com.example.kiosktutorial.Screen.Kiosk.*
 import kotlinx.coroutines.delay
@@ -74,13 +77,14 @@ fun SetupNavGraph(navController: NavHostController) {
             view.View()
         }
 
-        lateinit var test: KioskTest
-        composable(route = "1234test"){
-            test = KioskTest(true)
-            test.Layout{
-                test.MainAct()
-            }
-        }
+//        lateinit var test: KioskTest
+//        composable(route = "1234test"){
+//            test = KioskTest(true)
+//            test.Layout{
+//                test.MainAct()
+//            }
+//        }
+        setupKioskTest(navController)
 
         composable(route = Screen.KioskExerciseSelection.route) {
             SecondHome(navController, true)
@@ -207,5 +211,25 @@ fun SetupNavGraph(navController: NavHostController) {
             HospitalCheck(navController, hvModel)
         }
 
+    }
+
+
+}
+
+fun NavGraphBuilder.setupKioskTest(navController: NavController){
+    navigation(startDestination = "kioskTestTutorial", route = "kioskTest"){
+        val tutorial = KioskTest(true)
+        val real = KioskTest(false)
+        composable(route = "kioskTestTutorial"){
+            tutorial.Layout{
+                tutorial.MainAct()
+            }
+        }
+
+        composable(route = "kioskTestReal"){
+            real.Layout{
+                real.MainAct()
+            }
+        }
     }
 }
