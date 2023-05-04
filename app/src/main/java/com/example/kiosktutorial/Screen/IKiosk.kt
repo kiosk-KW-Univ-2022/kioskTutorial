@@ -15,7 +15,6 @@ import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import java.util.*
-import kotlin.collections.ArrayList
 
 abstract class IKiosk {
     constructor(isTutorial: Boolean) {
@@ -38,10 +37,9 @@ abstract class IKiosk {
 
     protected var _step by mutableStateOf(-1)
     protected fun GetCounter() = _step
-    protected fun IncStep() {
+    private fun IncStep() {
         if (GetCounter() < STEP_MAX) _step++
     }
-
     private fun DecStep() {
         if (STEP_MIN < GetCounter()) _step--
     }
@@ -129,7 +127,7 @@ abstract class IKiosk {
                 modifier = Modifier
                     .fillMaxHeight()
             ) {
-                Box(
+                Box(    // content
                     modifier = Modifier
                         .fillMaxWidth()
                         .fillMaxHeight(0.75f)
@@ -137,57 +135,31 @@ abstract class IKiosk {
                     design()
                 }
 
-                var descBoxModifier: Modifier = GetTutorialDescriptionModifier[GetCounter()] ?: Modifier
+                val tutorialStepData = tutorialStepDataList[GetCounter()]
+                var descBoxModifier: Modifier = tutorialStepDataList[GetCounter()]?.GetModifier() ?: Modifier
 
-                Box(
+                Box(    // tutorial description area
                     modifier = Modifier
                         .fillMaxSize(),
-                    contentAlignment = Alignment.BottomCenter
+                    contentAlignment = tutorialStepData?.GetAlignment() ?: defaultTutorialStepData.GetAlignment()!!
                 ) {
-                    val background = 0xAF000000 or 0x000000
 
                     Column(
                         modifier = Modifier
-                            .background(Color(background)),
+                            .background(Color(tutorialStepData?.GetBackground() ?: defaultTutorialStepData.GetBackground())),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Bottom
 
                     ) {
-                        Box(
-                            modifier = GetTutorialDescriptionDefaultModifier().composed{descBoxModifier},
-                            contentAlignment = Alignment.Center
-                        ) {
-                            if (GetCounter() < GetTutorialDescription.count()) {
-                                Text(text = GetTutorialDescription[GetCounter()])
-                            }
+                        val align = tutorialStepData?.GetAlignment() ?: defaultTutorialStepData.GetAlignment()
+                        if(align == Alignment.TopCenter){
+                            TutorialControlButton(tutorialStepData ?: defaultTutorialStepData)
+                            TutorialDescription(tutorialStepData ?: defaultTutorialStepData)
+                        }else{
+                            TutorialDescription(tutorialStepData ?: defaultTutorialStepData)
+                            TutorialControlButton(tutorialStepData ?: defaultTutorialStepData)
                         }
 
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .heightIn(max = 40.dp)
-                        ) {
-                            Button(
-                                modifier = Modifier
-                                    .fillMaxWidth(0.5f)
-                                    .fillMaxHeight(),
-                                enabled = STEP_MIN < GetCounter(),
-                                onClick = {
-                                    DecStep()
-                                }) {
-                                Text(text = "이전")
-                            }
-                            Button(
-                                modifier = Modifier
-                                    .fillMaxWidth(1f)
-                                    .fillMaxHeight(),
-                                enabled = GetCounter() < STEP_MAX,
-                                onClick = {
-                                    IncStep()
-                                }) {
-                                Text(text = "다음")
-                            }
-                        }
                     }
                 }
             }
@@ -196,12 +168,89 @@ abstract class IKiosk {
         }
     }
 
-    protected abstract var GetTutorialDescription: ArrayList<String>
-    protected abstract var GetTutorialDescriptionModifier: MutableMap<Int, Modifier>
+    @Composable
+    fun TutorialDescription(tutorialStepData:TutorialStepData){
+        Column(
+            modifier = tutorialStepData.GetModifier() ?: defaultTutorialStepData.GetModifier()!!,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            val textComponent = tutorialStepData.GetOverrideTextComponent()
+            if(textComponent != null) { // override text Component
+                textComponent()
+            }else{
+                if(GetCounter() in tutorialStepDataList){
+                    Text(text = tutorialStepData.GetDescription() ?: "")
+                }
+            }
+        }
+    }
+    @Composable
+    fun TutorialControlButton(tutorialStepData:TutorialStepData){
+        Row(
+            modifier = Modifier
+                .padding(2.dp)
+                .fillMaxWidth()
+                .background(Color(tutorialStepData.GetBackground()))
+                .heightIn(max = 40.dp),
+            horizontalArrangement = Arrangement.SpaceAround
 
-    protected open fun GetTutorialDescriptionDefaultModifier() = Modifier
-        .fillMaxWidth()
-        .padding(10.dp)
+        ) {
+            Button(
+                modifier = Modifier
+                    .padding(2.dp)
+                    .fillMaxWidth(0.5f)
+                    .fillMaxHeight(),
+                enabled = STEP_MIN < GetCounter(),
+                onClick = {
+                    DecStep()
+                }) {
+                Text(text = "이전")
+            }
+            Button(
+                modifier = Modifier
+                    .padding(2.dp)
+                    .fillMaxWidth(1f)
+                    .fillMaxHeight(),
+                enabled = GetCounter() < STEP_MAX,
+                onClick = {
+                    IncStep()
+                }) {
+                Text(text = "다음")
+            }
+        }
+    }
 
+    protected abstract var tutorialStepDataList:Map<Int, TutorialStepData>
 
+    protected open val defaultTutorialStepData = TutorialStepData(
+        description = null,
+        boxModifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp),
+        overrideText = null,
+        background = 0xA0FFFFFF,
+        alignment = Alignment.BottomCenter
+    )
+}
+
+class TutorialStepData{
+    constructor(description:String?, boxModifier:Modifier? = null, overrideText:(@Composable()()->Unit)? = null, background:Long = 0xA0FFFFFF, alignment:Alignment = Alignment.BottomCenter){
+        _description = description
+        _boxModifier = boxModifier
+        _overrideText = overrideText
+        _background = background
+        _alignment = alignment
+    }
+
+    private var _description:String? = null
+    private var _boxModifier:Modifier? = null
+    private var _overrideText:(@Composable()()->Unit)? = null
+    private var _background:Long = 0xA0FFFFFF
+    private var _alignment:Alignment = Alignment.BottomCenter
+    fun GetDescription() = _description
+    fun GetModifier() = _boxModifier
+    fun GetOverrideTextComponent() = _overrideText
+    fun GetBackground() = _background
+
+    fun GetAlignment() = _alignment
 }
