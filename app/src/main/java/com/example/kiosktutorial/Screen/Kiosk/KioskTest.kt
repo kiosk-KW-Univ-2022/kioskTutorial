@@ -51,14 +51,14 @@ class KioskTest(isTutorial: Boolean) : IKiosk(isTutorial) {
             modifier = Modifier.fillMaxSize()
         ) {
             Text(
-                text = "${GetCounter()} 번째 / 튜토리얼 모드 ${if(!IsTutorial()) "아님" else ""}"
+                text = "${getCounter()} 번째 / 튜토리얼 모드 ${if(!isTutorial()) "아님" else ""}"
             )
             Box(
                 modifier = Modifier
                     .border(1.dp, Color(0xff000000))
                     .widthIn(20.dp)
                     .heightIn(80.dp)
-                    .SetMode(
+                    .setMode(
                         1,
                         defaultModifier = Modifier
                             .background(Color(0xffff00ff)),
@@ -69,7 +69,7 @@ class KioskTest(isTutorial: Boolean) : IKiosk(isTutorial) {
             ) {
                 Text(text ="클릭하면 시작합니다.",
                     modifier = Modifier
-                        .SetMode(0){
+                        .setMode(0){
                         }
                 )
             }

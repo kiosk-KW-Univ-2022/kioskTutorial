@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import java.util.*
 
 abstract class IKiosk {
     constructor(isTutorial: Boolean) {
@@ -23,28 +22,28 @@ abstract class IKiosk {
 
     }
 
-    protected var _isTutorial: Boolean = false
-    protected fun setIsTutorial(value: Boolean) {
+    private var _isTutorial: Boolean = false
+    private fun setIsTutorial(value: Boolean) {
         this._isTutorial = value
     }
 
-    protected fun IsTutorial() = _isTutorial
+    protected fun isTutorial() = _isTutorial
 
 
     // this variable will inc/dec when next/prev step in tutorial mode
     private val STEP_MIN = 0
     protected open val STEP_MAX = 300
 
-    protected var _step by mutableStateOf(-1)
-    protected fun GetCounter() = _step
-    private fun IncStep() {
-        if (GetCounter() < STEP_MAX) _step++
+    private var _step by mutableStateOf(-1)
+    protected fun getCounter() = _step
+    private fun incStep() {
+        if (getCounter() < STEP_MAX) _step++
     }
-    private fun DecStep() {
-        if (STEP_MIN < GetCounter()) _step--
+    private fun decStep() {
+        if (STEP_MIN < getCounter()) _step--
     }
 
-    fun Modifier.SetMode(
+    fun Modifier.setMode(
         step: Int,
         defaultModifier: Modifier = Modifier,
         additionalModifier: Modifier = Modifier,
@@ -52,7 +51,7 @@ abstract class IKiosk {
         function: () -> Unit
     ): Modifier {
         // if tutorial mode?
-        if (!IsTutorial()) {
+        if (!isTutorial()) {
             // not
             return this
                 .composed { defaultModifier }
@@ -62,7 +61,7 @@ abstract class IKiosk {
         } else {
             // yes
             // is current step are correct sequence?
-            if (step == GetCounter()) {
+            if (step == getCounter()) {
                 // yes
                 // is modifier override mode?
                 if (overrideModifier != null) {
@@ -71,7 +70,7 @@ abstract class IKiosk {
                         .composed { overrideModifier }
                         .clickable {
                             function()
-                            IncStep()
+                            incStep()
                         }
                 }
                 // no
@@ -80,7 +79,7 @@ abstract class IKiosk {
                     .composed { additionalModifier }
                     .clickable {
                         function()
-                        IncStep()
+                        incStep()
                     }
             }
             // no
@@ -91,38 +90,12 @@ abstract class IKiosk {
         }
     }
 
-    @Deprecated("plz use Modifier.SetMode Instead of this function")
-    fun Modifier.SetTutorialMode(
-        step: Int,
-        mod: Modifier = Modifier,
-        func: () -> Unit
-    ): Modifier {
-        if (IsTutorial() && GetCounter() == step) {
-            return this
-                .composed { mod }
-                .clickable {
-                    func()
-                    IncStep()
-                }
-        }
-        return this
-    }
 
-    @Deprecated("plz use Modifier.SetMode Instead of this function")
-    fun Modifier.SetRealMode(mod: Modifier = Modifier, func: () -> Unit): Modifier {
-        if (!IsTutorial()) {
-            return this
-                .composed { mod }
-                .clickable {
-                    func()
-                }
-        }
-        return this
-    }
+
 
     @Composable
     open fun Layout(design: @Composable() () -> Unit) {
-        if (IsTutorial()) {
+        if (isTutorial()) {
             Box(
                 modifier = Modifier
                     .fillMaxHeight()
@@ -135,8 +108,8 @@ abstract class IKiosk {
                     design()
                 }
 
-                val tutorialStepData = tutorialStepDataList[GetCounter()]
-                var descBoxModifier: Modifier = tutorialStepDataList[GetCounter()]?.GetModifier() ?: Modifier
+                val tutorialStepData = tutorialStepDataList[getCounter()]
+                var descBoxModifier: Modifier = tutorialStepDataList[getCounter()]?.GetModifier() ?: Modifier
 
                 Box(    // tutorial description area
                     modifier = Modifier
@@ -167,7 +140,6 @@ abstract class IKiosk {
             design()
         }
     }
-
     @Composable
     fun TutorialDescription(tutorialStepData:TutorialStepData){
         Column(
@@ -178,7 +150,7 @@ abstract class IKiosk {
             if(textComponent != null) { // override text Component
                 textComponent()
             }else{
-                if(GetCounter() in tutorialStepDataList){
+                if(getCounter() in tutorialStepDataList){
                     Text(text = tutorialStepData.GetDescription() ?: "")
                 }
             }
@@ -200,9 +172,9 @@ abstract class IKiosk {
                     .padding(2.dp)
                     .fillMaxWidth(0.5f)
                     .fillMaxHeight(),
-                enabled = STEP_MIN < GetCounter(),
+                enabled = STEP_MIN < getCounter(),
                 onClick = {
-                    DecStep()
+                    decStep()
                 }) {
                 Text(text = "이전")
             }
@@ -211,17 +183,20 @@ abstract class IKiosk {
                     .padding(2.dp)
                     .fillMaxWidth(1f)
                     .fillMaxHeight(),
-                enabled = GetCounter() < STEP_MAX,
+                enabled = getCounter() < STEP_MAX,
                 onClick = {
-                    IncStep()
+                    incStep()
                 }) {
                 Text(text = "다음")
             }
         }
     }
 
-    protected abstract var tutorialStepDataList:Map<Int, TutorialStepData>
+    protected open fun init(){
+        _step = STEP_MIN
 
+    }
+    protected abstract var tutorialStepDataList:Map<Int, TutorialStepData>
     protected open val defaultTutorialStepData = TutorialStepData(
         description = null,
         boxModifier = Modifier
