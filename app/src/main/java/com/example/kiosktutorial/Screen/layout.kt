@@ -1,8 +1,6 @@
 package com.example.kiosktutorial.Screen
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
@@ -27,6 +25,7 @@ import com.example.kiosktutorial.ui.theme.backGround
 @Composable
 fun ActMainContent( innerContent:@Composable() ()->Unit){
     val cornerRounded = CornerSize(25.dp)
+    val vScrollState = rememberScrollState()
     Column(
         modifier = Modifier
             .background(
@@ -37,6 +36,7 @@ fun ActMainContent( innerContent:@Composable() ()->Unit){
                     bottomEnd = CornerSize(0.dp)
                 ), color = Color.White
             )
+            .verticalScroll(vScrollState)
             .padding(10.dp)
             .fillMaxSize()
     ){

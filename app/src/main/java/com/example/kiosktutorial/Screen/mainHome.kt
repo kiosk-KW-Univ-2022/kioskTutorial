@@ -70,10 +70,16 @@ fun Home(navHostController: NavHostController) {
                 navHostController.navigate(Screen.GameHome.route)
             }
 //            MovButton(
-//                title = "Test",
+//                title = "Test - tutorial",
 //                icon = R.drawable.game
 //            ) {
-//                navHostController.navigate("1234test")
+//                navHostController.navigate("kioskTestTutorial")
+//            }
+//            MovButton(
+//                title = "Test - real",
+//                icon = R.drawable.game
+//            ) {
+//                navHostController.navigate("kioskTestReal")
 //            }
 
         }
