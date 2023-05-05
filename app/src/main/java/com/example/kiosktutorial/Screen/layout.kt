@@ -25,7 +25,6 @@ import com.example.kiosktutorial.ui.theme.backGround
 @Composable
 fun ActMainContent( innerContent:@Composable() ()->Unit){
     val cornerRounded = CornerSize(25.dp)
-    val vScrollState = rememberScrollState()
     Column(
         modifier = Modifier
             .background(
@@ -36,7 +35,6 @@ fun ActMainContent( innerContent:@Composable() ()->Unit){
                     bottomEnd = CornerSize(0.dp)
                 ), color = Color.White
             )
-            .verticalScroll(vScrollState)
             .padding(10.dp)
             .fillMaxSize()
     ){
