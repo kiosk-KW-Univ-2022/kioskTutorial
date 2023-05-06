@@ -98,12 +98,11 @@ abstract class IKiosk {
         if (isTutorial()) {
             Box(
                 modifier = Modifier
-                    .fillMaxHeight()
+                    .fillMaxSize()
             ) {
                 Box(    // content
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.75f)
+                        .fillMaxSize()
                 ) {
                     design()
                 }
@@ -119,6 +118,7 @@ abstract class IKiosk {
 
                     Column(
                         modifier = Modifier
+                            .clickable(false){}
                             .background(Color(tutorialStepData?.GetBackground() ?: defaultTutorialStepData.GetBackground())),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Bottom
