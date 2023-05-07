@@ -13,6 +13,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.example.kiosktutorial.R
 import com.example.kiosktutorial.Screen.Kiosk.*
+import com.example.kiosktutorial.Screen.Train.TrainMain
 import kotlinx.coroutines.delay
 
 sealed class BackPress {
@@ -66,15 +67,19 @@ fun SetupNavGraph(navController: NavHostController) {
 
         // TODO: 다른 키오스크의 설명도 나오면 선택하도록 구성
         composable(route = Screen.KioskTutorialSelection.route) {
+            val trainTutorial = TrainMain(true)
+            trainTutorial.Layout{
+                trainTutorial.MainAct()
+            }
             // SecondHome(navController, false)
 //        }
 //
 //        composable(route = "${Screen.KioskTutorialContainer.route}/{route}"){
-            backStackEntry ->
-            val view = KioskTutorialContainer()
-            view.navHostController = navController
-            view.route = backStackEntry.arguments?.getString("route") ?: Screen.CafeHome.route
-            view.View()
+//            backStackEntry ->
+//            val view = KioskTutorialContainer()
+//            view.navHostController = navController
+//            view.route = backStackEntry.arguments?.getString("route") ?: Screen.CafeHome.route
+//            view.View()
         }
 
 //        lateinit var test: KioskTest
@@ -91,7 +96,11 @@ fun SetupNavGraph(navController: NavHostController) {
         }
 
         composable(route = Screen.KioskTrain.route) {
-            KioskTrain(navController = navController)
+//            KioskTrain(navController = navController)
+            val trainTutorial = TrainMain(false)
+            trainTutorial.Layout{
+                trainTutorial.MainAct()
+            }
 
         }
 
