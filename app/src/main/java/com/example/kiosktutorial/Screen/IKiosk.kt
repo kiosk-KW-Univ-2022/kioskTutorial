@@ -16,10 +16,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 abstract class IKiosk {
-    constructor(isTutorial: Boolean) {
+    constructor(isTutorial: Boolean, step:Int = 0) {
         setIsTutorial(isTutorial)
-        _step = 0
-
+        _step = step
     }
 
     private var _isTutorial: Boolean = false
@@ -35,7 +34,7 @@ abstract class IKiosk {
     protected open val STEP_MAX = 300
 
     private var _step by mutableStateOf(-1)
-    protected fun getCounter() = _step
+    internal fun getCounter() = _step
     private fun incStep() {
         if (getCounter() < STEP_MAX) _step++
     }
