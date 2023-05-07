@@ -47,6 +47,7 @@ abstract class IKiosk {
         defaultModifier: Modifier = Modifier,
         additionalModifier: Modifier = Modifier,
         overrideModifier: Modifier? = null,
+        stepIncState:() -> Boolean = {true},
         function: () -> Unit
     ): Modifier {
         // if tutorial mode?
@@ -69,7 +70,8 @@ abstract class IKiosk {
                         .composed { overrideModifier }
                         .clickable {
                             function()
-                            incStep()
+                            if(stepIncState())
+                                incStep()
                         }
                 }
                 // no
@@ -78,7 +80,8 @@ abstract class IKiosk {
                     .composed { additionalModifier }
                     .clickable {
                         function()
-                        incStep()
+                        if(stepIncState())
+                            incStep()
                     }
             }
             // no
@@ -208,7 +211,11 @@ abstract class IKiosk {
 }
 
 class TutorialStepData{
-    constructor(description:String?, boxModifier:Modifier? = null, overrideText:(@Composable()()->Unit)? = null, background:Long? = null, alignment:Alignment = Alignment.BottomCenter){
+    constructor(description:String?,
+                boxModifier:Modifier? = null,
+                overrideText:(@Composable()()->Unit)? = null,
+                background:Long? = null,
+                alignment:Alignment = Alignment.BottomCenter){
         _description = description
         _boxModifier = boxModifier
         _overrideText = overrideText
