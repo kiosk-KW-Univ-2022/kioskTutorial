@@ -118,7 +118,7 @@ abstract class IKiosk {
                     Column(
                         modifier = Modifier
                             .clickable(false){}
-                            .background(Color(tutorialStepData?.GetBackground() ?: defaultTutorialStepData.GetBackground())),
+                            .background(Color(tutorialStepData?.GetBackground() ?: defaultTutorialStepData.GetBackground()!!)),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Bottom
 
@@ -161,7 +161,7 @@ abstract class IKiosk {
             modifier = Modifier
                 .padding(2.dp)
                 .fillMaxWidth()
-                .background(Color(tutorialStepData.GetBackground()))
+                .background(Color(tutorialStepData.GetBackground() ?: defaultTutorialStepData.GetBackground()!!))
                 .heightIn(max = 40.dp),
             horizontalArrangement = Arrangement.SpaceAround
 
@@ -202,13 +202,13 @@ abstract class IKiosk {
             .fillMaxWidth()
             .padding(10.dp),
         overrideText = null,
-        background = 0xA0FFFFFF,
+        background = 0xF0FFFFFF,
         alignment = Alignment.BottomCenter
     )
 }
 
 class TutorialStepData{
-    constructor(description:String?, boxModifier:Modifier? = null, overrideText:(@Composable()()->Unit)? = null, background:Long = 0xA0FFFFFF, alignment:Alignment = Alignment.BottomCenter){
+    constructor(description:String?, boxModifier:Modifier? = null, overrideText:(@Composable()()->Unit)? = null, background:Long? = null, alignment:Alignment = Alignment.BottomCenter){
         _description = description
         _boxModifier = boxModifier
         _overrideText = overrideText
@@ -219,7 +219,7 @@ class TutorialStepData{
     private var _description:String? = null
     private var _boxModifier:Modifier? = null
     private var _overrideText:(@Composable()()->Unit)? = null
-    private var _background:Long = 0xA0FFFFFF
+    private var _background:Long? = null
     private var _alignment:Alignment = Alignment.BottomCenter
     fun GetDescription() = _description
     fun GetModifier() = _boxModifier
