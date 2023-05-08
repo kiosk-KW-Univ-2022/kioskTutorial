@@ -34,7 +34,7 @@ import androidx.compose.ui.draw.paint
 @Composable
 fun CafeKiosk(navHostController: NavHostController, number: Int = 0, fee: Int = 0) {
     var CafeColor = Color(0xFF28CDC8)
-    var (Category, SetCategory) = remember { mutableStateOf(0) }
+    var (Category, SetCategory) = remember { mutableStateOf(2) }
     var (order, Setorder) = remember { mutableStateOf(false) }
     var (currentnumber, Setcurrentnumber) = remember { mutableStateOf(0) }
     var (orderfee, Setorderfee) = remember { mutableStateOf(0) }
