@@ -8,9 +8,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,6 +28,7 @@ import com.example.kiosktutorial.R
 import com.example.kiosktutorial.Screen.*
 import com.example.kiosktutorial.ui.theme.Typography
 import com.example.kiosktutorial.ui.theme.backGround
+import java.util.Locale.Category
 
 data class CafeMenuImg(
     val name: String,
@@ -106,28 +105,52 @@ fun CafeListItem(cafe: CafeMenuImg, navHostController: NavHostController) {
         Box(modifier = Modifier.height(20.dp)){}
     }
 }
-class CafeMenu(isTutorial: Boolean,navHostController: NavHostController? = null,) : IKiosk(isTutorial) {
-
+class CafeMenu(isTutorial: Boolean,navHostController: NavHostController? = null,TotalMoney:Int=0,TotalOrder:Int=0) : IKiosk(isTutorial) {
+    var Category: Int by mutableStateOf(0)
+    var CafeColor = backGround
+    var Money:Int by mutableStateOf(TotalMoney)
+    var Order:Int by mutableStateOf(TotalOrder)
     override var tutorialStepDataList: Map<Int, TutorialStepData> =
         mutableMapOf(
             0 to TutorialStepData("아이스 아메리카노를 눌러주세요!"),
             )
+    data class CategoryData(
+        var name: String,
+        var number:Int
+    )
+    object CategoryItemProvider {
+        val CategoryList = listOf(
+            CategoryData("커피", 0),
+            CategoryData("티", 1),
+            CategoryData("디저트", 2)
+        )
+    }
     @Composable
-    fun MainAct(navHostController: NavHostController, number: Int = 0, fee: Int = 0) {
-        var CafeColor = backGround
-
+    fun Categorybutton(number:Int){// 카테고리 number 0 커피, 1 티 ,2 디저트
+        val Item = remember { CategoryItemProvider.CategoryList[number] }
+        Button(
+            colors = if (Item.number == Category) ButtonDefaults.buttonColors(Color.White)
+            else ButtonDefaults.buttonColors(CafeColor),
+            onClick = { Category=Item.number }
+        ) {
+            Text(
+                text = "${Item.name}",
+                color = if (Category == Item.number) Color.Black else Color.White,
+                fontSize = 25.sp,
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Bold
+            )
+        }
+    }
+    @Composable
+    fun MainAct(navHostController: NavHostController){
         //커피, 티, 디저트에 관한 키오스크
-        var (Category, SetCategory) = remember { mutableStateOf(2) }
-        
-
         var (currentnumber, Setcurrentnumber) = remember { mutableStateOf(0) }
         var (orderfee, Setorderfee) = remember { mutableStateOf(0) }
         var (name, Setname) = remember {
             mutableStateOf("")
         }
         var price = 0
-        currentnumber += number
-        orderfee += fee
         var (order, Setorder) = remember { mutableStateOf(false) }
         if (!order) {
             Column(
@@ -150,54 +173,15 @@ class CafeMenu(isTutorial: Boolean,navHostController: NavHostController? = null,
                     Row(
                         horizontalArrangement = Arrangement.SpaceEvenly
                     ) {
+                        Categorybutton(0);
                         Box(modifier = Modifier.width(10.dp)) {
 
                         }
-                        Button(
-                            colors = if (Category == 0) ButtonDefaults.buttonColors(Color.White)
-                            else ButtonDefaults.buttonColors(CafeColor),
-                            onClick = { SetCategory(0) }
-                        ) {
-                            Text(
-                                text = "커피",
-                                color = if (Category == 0) Color.Black else Color.White,
-                                fontSize = 25.sp,
-                                textAlign = TextAlign.Center,
-                                fontWeight = FontWeight.Bold
-                            )
-                        }
+                        Categorybutton(1);
                         Box(modifier = Modifier.width(10.dp)) {
 
                         }
-                        Button(
-                            colors = if (Category == 1) ButtonDefaults.buttonColors(Color.White)
-                            else ButtonDefaults.buttonColors(CafeColor),
-                            onClick = { SetCategory(1) }
-                        ) {
-                            Text(
-                                text = "티",
-                                color = if (Category == 1) Color.Black else Color.White,
-                                fontSize = 25.sp,
-                                textAlign = TextAlign.Center,
-                                fontWeight = FontWeight.Bold
-                            )
-                        }
-                        Box(modifier = Modifier.width(10.dp)) {
-
-                        }
-                        Button(
-                            colors = if (Category == 2) ButtonDefaults.buttonColors(Color.White)
-                            else ButtonDefaults.buttonColors(CafeColor),
-                            onClick = { SetCategory(2) }
-                        ) {
-                            Text(
-                                text = "디저트",
-                                color = if (Category == 2) Color.Black else Color.White,
-                                fontSize = 25.sp,
-                                textAlign = TextAlign.Center,
-                                fontWeight = FontWeight.Bold
-                            )
-                        }
+                        Categorybutton(2);
                     }
                 }
                 Column(modifier = Modifier
