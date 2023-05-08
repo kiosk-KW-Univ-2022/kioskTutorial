@@ -16,10 +16,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 abstract class IKiosk {
-    constructor(isTutorial: Boolean) {
+    constructor(isTutorial: Boolean, step:Int = 0) {
         setIsTutorial(isTutorial)
-        _step = 0
-
+        _step = step
     }
 
     private var _isTutorial: Boolean = false
@@ -35,7 +34,7 @@ abstract class IKiosk {
     protected open val STEP_MAX = 300
 
     private var _step by mutableStateOf(-1)
-    protected fun getCounter() = _step
+    internal fun getCounter() = _step
     private fun incStep() {
         if (getCounter() < STEP_MAX) _step++
     }
@@ -48,6 +47,7 @@ abstract class IKiosk {
         defaultModifier: Modifier = Modifier,
         additionalModifier: Modifier = Modifier,
         overrideModifier: Modifier? = null,
+        stepIncState:() -> Boolean = {true},
         function: () -> Unit
     ): Modifier {
         // if tutorial mode?
@@ -70,7 +70,8 @@ abstract class IKiosk {
                         .composed { overrideModifier }
                         .clickable {
                             function()
-                            incStep()
+                            if(stepIncState())
+                                incStep()
                         }
                 }
                 // no
@@ -79,7 +80,8 @@ abstract class IKiosk {
                     .composed { additionalModifier }
                     .clickable {
                         function()
-                        incStep()
+                        if(stepIncState())
+                            incStep()
                     }
             }
             // no
@@ -119,7 +121,7 @@ abstract class IKiosk {
                     Column(
                         modifier = Modifier
                             .clickable(false){}
-                            .background(Color(tutorialStepData?.GetBackground() ?: defaultTutorialStepData.GetBackground())),
+                            .background(Color(tutorialStepData?.GetBackground() ?: defaultTutorialStepData.GetBackground()!!)),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Bottom
 
@@ -162,7 +164,7 @@ abstract class IKiosk {
             modifier = Modifier
                 .padding(2.dp)
                 .fillMaxWidth()
-                .background(Color(tutorialStepData.GetBackground()))
+                .background(Color(tutorialStepData.GetBackground() ?: defaultTutorialStepData.GetBackground()!!))
                 .heightIn(max = 40.dp),
             horizontalArrangement = Arrangement.SpaceAround
 
@@ -203,13 +205,17 @@ abstract class IKiosk {
             .fillMaxWidth()
             .padding(10.dp),
         overrideText = null,
-        background = 0xA0FFFFFF,
+        background = 0xF0FFFFFF,
         alignment = Alignment.BottomCenter
     )
 }
 
 class TutorialStepData{
-    constructor(description:String?, boxModifier:Modifier? = null, overrideText:(@Composable()()->Unit)? = null, background:Long = 0xA0FFFFFF, alignment:Alignment = Alignment.BottomCenter){
+    constructor(description:String?,
+                boxModifier:Modifier? = null,
+                overrideText:(@Composable()()->Unit)? = null,
+                background:Long? = null,
+                alignment:Alignment = Alignment.BottomCenter){
         _description = description
         _boxModifier = boxModifier
         _overrideText = overrideText
@@ -220,7 +226,7 @@ class TutorialStepData{
     private var _description:String? = null
     private var _boxModifier:Modifier? = null
     private var _overrideText:(@Composable()()->Unit)? = null
-    private var _background:Long = 0xA0FFFFFF
+    private var _background:Long? = null
     private var _alignment:Alignment = Alignment.BottomCenter
     fun GetDescription() = _description
     fun GetModifier() = _boxModifier
