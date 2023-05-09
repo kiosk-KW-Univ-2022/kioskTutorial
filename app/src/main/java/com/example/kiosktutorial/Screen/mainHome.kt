@@ -19,8 +19,10 @@ import com.example.kiosktutorial.ui.theme.backGround
 fun Home(navHostController: NavHostController) {
     var toast: Toast? = null
     val context = LocalContext.current
+    val vScroll = rememberScrollState()
     Column(
         modifier = Modifier
+            .verticalScroll(vScroll)
             .fillMaxSize()
             .background(backGround),
         horizontalAlignment = Alignment.CenterHorizontally,

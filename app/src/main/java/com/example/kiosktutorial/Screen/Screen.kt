@@ -1,5 +1,7 @@
 package com.example.kiosktutorial.Screen
+enum class ScreenRoute{
 
+}
 sealed class Screen(val route: String) {
     object Splash : Screen("splash_screen")
     object Home : Screen("home_screen")
@@ -38,5 +40,6 @@ sealed class Screen(val route: String) {
     object KioskHospital: Screen("hospital-main")
     object KioskHospitalCheck: Screen("hospital-check")
 
-
+    object TrainMainReal : Screen("train-main-real")
+    object TrainMainTutorial : Screen("train-main-tutorial")
 }
