@@ -177,6 +177,7 @@ abstract class IKiosk {
                 enabled = STEP_MIN < getCounter(),
                 onClick = {
                     decStep()
+                    tutorialStepDataList[getCounter()]?.runStateFunction()?.invoke()
                 }) {
                 Text(text = "이전")
             }
@@ -188,6 +189,7 @@ abstract class IKiosk {
                 enabled = getCounter() < STEP_MAX,
                 onClick = {
                     incStep()
+                    tutorialStepDataList[getCounter()]?.runStateFunction()?.invoke()
                 }) {
                 Text(text = "다음")
             }
@@ -215,12 +217,15 @@ class TutorialStepData{
                 boxModifier:Modifier? = null,
                 overrideText:(@Composable()()->Unit)? = null,
                 background:Long? = null,
-                alignment:Alignment = Alignment.BottomCenter){
+                alignment:Alignment = Alignment.BottomCenter,
+                stateFunction:(()->Unit)? = null
+    ){
         _description = description
         _boxModifier = boxModifier
         _overrideText = overrideText
         _background = background
         _alignment = alignment
+        _stateFunction = stateFunction
     }
 
     private var _description:String? = null
@@ -228,6 +233,8 @@ class TutorialStepData{
     private var _overrideText:(@Composable()()->Unit)? = null
     private var _background:Long? = null
     private var _alignment:Alignment = Alignment.BottomCenter
+    private var _stateFunction:(()->Unit)? = null
+    fun runStateFunction() = _stateFunction
     fun GetDescription() = _description
     fun GetModifier() = _boxModifier
     fun GetOverrideTextComponent() = _overrideText
