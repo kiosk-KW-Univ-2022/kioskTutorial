@@ -35,7 +35,7 @@ data class CafeMenuImg(
     val name: String,
     val imageId: Int,
     val price: Int,
-    var Quantity: Int = 0
+    var quantity: MutableState<Int> = mutableStateOf(0)
 )
 object CafeMenuProvider {
     val menuLists = listOf(
@@ -147,7 +147,6 @@ class CafeMenu(isTutorial: Boolean,navHostController: NavHostController? = null,
     @Composable
     fun MainAct(navHostController: NavHostController){
         //커피, 티, 디저트에 관한 키오스크
-
         Column(
             modifier = Modifier
                 .fillMaxWidth()
