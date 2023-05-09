@@ -1,14 +1,11 @@
 package com.example.kiosktutorial.Screen.Train
 
-import android.graphics.Paint.Align
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -16,7 +13,6 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -123,8 +119,8 @@ fun TrainMain.SelectSubwayButton(
     isStart: Boolean,
     setMode: Modifier // Modifier.setMode setting
 ) {
-    var title: String = if (isStart) "출발" else "도착"
-    var subwayName = if (isStart) subwayStart else subwayEnd
+    val title: String = if (isStart) "출발" else "도착"
+    val subwayName = if (isStart) subwayStart else subwayEnd
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -178,7 +174,7 @@ fun TrainMain.SubwayChoicePanel() {
                 .fillMaxWidth(),
             contentAlignment = Alignment.Center
         ) {
-            dropdownArrow(
+            DropdownArrow(
                 color = Color.White,
                 upDirection = false
             )
@@ -234,7 +230,6 @@ fun TrainMain.SubwayChoicePanel() {
 
 @Composable
 fun TrainMain.DaySelectArea() {
-    var selectVisibility = remember { mutableStateOf(false) }
     Column() {
         Column(
             modifier = Modifier
@@ -242,13 +237,13 @@ fun TrainMain.DaySelectArea() {
                     5,
                     defaultModifier = Modifier
                         .background(
-                            if (selectVisibility?.value) Color(0xFFCFE8FF) else Color.White
+                            if (daySelectVisibility) Color(0xFFCFE8FF) else Color.White
                         )
                         .padding(5.dp),
                     additionalModifier = correctStepHighlight
 
                 ) {
-                    selectVisibility.value = !selectVisibility.value
+                    daySelectVisibility = !daySelectVisibility
                 }
 
         ) {
@@ -291,15 +286,15 @@ fun TrainMain.DaySelectArea() {
                 contentAlignment = Alignment.Center,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                dropdownArrow(
+                DropdownArrow(
                     color = Color(0xFF457bd9),
-                    upDirection = selectVisibility.value
+                    upDirection = daySelectVisibility
 
                 )
             }
         }
 
-        if (selectVisibility.value)
+        if (daySelectVisibility)
             Column(
                 modifier = Modifier
             ) {
@@ -365,7 +360,6 @@ fun TrainMain.DaySelectButton(
     day: LocalDate?,
     dayOfWeek: DayOfWeek,
     customText: String? = null,
-    modifier:Modifier = Modifier
 ) {
     Column(
         modifier = Modifier
@@ -408,7 +402,7 @@ fun TrainMain.DaySelectButton(
         Box(
             modifier = Modifier
                 .background(
-                    if ((day?.dayOfMonth ?: 0) == (selectedDay.dayOfMonth ?: 0)) Color(
+                    if ((day?.dayOfMonth ?: 0) == (selectedDay.dayOfMonth)) Color(
                         0xFF457bd9
                     ) else Color.White
                 )
@@ -419,7 +413,7 @@ fun TrainMain.DaySelectButton(
             val d = day?.dayOfMonth ?: 0
             Text(
                 text = "$d",
-                color = if((day?.dayOfMonth ?: 0) == (selectedDay.dayOfMonth ?: 0))Color.White else dayColor
+                color = if((day?.dayOfMonth ?: 0) == (selectedDay.dayOfMonth))Color.White else dayColor
             )
         }
 
@@ -428,8 +422,8 @@ fun TrainMain.DaySelectButton(
 
 @Composable
 fun TrainMain.HourSelectButton(hour:Int){
-    var backgroundColor:Color
-    var color:Color
+    val backgroundColor:Color
+    val color:Color
     if(hour == selectedHour){
         backgroundColor = Color(0xff4799b9)
         color = Color.White
@@ -470,7 +464,6 @@ fun TrainMain.HourSelectButton(hour:Int){
 
 @Composable
 fun TrainMain.PersonCountArea() {
-    val detailVisibility = remember{mutableStateOf(false)}
     Column(){
         var count = 0
 
@@ -481,11 +474,11 @@ fun TrainMain.PersonCountArea() {
                     defaultModifier = Modifier
                         .fillMaxWidth()
                         .background(
-                            if (detailVisibility.value) Color(0xFFCFE8FF) else Color.White
+                            if (personTicketCountVisibility) Color(0xFFCFE8FF) else Color.White
                         ),
                     additionalModifier = correctStepHighlight
                 ){
-                    detailVisibility.value = !detailVisibility.value
+                    personTicketCountVisibility = !personTicketCountVisibility
                 }
         ){
             Text(
@@ -508,14 +501,14 @@ fun TrainMain.PersonCountArea() {
                     .fillMaxWidth(),
                 textAlign = TextAlign.Center
             )
-            dropdownArrow(
+            DropdownArrow(
                 color = Color(0xFF457bd9),
-                upDirection = detailVisibility.value
+                upDirection = personTicketCountVisibility
             )
         }
 
         // detail area
-        if(detailVisibility.value)
+        if(personTicketCountVisibility)
             Column(
                 modifier = Modifier
                     .background(Color.LightGray)
@@ -530,7 +523,7 @@ fun TrainMain.PersonCountArea() {
                 )
 
                 personTicket.forEach(){
-                    personTicketNumeric(
+                    PersonTicketNumeric(
                         it.key, count
                     )
                 }
@@ -540,7 +533,7 @@ fun TrainMain.PersonCountArea() {
 
 }
 @Composable
-fun TrainMain.personTicketNumeric(
+fun TrainMain.PersonTicketNumeric(
     str:String,
     ttlCount:Int
 ){
@@ -611,7 +604,7 @@ fun TrainMain.personTicketNumeric(
 
 
 @Composable
-fun TrainMain.searchTrainButton(){
+fun TrainMain.SearchTrainButton(){
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -622,7 +615,7 @@ fun TrainMain.searchTrainButton(){
                 .border(1.dp, Color.LightGray)
                 .fillMaxHeight()
                 .weight(1f)
-                .background(Color(0xFFACCAFF)),
+                .background(Color(0xFF6B6B6B)),
             contentAlignment = Alignment.Center
         ){
             Text(
@@ -655,7 +648,7 @@ fun TrainMain.searchTrainButton(){
 }
 
 @Composable
-fun TrainMain.dropdownArrow(
+fun TrainMain.DropdownArrow(
     color: Color,
     modifier: Modifier = Modifier,
     upDirection: Boolean = false
@@ -680,7 +673,7 @@ fun TrainMain.dropdownArrow(
 }
 
 @Composable
-fun TrainMain.dSpacer() {
+fun TrainMain.Spacer() {
     Box(
         modifier = Modifier
             .fillMaxWidth(),
