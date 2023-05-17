@@ -367,7 +367,7 @@ fun TrainMain.DaySelectButton(
             .setMode(
                 6
             ) {
-                selectedDay = day
+                selectedDay = day!!
                 selectedHour = 0
             },
         verticalArrangement = Arrangement.Center
@@ -634,7 +634,7 @@ fun TrainMain.SearchTrainButton(){
                         .background(Color(0xFFACCAFF)),
                     additionalModifier = correctStepHighlight
                 ){
-                    // TODO("다음 act 이동 필요")
+                    moveNext()
                 },
             contentAlignment = Alignment.Center
         ){
