@@ -26,7 +26,7 @@ abstract class IKiosk {
         this._isTutorial = value
     }
 
-    protected fun isTutorial() = _isTutorial
+    internal fun isTutorial() = _isTutorial
 
 
     // this variable will inc/dec when next/prev step in tutorial mode
