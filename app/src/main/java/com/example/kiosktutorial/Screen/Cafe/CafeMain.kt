@@ -1,4 +1,4 @@
-package com.example.kiosktutorial.Screen.Kiosk
+package com.example.kiosktutorial.Screen.Cafe
 
 import android.widget.Toast
 import androidx.compose.foundation.background
@@ -24,55 +24,27 @@ import com.example.kiosktutorial.R
 import com.example.kiosktutorial.Screen.IKiosk
 import com.example.kiosktutorial.Screen.Screen
 import com.example.kiosktutorial.Screen.TutorialStepData
+import java.time.LocalDate
 
 class CafeMain(isTutorial: Boolean,navHostController: NavHostController? = null) : IKiosk(isTutorial) {
 
     override var tutorialStepDataList: Map<Int, TutorialStepData> =
         mutableMapOf(
-            0 to TutorialStepData("카페 메인 화면에서는 아무 화면이나\n 눌러 다음으로 진행합니다. "),
+            0 to TutorialStepData(description = "카페 키오스크 튜토리얼을 시작합니다\n시작을 하려면 화면을 눌러주세요",
+                stateFunction = {
+
+                }),
 
         )
 
     @Composable
     fun MainAct(navHostController: NavHostController? = null) {
-        val context = LocalContext.current
-        var toast: Toast? = null
-        var paintD = painterResource(id = R.drawable.cafeimg)
-        Column(modifier = Modifier
-            .fillMaxWidth()
-
-            .clickable {
-                navHostController?.navigate(Screen.CafeKiosk.route)
-            }
-            .paint(painterResource(id = R.drawable.cafeimg), contentScale = ContentScale.Crop)
-        ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(100.dp)
-            ) {
-                Text(
-                    "KT 카페",
-                    color = Color.White,
-                    fontSize = 25.sp,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-            )
-            {
-                Text(
-                    modifier = Modifier.align(Alignment.Center),
-                    text = "아무곳이나 터치하여 \n 진행해 주세요",
-                    color = Color.White,
-                    fontSize = 25.sp,
-                    textAlign = TextAlign.Center,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-
+        Column(modifier = Modifier .clickable {
+            navHostController?.navigate(Screen.CafeKiosk.route)
+        })
+        {
+            StartView();
+            Menu()
         }
     }
 

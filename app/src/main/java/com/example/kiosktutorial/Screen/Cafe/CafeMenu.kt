@@ -1,4 +1,4 @@
-package com.example.kiosktutorial.Screen.Kiosk
+package com.example.kiosktutorial.Screen.Cafe
 
 import android.widget.Toast
 import androidx.annotation.DrawableRes
