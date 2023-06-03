@@ -1,18 +1,11 @@
 package com.example.kiosktutorial.Screen.Train
 
-import android.util.Log
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.material.Text
+import android.widget.Toast
+import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.compose.rememberNavController
+import androidx.compose.ui.tooling.preview.Preview
 import com.example.kiosktutorial.Screen.IKiosk
 import com.example.kiosktutorial.Screen.TutorialStepData
-import java.time.LocalDate
 
 class TrainSelect(isTutorial: Boolean, val viewModel:TrainDataViewModel, step: Int = 1) : IKiosk(isTutorial, step) {
     override var tutorialStepDataList: Map<Int, TutorialStepData> = mutableMapOf(
@@ -29,20 +22,27 @@ class TrainSelect(isTutorial: Boolean, val viewModel:TrainDataViewModel, step: I
 
     @Composable
     fun MainAct(){
-        Box(
-            modifier = Modifier
-                .background(Color.Cyan)
+        Column(
+
         ){
-            var personTicketCount = 0
-            viewModel.trainSelectData.personTicket.forEach{
-//                Log.d("personTicket", "${it.key}:${it.value.value}")
-                personTicketCount += it.value.value
-            }
-            Text(
-                text = "${isTutorial()}\n${personTicketCount}"
-            )
+            TrainMenu()
+            TrainList()
         }
     }
 
+    internal var toast: Toast? = null
+
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewTutorialTrainSelect(){
+    val trainSelect = TrainSelect(true, TrainDataViewModel(1), 1)
+
+    with(trainSelect){
+        Layout{
+            MainAct()
+        }
+    }
 
 }
