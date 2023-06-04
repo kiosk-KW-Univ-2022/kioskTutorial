@@ -305,7 +305,7 @@ fun TrainMain.DaySelectArea() {
                         .setMode(
                             6,
                             defaultModifier = Modifier
-                                .horizontalScroll(hDayScroll, getCounter() == 6 || isTutorial()),
+                                .horizontalScroll(hDayScroll, getCounter() == 6 || !isTutorial()),
                             additionalModifier = correctStepHighlight
                         ){}
                 ) {
@@ -342,7 +342,7 @@ fun TrainMain.DaySelectArea() {
                                 .background(Color.LightGray),
                             additionalModifier = correctStepHighlight
                         ) {}
-                        .horizontalScroll(hTimeScroll, getCounter() == 7 || isTutorial())
+                        .horizontalScroll(hTimeScroll, getCounter() == 7 || !isTutorial())
                 ){
                     for(i in 0..23){
                         HourSelectButton(i)
