@@ -1,13 +1,22 @@
 package com.example.kiosktutorial.Screen.Train
 
+import android.graphics.Paint.Align
 import android.widget.Toast
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.kiosktutorial.Screen.IKiosk
 import com.example.kiosktutorial.Screen.TutorialStepData
 
-class TrainSelect(isTutorial: Boolean, val viewModel:TrainDataViewModel, step: Int = 1) : IKiosk(isTutorial, step) {
+class TrainSelect(isTutorial: Boolean, val viewModel: TrainDataViewModel, step: Int = 1) :
+    IKiosk(isTutorial, step) {
     override var tutorialStepDataList: Map<Int, TutorialStepData> = mutableMapOf(
         0 to TutorialStepData(
             description = "이전 페이지 선택창에서 넘어왔습니다.",
@@ -21,12 +30,23 @@ class TrainSelect(isTutorial: Boolean, val viewModel:TrainDataViewModel, step: I
     )
 
     @Composable
-    fun MainAct(){
+    fun MainAct() {
         Column(
-
-        ){
+            modifier = Modifier
+                .fillMaxSize(),
+        ) {
             TrainMenu()
-            TrainList()
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+            ){
+                TrainList()
+            }
+            with(viewModel.trainSelectData) {
+                if (selectedTrain.value.first != "") {
+                    PayingArea()
+                }
+            }
         }
     }
 
@@ -36,11 +56,11 @@ class TrainSelect(isTutorial: Boolean, val viewModel:TrainDataViewModel, step: I
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewTutorialTrainSelect(){
+fun PreviewTutorialTrainSelect() {
     val trainSelect = TrainSelect(true, TrainDataViewModel(1), 1)
 
-    with(trainSelect){
-        Layout{
+    with(trainSelect) {
+        Layout {
             MainAct()
         }
     }

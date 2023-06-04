@@ -42,7 +42,10 @@ data class TrainSelectData(
         "경로(만 65세 이상)" to mutableStateOf(0),
         "중증 장애인" to mutableStateOf(0),
         "경증 장애인" to mutableStateOf(0)
-    )
+    ),
+    // key: train number
+    // value: seat type: isSpecial
+    var selectedTrain:MutableState<Pair<String, Boolean>> = mutableStateOf(Pair("",false))
 )
 
 data class TrainInfo(
