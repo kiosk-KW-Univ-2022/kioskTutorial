@@ -1,10 +1,10 @@
 package com.example.kiosktutorial.Screen.Train
 
-import android.graphics.Paint.Align
-import android.util.Log
+import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.MutatePriority
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -13,24 +13,24 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -38,7 +38,6 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
@@ -47,10 +46,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kiosktutorial.R
-import com.example.kiosktutorial.Screen.Kiosk.dSpacer
-import com.example.kiosktutorial.Screen.start
+import kotlinx.coroutines.awaitCancellation
+import kotlinx.coroutines.launch
 import java.time.Duration
-import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
@@ -135,6 +133,11 @@ fun TrainSelect.TrainDay() {
         Box(
             modifier = Modifier
                 .padding(5.dp, 2.dp)
+                .setMode(
+                    1
+                ) {
+
+                }
                 .weight(1f),
             contentAlignment = Alignment.Center
         ) {
@@ -180,42 +183,74 @@ fun TrainSelect.TrainDayChangeButton(
     }
 }
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TrainSelect.TrainList() {
-    var isExists = remember { mutableStateOf(false) }
+    var isExists by remember { mutableStateOf(false) }
+    var listState = rememberLazyListState()
+    var corutine = rememberCoroutineScope()
+
+    corutine.launch{
+        var scrollable = when(getCounter()){
+            1-> true
+            else-> false
+        } or !isTutorial()
+        if (scrollable) listState.scroll(scrollPriority = MutatePriority.PreventUserInput) {}
+        else listState.scroll(scrollPriority = MutatePriority.PreventUserInput) { awaitCancellation()}
+    }
+
     LazyColumn(
+        state = listState,
         modifier = Modifier
             .fillMaxHeight()
     )
     {
         item {
             TrainDay()
-
         }
 
         stickyHeader {
             TrainDesc()
         }
 
-        items(
+        itemsIndexed(
             items = trainItemList,
-        ) {
-            if (it.start.hour >= viewModel.trainSelectData.selectHour) {
-                isExists.value = true
-                TrainSeatItem(it.trainNumber, it.start, it.end)
+            itemContent = {
+                index, item ->
+                    TrainSeatItem(item.trainNumber, item.start, item.end)
+                isExists = true
+                if(item.trainNumber == viewModel.trainSelectData.selectedTrain.value.first){
+                    corutine.launch{
+                        listState.animateScrollToItem(index)
+                    }
+                }
             }
-        }
+        )
 
-        if (!isExists.value) {
+        if (!isExists) {
             item {
                 Text(
                     text = "오늘 열차는 더이상 운행하지 않습니다.\n다른 날을 이용해 주세요.",
-                    fontSize = 14.sp
+                    fontSize = 14.sp,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(0.dp, 10.dp)
                 )
             }
         }
 
+    }
+}
+
+fun TrainSelect.funcButtonSelect(train: String, it: Boolean) {
+    if (train == viewModel.trainSelectData.selectedTrain.value.first) {
+        if (viewModel.trainSelectData.selectedTrain.value.second == it) viewModel.trainSelectData.selectedTrain.value =
+            Pair("", false)
+        else viewModel.trainSelectData.selectedTrain.value = Pair(train, it)
+    } else {
+        viewModel.trainSelectData.selectedTrain.value = Pair(train, it)
     }
 }
 
@@ -225,93 +260,89 @@ fun TrainSelect.TrainSeatItem(
     start: LocalTime,
     end: LocalTime
 ) {
-    with(viewModel.trainSelectData) {
-        var buttonBackground = Pair(Color(0xFFFFFFFF), Color(0xFFFFFFFF))
-        val selectedBackground = if (train == selectedTrain.value.first) {
-            when (selectedTrain.value.second) {
-                false -> buttonBackground = Pair(Color(0xFF89C2FF), Color(0xFFFFFFFF))
-                else -> buttonBackground = Pair(Color(0xFFFFFFFF), Color(0xFF89C2FF))
-            }
-            Color(0xFFAEEFFF)
-        } else Color(0xFFFFFFF)
+    var buttonBackground = Pair(Color(0xFFFFFFFF), Color(0xFFFFFFFF))
+    val selectedBackground = if (train == viewModel.trainSelectData.selectedTrain.value.first) {
 
-        val FuncButtonSelect: (Boolean) -> Unit = {
-            if (train == selectedTrain.value.first) {
-                if (selectedTrain.value.second == it) selectedTrain.value = Pair("", false)
-                else selectedTrain.value = Pair(train, it)
-            } else {
-                selectedTrain.value = Pair(train, it)
-            }
+        buttonBackground = when (viewModel.trainSelectData.selectedTrain.value.second) {
+            false -> Pair(Color(0xFF89C2FF), Color(0xFFFFFFFF))
+            else -> Pair(Color(0xFFFFFFFF), Color(0xFF89C2FF))
         }
+        Color(0xFFAEEFFF)
+    } else Color(0xFFFFFFF)
 
-        Row(
+
+    Row(
+        modifier = Modifier
+            .height(50.dp)
+            .background(selectedBackground)
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = train,
             modifier = Modifier
-                .height(50.dp)
-                .background(selectedBackground)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+                .weight(1f),
+            textAlign = TextAlign.Center
+        )
+        Text(
+            text = "${start.format(DateTimeFormatter.ofPattern("HH:mm"))}\n${viewModel.trainSelectData.subwayStart}",
+            modifier = Modifier
+                .weight(1f), textAlign = TextAlign.Center
+        )
+        Text(
+            text = "${end.format(DateTimeFormatter.ofPattern("HH:mm"))}\n${viewModel.trainSelectData.subwayEnd}",
+            modifier = Modifier
+                .weight(1f), textAlign = TextAlign.Center
+        )
+
+
+
+
+        Box(
+            modifier = Modifier
+                .padding(5.dp)
+                .weight(1f)
+                .fillMaxHeight()
+                .background(buttonBackground.first)
+                .setMode(
+                    1,
+                    defaultModifier = Modifier
+
+                        .border(2.dp, Color(0xFF195BAD)),
+                    overrideModifier = Modifier
+                        .border(2.dp, Color.Red)
+                ) {
+                    funcButtonSelect(train, false)
+                },
+            contentAlignment = Alignment.Center
         ) {
             Text(
-                text = train,
-                modifier = Modifier
-                    .weight(1f),
-                textAlign = TextAlign.Center
+                text = "30,000원",
+                fontSize = 12.sp
             )
+        }
+
+        Box(
+            modifier = Modifier
+                .padding(5.dp)
+                .weight(1f)
+                .fillMaxHeight()
+                .background(buttonBackground.second)
+                .setMode(
+                    1,
+                    defaultModifier = Modifier
+                        .border(2.dp, Color(0xFF195BAD)),
+                    overrideModifier = Modifier
+                        .border(2.dp, Color.Red)
+                ) {
+                    funcButtonSelect(train, true)
+                },
+            contentAlignment = Alignment.Center
+        ) {
             Text(
-                text = "${start.format(DateTimeFormatter.ofPattern("HH:mm"))}\n${viewModel.trainSelectData.subwayStart}",
-                modifier = Modifier
-                    .weight(1f), textAlign = TextAlign.Center
+                text = "49,600원",
+                fontSize = 12.sp
             )
-            Text(
-                text = "${end.format(DateTimeFormatter.ofPattern("HH:mm"))}\n${viewModel.trainSelectData.subwayEnd}",
-                modifier = Modifier
-                    .weight(1f), textAlign = TextAlign.Center
-            )
-
-
-
-            Box(
-                modifier = Modifier
-                    .padding(5.dp)
-                    .weight(1f)
-                    .fillMaxHeight()
-                    .border(2.dp, Color(0xFF195BAD))
-                    .setMode(
-                        1,
-                        defaultModifier = Modifier
-                            .background(buttonBackground.first)
-                    ) {
-                        FuncButtonSelect(false)
-                    },
-
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = "30,000원",
-                    fontSize = 12.sp
-                )
-            }
-
-            Box(
-                modifier = Modifier
-                    .padding(5.dp)
-                    .weight(1f)
-                    .fillMaxHeight()
-                    .border(2.dp, Color(0xFF195BAD))
-                    .setMode(
-                        1,
-                        defaultModifier = Modifier
-                            .background(buttonBackground.second)
-                    ) {
-                        FuncButtonSelect(true)
-                    },
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = "49,600원",
-                    fontSize = 12.sp
-                )
-            }
         }
 
     }
@@ -396,38 +427,44 @@ fun TrainSelect.PayingArea() {
                         .weight(1f)
                         .drawBehind {
                             val width = size.width
-                            val height=  size.height
+                            val height = size.height
                             drawLine(
                                 color = Color.White,
                                 start = Offset(0f, 0f),
-                                end =Offset(0f, height),
+                                end = Offset(0f, height),
                                 strokeWidth = 2f
                             )
 
                             drawLine(
                                 color = Color.White,
                                 start = Offset(width, 0f),
-                                end =Offset(width, height),
+                                end = Offset(width, height),
                                 strokeWidth = 2f
                             )
 
 
-                        }
-                    ,
+                        },
                     color = Color.White,
                     textAlign = TextAlign.Center
                 )
                 Text(
                     text = "좌석선택",
                     modifier = Modifier
-                        .weight(1f),
+                        .weight(1f)
+                        .setMode(
+                            2,
+                            additionalModifier = Modifier
+                                .border(2.dp, Color.Red)
+                        ) {
+                            moveNext()
+                        }
+                    ,
                     color = Color.White,
                     textAlign = TextAlign.Center
                 )
             }
             Box(
                 modifier = Modifier
-                    .height(with(LocalDensity.current) { 50.sp.toDp() })
                     .fillMaxWidth()
                     .background(Color(0xFFADCEDB)),
                 contentAlignment = Alignment.Center
@@ -435,8 +472,10 @@ fun TrainSelect.PayingArea() {
             ) {
                 Text(
                     text = "예매",
-                    fontSize = 20.sp,
-                    color = Color(0xFF344672)
+                    fontSize = 26.sp,
+                    color = Color(0xFF344672),
+                    modifier = Modifier
+                        .padding(20.dp)
                 )
 
             }

@@ -16,6 +16,7 @@ import com.example.kiosktutorial.R
 import com.example.kiosktutorial.Screen.Kiosk.*
 import com.example.kiosktutorial.Screen.Train.TrainDataViewModel
 import com.example.kiosktutorial.Screen.Train.TrainMain
+import com.example.kiosktutorial.Screen.Train.TrainSeat
 import com.example.kiosktutorial.Screen.Train.TrainSelect
 import kotlinx.coroutines.delay
 
@@ -94,6 +95,16 @@ fun SetupNavGraph(navController: NavHostController) {
             }
 
         }
+
+        composable(route = "tutorialTrainSeatSelectionAct"){
+            val trainSelect = TrainSeat(true,trainTutorialViewModel, 1)
+            trainSelect.Layout{
+                trainSelect.MainAct()
+            }
+        }
+
+
+
 //        lateinit var test: KioskTest
 //        composable(route = "1234test"){
 //            test = KioskTest(true)
@@ -127,7 +138,12 @@ fun SetupNavGraph(navController: NavHostController) {
             }
 
         }
-
+        composable(route = "realTrainSeatSelectionAct"){
+            val trainSelect = TrainSeat(false,trainRealViewModel, 1)
+            trainSelect.Layout{
+                trainSelect.MainAct()
+            }
+        }
         composable(route = Screen.KioskTutorial.route) {
             trainTutorialViewModel.isInit = true
             Secondhome2(navController)
