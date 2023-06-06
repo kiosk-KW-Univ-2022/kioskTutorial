@@ -1,5 +1,6 @@
 package com.example.kiosktutorial.Screen.Train
 
+import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -14,14 +15,17 @@ import com.example.kiosktutorial.Screen.IKiosk
 import com.example.kiosktutorial.Screen.TutorialStepData
 import java.time.LocalDate
 
-class TrainMain(isTutorial: Boolean, step: Int = 0) : IKiosk(isTutorial, step) {
+class TrainMain(
+    isTutorial: Boolean,
+    val viewModel: TrainDataViewModel
+) : IKiosk(isTutorial, viewModel.step) {
     override var tutorialStepDataList: Map<Int, TutorialStepData> = mutableMapOf(
         0 to TutorialStepData(
             description = "고속 철도 예매 튜토리얼을 시작합니다\n시작을 하려면 화면을 눌러주세요",
             stateFunction = {
                 subwayStart = "서울"; subwayEnd = "부산"; isStartSubway = null
                 selectedDay = LocalDate.now(); selectedHour = 0
-                personTicket.forEach{
+                personTicket.forEach {
                     personTicket[it.key]!!.value = 0
                 }
             }
@@ -71,7 +75,7 @@ class TrainMain(isTutorial: Boolean, step: Int = 0) : IKiosk(isTutorial, step) {
             }
         ),
         7 to TutorialStepData(
-            description ="""
+            description = """
                 시간을 선택합니다.
                 해당 시간 이후에 존재하는 열차로 조회할 수 있습니다.
                 만일 8시로 선택하는 경우, 08:00시 이후 열차를 조회할 수 있습니다.
@@ -99,7 +103,7 @@ class TrainMain(isTutorial: Boolean, step: Int = 0) : IKiosk(isTutorial, step) {
             alignment = Alignment.TopCenter,
             stateFunction = {
                 personTicketCountVisibility = true
-                personTicket.forEach{
+                personTicket.forEach {
                     personTicket[it.key]!!.value = 0
                 }
             }
@@ -112,30 +116,48 @@ class TrainMain(isTutorial: Boolean, step: Int = 0) : IKiosk(isTutorial, step) {
             stateFunction = {
                 personTicket[personTicket.keys.first()]!!.value = 1
             }
+        ),
+        11 to TutorialStepData(
+            description = "",
+            stateFunction = {
+                moveNext()
+            }
         )
 
     )
 
-    var subwayStart: String by mutableStateOf("서울")
-    var subwayEnd: String by mutableStateOf("부산")
-    var isStartSubway:Boolean? by mutableStateOf(null)
+    internal fun moveNext() {
+        with(viewModel){
+            trainSelectData.personTicket = personTicket
+            trainSelectData.selectDay = selectedDay
+            trainSelectData.selectHour = selectedHour
+            trainSelectData.subwayStart = subwayStart
+            trainSelectData.subwayEnd = subwayEnd
+        }
+        viewModel.step = getCounter()
+        viewModel.navController?.navigate("${if(isTutorial()) "tutorial" else "real" }TrainSelectionAct")
+    }
+
+    var subwayStart by mutableStateOf("")
+    var subwayEnd by mutableStateOf("")
+    var isStartSubway: Boolean? by mutableStateOf(null)
     val correctStepHighlight = Modifier
         .border(2.dp, Color.Red)
-    var selectedDay by mutableStateOf(LocalDate.now())
+    var selectedDay: LocalDate by mutableStateOf(LocalDate.now())
     var selectedHour by mutableStateOf(0)
-    var personTicket = mutableMapOf<String, MutableState<Int>>(
-        "어른(만 13세 이상)" to mutableStateOf(0),
-        "어린이(만 6 - 12세)" to mutableStateOf(0),
-        "유아(만 6세 미만)" to mutableStateOf(0),
-        "경로(만 65세 이상)" to mutableStateOf(0),
-        "중증 장애인" to mutableStateOf(0),
-        "경증 장애인" to mutableStateOf(0),
-    )
+    var personTicket: Map<String, MutableState<Int>>
 
     var daySelectVisibility by mutableStateOf(false)
     var personTicketCountVisibility by mutableStateOf(false)
 
+    init {
 
+        subwayStart = viewModel.trainSelectData.subwayStart
+        subwayEnd = viewModel.trainSelectData.subwayEnd
+        selectedDay = viewModel.trainSelectData.selectDay
+        selectedHour = viewModel.trainSelectData.selectHour
+        personTicket = viewModel.trainSelectData.personTicket
+    }
 
     @Composable
     fun MainAct() {
@@ -153,7 +175,7 @@ class TrainMain(isTutorial: Boolean, step: Int = 0) : IKiosk(isTutorial, step) {
                     modifier = Modifier
                         .weight(1f)
                         .verticalScroll(vScroll)
-                ){
+                ) {
                     SubwaySelectionArea()
                     Spacer()
                     DaySelectArea()
@@ -164,12 +186,12 @@ class TrainMain(isTutorial: Boolean, step: Int = 0) : IKiosk(isTutorial, step) {
                 SearchTrainButton()
             }
 
-            if(isTutorial())
-                when(getCounter()){
+            if (isTutorial())
+                when (getCounter()) {
                     0 -> StartView()            // showing what user selected
                 }
 
-            if(isStartSubway != null){
+            if (isStartSubway != null) {
                 // showing also step when 2, 4
                 SubwayChoicePanel()
             }
@@ -179,14 +201,14 @@ class TrainMain(isTutorial: Boolean, step: Int = 0) : IKiosk(isTutorial, step) {
     }
 
 
-
 }
 
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewTrainMainTutorial() {
-    val trainMain = TrainMain(true, 5)
+
+    val trainMain = TrainMain(true, TrainDataViewModel(0))
     trainMain.Layout {
         trainMain.MainAct()
     }
@@ -195,7 +217,7 @@ fun PreviewTrainMainTutorial() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewTrainMainReal() {
-    val trainMain = TrainMain(false)
+    val trainMain = TrainMain(false, TrainDataViewModel(0))
     trainMain.Layout {
         trainMain.MainAct()
     }

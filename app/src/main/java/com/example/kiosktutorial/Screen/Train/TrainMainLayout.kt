@@ -15,7 +15,9 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kiosktutorial.R
@@ -38,7 +40,7 @@ fun TrainMain.StartView() {
 
     ) {
         Text(
-            text = "KTX 열차 예매",
+            text = "고속 철도 예매",
             fontSize = with(LocalDensity.current) { 30.dp.toSp() }
         )
     }
@@ -121,6 +123,10 @@ fun TrainMain.SelectSubwayButton(
 ) {
     val title: String = if (isStart) "출발" else "도착"
     val subwayName = if (isStart) subwayStart else subwayEnd
+    val textColor = if(isStartSubway == isStart) Color(0xFF1D70B8)
+                    else if(isStartSubway == null) Color.Black
+                    else Color.Gray
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -138,7 +144,9 @@ fun TrainMain.SelectSubwayButton(
             modifier = mod,
             text = subwayName,
             fontSize = 30.sp,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            color = textColor,
+            style = TextStyle(textDecoration = if(isStartSubway == isStart) TextDecoration.Underline else TextDecoration.None)
         )
     }
 
@@ -264,16 +272,8 @@ fun TrainMain.DaySelectArea() {
             ) {
                 val format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")
                 val dateString = selectedDay.format(format)
-                val dayOfWeekString: String = when (selectedDay.dayOfWeek) {
-                    DayOfWeek.SUNDAY -> "일"
-                    DayOfWeek.MONDAY -> "월"
-                    DayOfWeek.TUESDAY -> "화"
-                    DayOfWeek.WEDNESDAY -> "수"
-                    DayOfWeek.THURSDAY -> "목"
-                    DayOfWeek.FRIDAY -> "금"
-                    DayOfWeek.SATURDAY -> "토"
-                    else -> throw IllegalStateException("Invalid day of week")
-                }
+                val dayOfWeekString: String = selectedDay.getDayOfWeekString()
+
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = "$dateString ($dayOfWeekString) ${String.format("%02d:00", selectedHour)}",
@@ -305,7 +305,7 @@ fun TrainMain.DaySelectArea() {
                         .setMode(
                             6,
                             defaultModifier = Modifier
-                                .horizontalScroll(hDayScroll, getCounter() == 6),
+                                .horizontalScroll(hDayScroll, getCounter() == 6 || !isTutorial()),
                             additionalModifier = correctStepHighlight
                         ){}
                 ) {
@@ -316,14 +316,12 @@ fun TrainMain.DaySelectArea() {
                     )
                     DaySelectButton(
                         date,
-                        date.dayOfWeek,
                         "오늘"
                     )
                     for(i in 0..31){
                         date = date.plusDays(1)
                         DaySelectButton(
-                            date,
-                            date.dayOfWeek
+                            date
                         )
                     }
                     Spacer(
@@ -344,7 +342,7 @@ fun TrainMain.DaySelectArea() {
                                 .background(Color.LightGray),
                             additionalModifier = correctStepHighlight
                         ) {}
-                        .horizontalScroll(hTimeScroll, getCounter() == 7)
+                        .horizontalScroll(hTimeScroll, getCounter() == 7 || !isTutorial())
                 ){
                     for(i in 0..23){
                         HourSelectButton(i)
@@ -358,7 +356,6 @@ fun TrainMain.DaySelectArea() {
 @Composable
 fun TrainMain.DaySelectButton(
     day: LocalDate?,
-    dayOfWeek: DayOfWeek,
     customText: String? = null,
 ) {
     Column(
@@ -367,22 +364,13 @@ fun TrainMain.DaySelectButton(
             .setMode(
                 6
             ) {
-                selectedDay = day
+                selectedDay = day!!
                 selectedHour = 0
             },
         verticalArrangement = Arrangement.Center
     ) {
-        val dayOfWeekString: String = when (dayOfWeek) {
-            DayOfWeek.SUNDAY -> "일"
-            DayOfWeek.MONDAY -> "월"
-            DayOfWeek.TUESDAY -> "화"
-            DayOfWeek.WEDNESDAY -> "수"
-            DayOfWeek.THURSDAY -> "목"
-            DayOfWeek.FRIDAY -> "금"
-            DayOfWeek.SATURDAY -> "토"
-            else -> throw IllegalStateException("Invalid day of week")
-        }
-        val dayColor = when (dayOfWeek) {
+        val dayOfWeekString: String = day!!.getDayOfWeekString()
+        val dayColor = when (day!!.dayOfWeek) {
             DayOfWeek.SUNDAY -> Color.Red
             DayOfWeek.SATURDAY -> Color.Blue
             else -> Color.Black
@@ -634,7 +622,7 @@ fun TrainMain.SearchTrainButton(){
                         .background(Color(0xFFACCAFF)),
                     additionalModifier = correctStepHighlight
                 ){
-                    // TODO("다음 act 이동 필요")
+                    moveNext()
                 },
             contentAlignment = Alignment.Center
         ){
@@ -687,4 +675,14 @@ fun TrainMain.Spacer() {
                 .background(Color.LightGray)
         )
     }
+}
+
+fun LocalDate.getDayOfWeekString() = when (this.dayOfWeek) {
+    DayOfWeek.SUNDAY -> "일"
+    DayOfWeek.MONDAY -> "월"
+    DayOfWeek.TUESDAY -> "화"
+    DayOfWeek.WEDNESDAY -> "수"
+    DayOfWeek.THURSDAY -> "목"
+    DayOfWeek.FRIDAY -> "금"
+    DayOfWeek.SATURDAY -> "토"
 }

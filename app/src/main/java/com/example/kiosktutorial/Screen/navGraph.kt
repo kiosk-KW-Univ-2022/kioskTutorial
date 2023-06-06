@@ -1,5 +1,6 @@
 package com.example.kiosktutorial.Screen
 
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.*
@@ -13,7 +14,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.example.kiosktutorial.R
 import com.example.kiosktutorial.Screen.Kiosk.*
+import com.example.kiosktutorial.Screen.Train.TrainDataViewModel
 import com.example.kiosktutorial.Screen.Train.TrainMain
+import com.example.kiosktutorial.Screen.Train.TrainSeat
+import com.example.kiosktutorial.Screen.Train.TrainSelect
 import kotlinx.coroutines.delay
 
 sealed class BackPress {
@@ -66,8 +70,10 @@ fun SetupNavGraph(navController: NavHostController) {
         }
 
         // TODO: 다른 키오스크의 설명도 나오면 선택하도록 구성
+        var trainTutorialViewModel = TrainDataViewModel(0, navController)
         composable(route = Screen.KioskTutorialSelection.route) {
-            val trainTutorial = TrainMain(true)
+            trainTutorialViewModel.Initialize()
+            val trainTutorial = TrainMain(true, trainTutorialViewModel)
             trainTutorial.Layout{
                 trainTutorial.MainAct()
             }
@@ -82,6 +88,23 @@ fun SetupNavGraph(navController: NavHostController) {
 //            view.View()
         }
 
+        composable(route = "tutorialTrainSelectionAct"){
+            val trainSelect = TrainSelect(true, trainTutorialViewModel, 1)
+            trainSelect.Layout{
+                trainSelect.MainAct()
+            }
+
+        }
+
+        composable(route = "tutorialTrainSeatSelectionAct"){
+            val trainSelect = TrainSeat(true,trainTutorialViewModel, 1)
+            trainSelect.Layout{
+                trainSelect.MainAct()
+            }
+        }
+
+
+
 //        lateinit var test: KioskTest
 //        composable(route = "1234test"){
 //            test = KioskTest(true)
@@ -91,20 +114,38 @@ fun SetupNavGraph(navController: NavHostController) {
 //        }
         setupKioskTest(navController)
 
+        var trainRealViewModel = TrainDataViewModel(0, navController)
         composable(route = Screen.KioskExerciseSelection.route) {
+            trainRealViewModel.isInit = true
             SecondHome(navController, true)
         }
 
         composable(route = Screen.KioskTrain.route) {
 //            KioskTrain(navController = navController)
-            val trainTutorial = TrainMain(false)
+            trainRealViewModel.Initialize()
+            val trainTutorial = TrainMain(false, trainRealViewModel)
             trainTutorial.Layout{
                 trainTutorial.MainAct()
             }
 
         }
 
+        composable(route = "realTrainSelectionAct"){
+            trainRealViewModel.isInit = false
+            val trainSelect = TrainSelect(false, trainRealViewModel, 1)
+            trainSelect.Layout{
+                trainSelect.MainAct()
+            }
+
+        }
+        composable(route = "realTrainSeatSelectionAct"){
+            val trainSelect = TrainSeat(false,trainRealViewModel, 1)
+            trainSelect.Layout{
+                trainSelect.MainAct()
+            }
+        }
         composable(route = Screen.KioskTutorial.route) {
+            trainTutorialViewModel.isInit = true
             Secondhome2(navController)
         }
 
