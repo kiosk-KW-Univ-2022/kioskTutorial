@@ -69,9 +69,9 @@ abstract class IKiosk {
                     return this
                         .composed { overrideModifier }
                         .clickable {
-                            function()
                             if(stepIncState())
                                 incStep()
+                            function()
                         }
                 }
                 // no
@@ -79,9 +79,9 @@ abstract class IKiosk {
                     .composed { defaultModifier }
                     .composed { additionalModifier }
                     .clickable {
-                        function()
                         if(stepIncState())
                             incStep()
+                        function()
                     }
             }
             // no
