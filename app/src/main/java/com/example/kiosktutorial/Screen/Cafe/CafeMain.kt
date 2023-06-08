@@ -1,14 +1,30 @@
 package com.example.kiosktutorial.Screen.Cafe
 
+import androidx.annotation.ColorRes
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Shapes
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.kiosktutorial.R
 import com.example.kiosktutorial.Screen.*
+import com.example.kiosktutorial.ui.theme.Shapes
 import com.example.kiosktutorial.ui.theme.backGround
 
 class CafeMain(isTutorial: Boolean,navHostController: NavHostController? = null) : IKiosk(isTutorial) {
@@ -28,8 +44,8 @@ class CafeMain(isTutorial: Boolean,navHostController: NavHostController? = null)
     )
     data class Order(
         var Menu: CafeMenuImg,
-        var detail: Int,
-        var cup:Int,
+        var detail:  MutableState<Int> = mutableStateOf(0),
+        var cup: MutableState<Int> = mutableStateOf(0),
         var quantity: MutableState<Int> = mutableStateOf(0)
     )
     object CafeMenuProvider {//각 데이터를 저장하는 장소.
@@ -59,17 +75,18 @@ class CafeMain(isTutorial: Boolean,navHostController: NavHostController? = null)
                 CafeMenuImg("머핀", R.drawable.muffin, 3000)
             )
         )
-        var OrderList :MutableList<Order> = mutableListOf(Order(menuLists[0][0],0,0))
+        var OrderList :MutableList<Order> = mutableListOf(Order(menuLists[0][0],mutableStateOf(1),mutableStateOf(1)))
     }
 
     var TotalOrder: Int by mutableStateOf(1) // 총 주문 수량 개수
     var Money: Int by mutableStateOf(0) // 총 주문 금액
     var Category: Int by mutableStateOf(0) // 메뉴 카테고리
-    var ScreenNum: Int by mutableStateOf(1)// 0 초기화면 1 메뉴 2 상세 주문 5. 주문화면
+    var ScreenNum: Int by mutableStateOf(2)// 0 초기화면 1 메뉴 2 상세 주문 5. 주문화면
     //TODO when 으로 대체
     @Composable
     fun MainAct(navHostController: NavHostController? = null) {
-        CafeMenuProvider.OrderList.add(1,Order(CafeMenuProvider.menuLists[2][1],0, 1))// 상세주문
+        // 장바구니 추가시 TotalOrder 증가
+        // CafeMenuProvider.OrderList.add(1,Order(CafeMenuProvider.menuLists[2][1],0, 1))// 상세주문
         Column(modifier = Modifier .clickable {
             //navHostController?.navigate(Screen.CafeKiosk.route)
         })
@@ -88,15 +105,12 @@ class CafeMain(isTutorial: Boolean,navHostController: NavHostController? = null)
                     }
                 }
                 2 ->{//상세주문 화면
-                    Column(
-                        modifier = Modifier
-                            .background(backGround)
-                    ){
-                        ActMainTitle(title = "키페")
-                        ActMainContent(){
-                            DetailOrder(0)
-                        }
-                    }
+                    DetailOrder(CafeMenuProvider.menuLists[0][0])
+                }
+                3->{//결제 화면\
+                    if(navHostController!=null) OrderSuccess(navHostController)
+                }
+                4->{
 
                 }
             }
