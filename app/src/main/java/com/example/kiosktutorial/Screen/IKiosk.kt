@@ -1,5 +1,6 @@
 package com.example.kiosktutorial.Screen
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -35,6 +36,23 @@ abstract class IKiosk {
 
     private var _step by mutableStateOf(-1)
     internal fun getCounter() = _step
+
+    /**
+     * if `isForceModifyingStep value is true, you can use function `forceModifyingStep`
+     */
+    protected var isForceModifyingStep = false
+    /**
+     * `step` value force change function. only you can use when var `isForceModifyingStep` has true.
+     *  if that var value has false, you can't use this function.
+     *  if you use this function when var value isn't true, it occurs runtime error.
+      */
+    internal fun forceModifyingStep(to:Int){
+        if(!isForceModifyingStep) {
+            Log.d("change isForceModifyingStep value to true", "you can't use forceModifyingStep function. if you want use this function, change isForceModifyingStep value to true")
+            throw Exception("you doesn't make forceModifyingStep to true. if you want use this function, change isForceModifyingStep value to true")
+        }
+        else _step = to
+    }
     private fun incStep() {
         if (getCounter() < STEP_MAX) _step++
     }
@@ -69,9 +87,9 @@ abstract class IKiosk {
                     return this
                         .composed { overrideModifier }
                         .clickable {
-                            function()
                             if(stepIncState())
                                 incStep()
+                            function()
                         }
                 }
                 // no
@@ -79,9 +97,9 @@ abstract class IKiosk {
                     .composed { defaultModifier }
                     .composed { additionalModifier }
                     .clickable {
-                        function()
                         if(stepIncState())
                             incStep()
+                        function()
                     }
             }
             // no
