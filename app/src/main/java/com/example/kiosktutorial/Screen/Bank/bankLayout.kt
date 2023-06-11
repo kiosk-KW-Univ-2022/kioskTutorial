@@ -572,3 +572,134 @@ fun BankMain.SelectMoney() {
     }
 }
 
+@Composable
+fun BankMain.MoneyCheck() {
+    Column {
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp)
+                .padding(3.dp)
+        ) {
+            Text(
+                fontWeight = FontWeight.Bold,
+                text = "\t\t명세표를 받으시겠습니까?", fontSize = 25.sp
+            )
+        }
+        Spacer(modifier = Modifier.height(10.dp))
+        Box(
+            modifier = Modifier
+                .background(
+                    shape = RoundedCornerShape(
+                        topStart = CornerSize(25.dp),
+                        topEnd = CornerSize(25.dp),
+                        bottomEnd = CornerSize(25.dp),
+                        bottomStart = CornerSize(25.dp)
+                    ), color = Color.LightGray
+                )
+                .height(300.dp)
+                .width(380.dp)
+                .padding(30.dp)
+        ) {
+            Text(
+                modifier = Modifier.align(Alignment.TopCenter),
+                fontWeight = FontWeight.Bold,
+                color = Color.Blue,
+                text = "찾으시는 금액의 내용입니다", fontSize = 20.sp
+            )
+            Text(
+                modifier = Modifier.align(Alignment.Center),
+                text = "현금:\t\t\t\t\t 1만원\n수표:\t\t\t\t\t 0만원",
+                fontSize = 25.sp
+            )
+            Text(
+                modifier = Modifier.align(Alignment.BottomCenter),
+                text = "합계금액:\t\t\t\t\t 1만원",
+                fontSize = 25.sp
+            )
+
+
+        }
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Row() {
+            Spacer(modifier = Modifier.width(15.dp))
+            Button(modifier = Modifier
+                .width(120.dp)
+                .height(80.dp)
+                .shadow(20.dp, shape = RectangleShape, clip = true),
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Yellow),
+                onClick = { /*다음페이지로 이동*/ }) {
+                Text(
+                    text = "아니오",
+                    fontSize = 20.sp
+                )
+            }
+            //TODO setmode
+            Spacer(modifier = Modifier.width(70.dp))
+            Button(modifier = Modifier
+                .width(120.dp)
+                .height(80.dp)
+                .shadow(20.dp, shape = RectangleShape, clip = true),
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Yellow),
+                onClick = {  }) {
+                Text(
+                    text = "예",
+                    fontSize = 20.sp
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun BankMain.KardOut() {
+    Column {
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Box(
+            modifier = Modifier
+                .background(
+                    shape = RoundedCornerShape(
+                        topStart = CornerSize(25.dp),
+                        topEnd = CornerSize(25.dp),
+                        bottomEnd = CornerSize(25.dp),
+                        bottomStart = CornerSize(25.dp)
+                    ), color = Color.LightGray
+                )
+                .height(130.dp)
+                .width(380.dp)
+                .padding(30.dp)
+        ) {
+            Text(
+                modifier = Modifier.align(Alignment.Center), text = "카드와 명세표를 받으십시오",
+                fontSize = 20.sp, fontWeight = FontWeight.Bold
+            )
+        }
+        Box(modifier = Modifier.height(200.dp)) {
+            val painterd = painterResource(id = R.drawable.card)
+            Image(
+                modifier = Modifier
+                    .fillMaxSize(),
+                painter = painterd,
+                contentDescription = "card",
+                contentScale = ContentScale.Fit
+            )
+        }
+        Spacer(modifier = Modifier.height(20.dp))
+        Button(modifier = Modifier
+            .width(90.dp)
+            .height(80.dp)
+            .shadow(20.dp, shape = RectangleShape, clip = true),
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Yellow),
+            //TODO setmode
+            onClick = { }) {
+            Text(
+                text = "확인",
+                fontSize = 20.sp
+            )
+        }
+    }
+}

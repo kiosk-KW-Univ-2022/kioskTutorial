@@ -88,7 +88,9 @@ class BankMain(isTutorial:Boolean, step: Int=0): IKiosk(isTutorial,step){
                     4 -> PrassPassword()
                     5 -> PrassPassword()// 확인버튼 출력부분
                     6 -> SelectMoney()
-                    //7 ->
+                    7 -> MoneyCheck()
+                    8 -> KardOut()
+                    //9 -> Paywindow2()
                 }
             }
 
