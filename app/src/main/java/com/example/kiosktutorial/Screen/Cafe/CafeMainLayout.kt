@@ -20,6 +20,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.ModifierInfo
 import androidx.compose.ui.layout.VerticalAlignmentLine
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
@@ -48,8 +49,9 @@ fun CafeMain.StartView(){
                 .alpha(1f)
                 .background(Color(0xFFffe65a))
                 .fillMaxSize()
-                .clickable { ScreenNum = 1; }
-        ) {}
+        ) {
+            ScreenNum = 1;
+        }
         .fillMaxWidth()
         .paint(painterResource(id = R.drawable.cafeimg), contentScale = ContentScale.Crop)
     ) {
@@ -334,19 +336,44 @@ fun CafeMain.RecyclerViewContent(number: Int) {
 @Composable
 fun CafeMain.Categorybutton(number:Int){// 카테고리 number 0 커피, 1 티 ,2 디저트
     val Item = remember { CafeMenu.CategoryItemProvider.CategoryList[number] }
-    Button(
-        colors = if (Item.number == Category) ButtonDefaults.buttonColors(Color.White)
-        else ButtonDefaults.buttonColors(CafeColor),
-        onClick = { Category=Item.number }
-    ) {
-        Text(
-            text = "${Item.name}",
-            color = if (Category == Item.number) Color.Black else Color.White,
-            fontSize = 25.sp,
-            textAlign = TextAlign.Center,
-            fontWeight = FontWeight.Bold
-        )
+    if(Item.number ==Category)
+        Box(modifier = Modifier.setMode(
+            1,
+            defaultModifier = Modifier.background(Color.Gray)
+                .fillMaxHeight()
+                .fillMaxWidth(0.2f)
+        ){
+            Category=number
+        })
+        {
+            Text(
+                text = "${Item.name}",
+                color = if (Category == Item.number) Color.Black else Color.White,
+                fontSize = 25.sp,
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Bold
+            )
+        }
+    else{
+        Box(modifier = Modifier.setMode(
+            1,
+            defaultModifier = Modifier.background(backGround)
+                .fillMaxHeight()
+                .fillMaxWidth(0.2f)
+        ){
+            Category=number
+        })
+        {
+            Text(
+                text = "${Item.name}",
+                color = if (Category == Item.number) Color.Black else Color.White,
+                fontSize = 25.sp,
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Bold
+            )
+        }
     }
+
 }
 @Composable
 fun CafeMain.CategorySelect(){

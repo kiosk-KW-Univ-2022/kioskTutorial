@@ -82,6 +82,8 @@ class CafeMain(isTutorial: Boolean,navHostController: NavHostController? = null)
     var Money: Int by mutableStateOf(0) // 총 주문 금액
     var Category: Int by mutableStateOf(0) // 메뉴 카테고리
     var ScreenNum: Int by mutableStateOf(2)// 0 초기화면 1 메뉴 2 상세 주문 5. 주문화면
+    var Menu : CafeMenuImg by mutableStateOf(CafeMenuProvider.menuLists[0][0])
+
     //TODO when 으로 대체
     @Composable
     fun MainAct(navHostController: NavHostController? = null) {
@@ -105,7 +107,7 @@ class CafeMain(isTutorial: Boolean,navHostController: NavHostController? = null)
                     }
                 }
                 2 ->{//상세주문 화면
-                    DetailOrder(CafeMenuProvider.menuLists[0][0])
+                    DetailOrder(Menu)
                 }
                 3->{//결제 화면\
                     if(navHostController!=null) OrderSuccess(navHostController)
