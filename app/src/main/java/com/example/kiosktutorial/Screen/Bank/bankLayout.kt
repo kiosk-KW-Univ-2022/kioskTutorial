@@ -8,16 +8,19 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -25,45 +28,132 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kiosktutorial.R
 import com.example.kiosktutorial.Screen.Screen
+import com.example.kiosktutorial.Screen.Train.TrainMain
 import com.example.kiosktutorial.ui.theme.backGround
+//TODO 예금출금 박스크기조정&카드출금, 확인글자 가운데정렬및 크기조정, 카드비밀번호 위에 바 없애기&두번누르면 자동으로 넘어아짐
 
-//TODO setmode버전으로 바꾸기
 @Composable
-fun BankMain.SelectMoneyButton(Text:String)
-{
-    Button(
-        shape = RoundedCornerShape(5.dp),
-        onClick = { money=Text },
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = backGround,
-        ),
-        modifier = Modifier.wrapContentSize()
+fun BankMain.StartView() {
+    Box(
+        modifier = Modifier
+            .setMode(
+                0,
+                Modifier
+                    .alpha(1f)
+                    .background(Color(0xFFffe65a))
+                    .fillMaxSize()
+            ) {},
+        contentAlignment = Alignment.Center
 
     ) {
         Text(
-            text=Text,
-            modifier = Modifier,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
+            text = "은행",
+            fontSize = with(LocalDensity.current) { 30.dp.toSp() }
         )
     }
+}
+
+
+@Composable
+fun BankMain.SelectMoneyButton(inputtext:String)
+{
+    if(inputtext=="1만원"){
+        Box(modifier=Modifier.setMode(
+            4,
+            defaultModifier = Modifier
+                .background(color = backGround, shape = RoundedCornerShape(5.dp))
+                .wrapContentSize()
+                .fillMaxWidth()
+                .fillMaxHeight(0.33f),
+            additionalModifier = correctStepHighlight
+        ){money = inputtext}
+        ){
+            Text(
+
+                text= inputtext,
+                modifier = Modifier.align(Alignment.Center),
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
+    }
+    else if (inputtext=="예금출금"){
+        Box(modifier=Modifier.setMode(
+            0,
+            defaultModifier = Modifier
+                .background(color = backGround, shape = RoundedCornerShape(5.dp))
+                .wrapContentSize()
+                .fillMaxWidth()
+                .fillMaxHeight(0.33f),
+            additionalModifier = correctStepHighlight
+        ){screenNum.value += 1 }
+
+        ){
+            Text(
+                modifier = Modifier.align(Alignment.Center),
+                text= inputtext,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
+    }
+    else if (inputtext=="카드출금"){
+        Box(modifier=Modifier.setMode(
+            1,
+            defaultModifier = Modifier
+                .background(color = backGround, shape = RoundedCornerShape(5.dp))
+                .wrapContentSize()
+                .fillMaxWidth()
+                .fillMaxHeight(0.33f),
+            additionalModifier = correctStepHighlight
+        ){screenNum.value += 1 }
+        ){
+            Text(
+                modifier = Modifier.align(Alignment.Center),
+                text= inputtext,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
+    }
+    else {
+        Box(modifier=Modifier.setMode(
+            4,
+            defaultModifier = Modifier
+                .background(color = backGround, shape = RoundedCornerShape(5.dp))
+                .wrapContentSize()
+                .fillMaxWidth()
+                .fillMaxHeight(0.33f),
+        ){money = inputtext}
+        ){
+            Text(
+                modifier = Modifier.align(Alignment.Center),
+                text= inputtext,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
+    }
+
+
+
 }
 
 @Composable
 fun BankMain.SelectMoneyButtonyet(Text:String)
 {
-    Button(
-        shape = RoundedCornerShape(5.dp),
-        onClick = { money=Text },
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = Color.LightGray,
-        ),
-        modifier = Modifier.wrapContentSize()
-
-    ) {
+    Box(modifier=Modifier.setMode(
+        0,
+        defaultModifier = Modifier
+            .background(color = Color.LightGray, shape = RoundedCornerShape(5.dp))
+            .wrapContentSize()
+            .fillMaxWidth()
+            .fillMaxHeight(0.5f)
+    ){}
+    ){
         Text(
-            text=Text,
-            modifier = Modifier,
+            modifier = Modifier.align(Alignment.Center),
+            text= Text,
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold
         )
@@ -71,88 +161,97 @@ fun BankMain.SelectMoneyButtonyet(Text:String)
 }
 @Composable
 fun BankMain.SelectBankwork() {
-    Column {
-        Row(modifier = Modifier.fillMaxSize()) {
-            Box(modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth()
+    Column(modifier = Modifier.fillMaxSize()) {
+        Row(modifier = Modifier
+            .fillMaxHeight()) {
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
             )
-            Column {//위아래 패딩, 옆에 패딩
+            Column(modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()) {//위아래 패딩, 옆에 패딩
                 SelectMoneyButton("예금출금")
+                Spacer(modifier = Modifier.height(8.dp))
                 SelectMoneyButtonyet("입      금")
+                Spacer(modifier = Modifier.height(8.dp))
                 SelectMoneyButtonyet("계좌이체")
             }
-            Box(modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth()
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
             )
             // 오른쪽 버튼
-            Column {
+            Column(modifier = Modifier.weight(1f)) {
                 SelectMoneyButtonyet("예금조회")
+                Spacer(modifier = Modifier.height(8.dp))
                 SelectMoneyButtonyet("통장정리")
+                Spacer(modifier = Modifier.height(8.dp))
                 SelectMoneyButtonyet("신용카드")
             }
-            Box(modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth()
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
             )
         }
         Spacer(modifier = Modifier.height(30.dp))
-
-        Box(
-            modifier = Modifier
-                .background(
-                    shape = RoundedCornerShape(
-                        topStart = CornerSize(25.dp),
-                        topEnd = CornerSize(25.dp),
-                        bottomEnd = CornerSize(25.dp),
-                        bottomStart = CornerSize(25.dp)
-                    ), color = backGround
+        Row(modifier = Modifier.fillMaxSize()) {
+            Box(
+                modifier = Modifier
+                    .background(
+                        shape = RoundedCornerShape(
+                            topStart = CornerSize(25.dp),
+                            topEnd = CornerSize(25.dp),
+                            bottomEnd = CornerSize(25.dp),
+                            bottomStart = CornerSize(25.dp)
+                        ), color = backGround
+                    )
+                    .height(340.dp)
+                    .padding(30.dp)
+            ) {
+                Text(
+                    modifier = Modifier.align(Alignment.TopCenter),
+                    text = "만원/오만원/수표 출금 가능\n\t\t\t현금/수표 입금가능\n천원권 오처원권 입금불가",
+                    fontSize = 18.sp
                 )
-                .height(400.dp)
-                .width(380.dp)
-                .padding(30.dp)
-        ) {
-            Text(
-                modifier = Modifier.align(Alignment.TopCenter),
-                text = "만원/오만원/수표 출금 가능\n\t\t\t현금/수표 입금가능\n천원권 오처원권 입금불가",
-                fontSize = 18.sp
-            )
-            Text(
-                modifier = Modifier.align(Alignment.CenterStart),
-                text = "\t\t\t\t\t\t\t\t[금융사기 예방 유의사항]\n국세청, 건강보험공단은 현금 입,출금기를 통하여 환급하는 경우는 없습니다.",
-                fontSize = 19.sp,
-                color = Color.Red
-            )
-            Text(
-                modifier = Modifier.align(Alignment.BottomCenter),
-                text = "눈이 편한 ATM",
-                fontSize = 30.sp
-            )
+                Text(
+                    modifier = Modifier.align(Alignment.CenterStart),
+                    text = "\t\t\t\t\t\t\t\t[금융사기 예방 유의사항]\n국세청, 건강보험공단은 현금 입,출금기를 통하여 환급하는 경우는 없습니다.",
+                    fontSize = 19.sp,
+                    color = Color.Red
+                )
+                Text(
+                    modifier = Modifier.align(Alignment.BottomCenter),
+                    text = "눈이 편한 ATM",
+                    fontSize = 30.sp
+                )
+            }
         }
     }
 }
 @Composable
 fun BankMain.SelectOutkind(){//출금종류
-    Column {
-
+    Column(modifier = Modifier.fillMaxSize()){
         Spacer(modifier = Modifier.height(20.dp))
         Row(modifier = Modifier.fillMaxSize()) {
             Box(modifier = Modifier
                 .weight(1f)
-                .fillMaxWidth()
+                .fillMaxHeight(0.5f)
             ){
-                SelectMoneyButton("통장출금")
+                SelectMoneyButton("카드출금")
             }
             Box(modifier = Modifier
                 .weight(1f)
-                .fillMaxWidth()
+                .fillMaxHeight(0.5f)
             ){
-                SelectMoneyButtonyet("카드출금")
+                SelectMoneyButtonyet("통장출금")
             }
             Box(modifier = Modifier
                 .weight(1.2f)
-                .fillMaxWidth()
+                .fillMaxHeight(0.5f)
             ) {
                 SelectMoneyButtonyet("무통장출금")
             }
@@ -169,8 +268,7 @@ fun BankMain.SelectOutkind(){//출금종류
                         bottomStart = CornerSize(25.dp)
                     ), color = backGround
                 )
-                .height(400.dp)
-                .width(380.dp)
+                .height(340.dp)
                 .padding(30.dp)
         ) {
             Text(
@@ -192,7 +290,7 @@ fun BankMain.SelectOutkind(){//출금종류
         }
     }
 }
-//TODO 확인버튼 색바꾸기
+
 @Composable
 fun BankMain.Kardcheck(){
     Column {
@@ -228,17 +326,24 @@ fun BankMain.Kardcheck(){
             )
         }
         Spacer(modifier = Modifier.height(20.dp))
-        Button(modifier = Modifier
+        Box(modifier = Modifier
+            .setMode(
+                2,
+                defaultModifier = Modifier
+                    .background(
+                        color = backGround,
+                        shape = RoundedCornerShape(5.dp)
+                    )
+                    .wrapContentSize(),
+                additionalModifier = correctStepHighlight
+            ) { screenNum.value += 1 }
             .width(90.dp)
             .height(80.dp)
-            .shadow(20.dp, shape = RectangleShape, clip = true),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Yellow),
-
-            //TODO 온클릭말고 setmode로
-            onClick = {  }) {
+        ) {
             Text(
+                modifier = Modifier.align(Alignment.Center),
                 text = "확인",
-                fontSize = 25.sp
+                fontSize = 20.sp
             )
         }
     }
@@ -256,24 +361,6 @@ fun BankMain.PrassPassword() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        Box(//위에 설명구문 박스
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp)
-                .background(Color(0xfffed55f))
-        ) {
-            Text(
-                text = "카드 비밀번호 4자리를 눌러주세요",
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(alignment = Alignment.Center),
-                fontSize = 20.sp,
-                color = Color.White,
-                fontWeight = FontWeight.Bold
-            )
-
-        }
         Column(
             modifier = Modifier
                 .background(Color.White),
@@ -489,16 +576,21 @@ fun BankMain.PrassPassword() {
                     )
                 }
             }
-            //TODO setmode로 하기
             if (number == 4) {
-                Button(modifier = Modifier
+                Box(modifier= Modifier
+                    .setMode(
+                        3,
+                        defaultModifier = Modifier
+                            .background(color = backGround, shape = RoundedCornerShape(5.dp))
+                            .wrapContentSize(),
+                        additionalModifier = correctStepHighlight
+                    ) { screenNum.value += 1 }
                     .width(90.dp)
                     .height(80.dp)
-                    .shadow(20.dp, shape = RectangleShape, clip = true)
-                    .align(Alignment.CenterHorizontally),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.Yellow),
-                    onClick = { }) {
+                    .align(Alignment.CenterHorizontally)
+                ){
                     Text(
+                        modifier = Modifier.align(Alignment.Center),
                         text = "확인",
                         fontSize = 20.sp
                     )
@@ -510,16 +602,19 @@ fun BankMain.PrassPassword() {
 @Composable
 fun BankMain.SelectMoney() {
     Column {
-
         Row(modifier = Modifier.fillMaxSize()) {
             Box(modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()
             )
-            Column {//위아래 패딩, 옆에 패딩
+            Column (modifier = Modifier.weight(3.0f)
+                    .fillMaxHeight()){
                 SelectMoneyButton(" 1만원 ")
+                Spacer(modifier = Modifier.height(8.dp))
                 SelectMoneyButton(" 3만원 ")
+                Spacer(modifier = Modifier.height(8.dp))
                 SelectMoneyButton(" 5만원 ")
+                Spacer(modifier = Modifier.height(8.dp))
                 SelectMoneyButton("10만원")
             }
             Box(modifier = Modifier
@@ -527,10 +622,14 @@ fun BankMain.SelectMoney() {
                 .fillMaxWidth()
                     )
             // 오른쪽 버튼
-            Column {
+            Column (modifier = Modifier.weight(3.0f)
+                .fillMaxHeight()){
                 SelectMoneyButton("20만원")
+                Spacer(modifier = Modifier.height(8.dp))
                 SelectMoneyButton("25만원")
+                Spacer(modifier = Modifier.height(8.dp))
                 SelectMoneyButton("30만원")
+                Spacer(modifier = Modifier.height(8.dp))
                 SelectMoneyButton("기    타")
             }
             Box(modifier = Modifier
@@ -625,9 +724,9 @@ fun BankMain.MoneyCheck() {
         Spacer(modifier = Modifier.height(20.dp))
 
         Row() {
-            Spacer(modifier = Modifier.width(15.dp))
+            /*Spacer(modifier = Modifier.width(15.dp))
             Button(modifier = Modifier
-                .width(120.dp)
+                .width(90.dp)
                 .height(80.dp)
                 .shadow(20.dp, shape = RectangleShape, clip = true),
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.Yellow),
@@ -636,16 +735,21 @@ fun BankMain.MoneyCheck() {
                     text = "아니오",
                     fontSize = 20.sp
                 )
-            }
-            //TODO setmode
+            }*/
             Spacer(modifier = Modifier.width(70.dp))
-            Button(modifier = Modifier
-                .width(120.dp)
+            Box(modifier= Modifier
+                .setMode(
+                    5,
+                    defaultModifier = Modifier
+                        .background(color = backGround, shape = RoundedCornerShape(5.dp))
+                        .wrapContentSize(),
+                    additionalModifier = correctStepHighlight
+                ) { screenNum.value += 1 }
+                .width(90.dp)
                 .height(80.dp)
-                .shadow(20.dp, shape = RectangleShape, clip = true),
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Yellow),
-                onClick = {  }) {
+            ){
                 Text(
+                    modifier = Modifier.align(Alignment.Center),
                     text = "예",
                     fontSize = 20.sp
                 )
@@ -689,14 +793,20 @@ fun BankMain.KardOut() {
             )
         }
         Spacer(modifier = Modifier.height(20.dp))
-        Button(modifier = Modifier
+
+        Box(modifier= Modifier
+            .setMode(
+                6,
+                defaultModifier = Modifier
+                    .background(color = backGround, shape = RoundedCornerShape(5.dp))
+                    .wrapContentSize(),
+                additionalModifier = correctStepHighlight
+            ) { screenNum.value += 1 }
             .width(90.dp)
             .height(80.dp)
-            .shadow(20.dp, shape = RectangleShape, clip = true),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Yellow),
-            //TODO setmode
-            onClick = { }) {
+        ){
             Text(
+                modifier = Modifier.align(Alignment.Center),
                 text = "확인",
                 fontSize = 20.sp
             )
