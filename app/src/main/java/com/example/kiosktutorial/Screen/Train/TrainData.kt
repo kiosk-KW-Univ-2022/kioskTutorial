@@ -2,6 +2,7 @@ package com.example.kiosktutorial.Screen.Train
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
@@ -15,6 +16,10 @@ import java.time.LocalTime
 class TrainDataViewModel(var step:Int, val navController: NavHostController? = null) : ViewModel(){
     var trainSelectData by mutableStateOf(TrainSelectData())
     var isInit:Boolean
+
+    var trainSelectStep:Int = 1
+
+    var trainSeatList:MutableList<String> = mutableStateListOf<String>()
 
     init{
         trainSelectData = TrainSelectData()

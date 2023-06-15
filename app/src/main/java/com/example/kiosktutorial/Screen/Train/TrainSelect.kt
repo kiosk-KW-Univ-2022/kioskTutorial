@@ -13,6 +13,10 @@ import com.example.kiosktutorial.Screen.TutorialStepData
 
 class TrainSelect(isTutorial: Boolean, val viewModel: TrainDataViewModel, step: Int = 1) :
     IKiosk(isTutorial, step) {
+
+    override var isForceModifyingStep = true
+
+
     override var tutorialStepDataList: Map<Int, TutorialStepData> = mutableMapOf(
         0 to TutorialStepData(
             description = "이전 페이지 선택창에서 넘어왔습니다.",
@@ -32,10 +36,25 @@ class TrainSelect(isTutorial: Boolean, val viewModel: TrainDataViewModel, step: 
 // FIXME: applying this parameter, occurs error that can not move to next step
 //          why occurs this happens, unknown.
 //            description = "선택한 열차는 ${viewModel.trainSelectData.selectedTrain.value.first}번입니다.\n이제 열차 좌석을 고르겠습니다. 우측 하단의 좌석선택을 눌러주세요.",
-            alignment = Alignment.TopCenter
+            alignment = Alignment.TopCenter,
+            stateFunction = {
+
+                viewModel.trainSelectData.selectedTrain.value =Pair("364", false)
+
+            }
         ),
         3 to TutorialStepData(
-            description = "asdf"
+            description = "다음 버튼을 눌러 다음 작업으로 이동하세요.",
+            stateFunction = {
+                // FIXME: move to here from next activity of this action.
+                if(it) moveNext()
+                else forceModifyingStep(2)
+            }
+        ),
+        4 to TutorialStepData(
+            description = "예매 버튼을 눌러 다음으로 이동합니다.",
+            alignment = Alignment.TopCenter,
+            stateFunction = {}
         )
     )
 
@@ -61,6 +80,8 @@ class TrainSelect(isTutorial: Boolean, val viewModel: TrainDataViewModel, step: 
     }
 
     fun moveNext(){
+        forceModifyingStep(4)
+        viewModel.trainSelectStep = getCounter()
         viewModel.navController?.navigate("${if(isTutorial()) "tutorial" else "real" }TrainSeatSelectionAct")
     }
 

@@ -89,7 +89,7 @@ fun SetupNavGraph(navController: NavHostController) {
         }
 
         composable(route = "tutorialTrainSelectionAct"){
-            val trainSelect = TrainSelect(true, trainTutorialViewModel, 1)
+            val trainSelect = TrainSelect(true, trainTutorialViewModel, trainTutorialViewModel.trainSelectStep)
             trainSelect.Layout{
                 trainSelect.MainAct()
             }
@@ -132,7 +132,7 @@ fun SetupNavGraph(navController: NavHostController) {
 
         composable(route = "realTrainSelectionAct"){
             trainRealViewModel.isInit = false
-            val trainSelect = TrainSelect(false, trainRealViewModel, 1)
+            val trainSelect = TrainSelect(false, trainRealViewModel, trainRealViewModel.trainSelectStep)
             trainSelect.Layout{
                 trainSelect.MainAct()
             }

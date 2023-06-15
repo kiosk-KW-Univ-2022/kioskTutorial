@@ -19,6 +19,8 @@ class TrainMain(
     isTutorial: Boolean,
     val viewModel: TrainDataViewModel
 ) : IKiosk(isTutorial, viewModel.step) {
+    override var isForceModifyingStep = true
+
     override var tutorialStepDataList: Map<Int, TutorialStepData> = mutableMapOf(
         0 to TutorialStepData(
             description = "고속 철도 예매 튜토리얼을 시작합니다\n시작을 하려면 화면을 눌러주세요",
@@ -114,6 +116,8 @@ class TrainMain(
             """.trimIndent(),
             alignment = Alignment.TopCenter,
             stateFunction = {
+                personTicketCountVisibility= true
+                daySelectVisibility = true
                 personTicket[personTicket.keys.first()]!!.value = 1
             }
         ),
@@ -134,6 +138,7 @@ class TrainMain(
             trainSelectData.subwayStart = subwayStart
             trainSelectData.subwayEnd = subwayEnd
         }
+        forceModifyingStep(10)
         viewModel.step = getCounter()
         viewModel.navController?.navigate("${if(isTutorial()) "tutorial" else "real" }TrainSelectionAct")
     }
