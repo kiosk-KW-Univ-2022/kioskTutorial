@@ -40,7 +40,7 @@ abstract class IKiosk {
     /**
      * if `isForceModifyingStep value is true, you can use function `forceModifyingStep`
      */
-    protected var isForceModifyingStep = false
+    protected open var isForceModifyingStep = false
     /**
      * `step` value force change function. only you can use when var `isForceModifyingStep` has true.
      *  if that var value has false, you can't use this function.
@@ -195,7 +195,7 @@ abstract class IKiosk {
                 enabled = STEP_MIN < getCounter(),
                 onClick = {
                     decStep()
-                    tutorialStepDataList[getCounter()]?.runStateFunction()?.invoke()
+                    tutorialStepDataList[getCounter()]?.runStateFunction()?.invoke(false)
                 }) {
                 Text(text = "이전")
             }
@@ -207,7 +207,7 @@ abstract class IKiosk {
                 enabled = getCounter() < STEP_MAX,
                 onClick = {
                     incStep()
-                    tutorialStepDataList[getCounter()]?.runStateFunction()?.invoke()
+                    tutorialStepDataList[getCounter()]?.runStateFunction()?.invoke(true)
                 }) {
                 Text(text = "다음")
             }
@@ -236,7 +236,7 @@ class TutorialStepData{
                 overrideText:(@Composable()()->Unit)? = null,
                 background:Long? = null,
                 alignment:Alignment = Alignment.BottomCenter,
-                stateFunction:(()->Unit)? = null
+                stateFunction:((Boolean)->Unit)? = null
     ){
         _description = description
         _boxModifier = boxModifier
@@ -251,7 +251,7 @@ class TutorialStepData{
     private var _overrideText:(@Composable()()->Unit)? = null
     private var _background:Long? = null
     private var _alignment:Alignment = Alignment.BottomCenter
-    private var _stateFunction:(()->Unit)? = null
+    private var _stateFunction:((Boolean)->Unit)? = null
     fun runStateFunction() = _stateFunction
     fun GetDescription() = _description
     fun GetModifier() = _boxModifier
