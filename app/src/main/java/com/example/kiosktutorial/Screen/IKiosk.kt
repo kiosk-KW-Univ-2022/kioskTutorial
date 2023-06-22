@@ -110,9 +110,6 @@ abstract class IKiosk {
         }
     }
 
-
-
-
     @Composable
     open fun Layout(design: @Composable() () -> Unit) {
         if (isTutorial()) {
@@ -229,6 +226,18 @@ abstract class IKiosk {
         alignment = Alignment.BottomCenter
     )
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 class TutorialStepData{
     constructor(description:String?,

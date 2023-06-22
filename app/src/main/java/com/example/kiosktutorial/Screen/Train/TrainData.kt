@@ -20,6 +20,7 @@ class TrainDataViewModel(var step:Int, val navController: NavHostController? = n
     var trainSelectStep:Int = 1
 
     var trainSeatList:MutableList<String> = mutableStateListOf<String>()
+    var trainSection:Int =0;
 
     init{
         trainSelectData = TrainSelectData()

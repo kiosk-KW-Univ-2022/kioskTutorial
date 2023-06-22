@@ -55,6 +55,12 @@ class TrainSelect(isTutorial: Boolean, val viewModel: TrainDataViewModel, step: 
             description = "예매 버튼을 눌러 다음으로 이동합니다.",
             alignment = Alignment.TopCenter,
             stateFunction = {}
+        ),
+        5 to TutorialStepData(
+            description = "다음 페이지",
+            stateFunction = {
+                moveToTicketCheck()
+            }
         )
     )
 
@@ -83,6 +89,10 @@ class TrainSelect(isTutorial: Boolean, val viewModel: TrainDataViewModel, step: 
         forceModifyingStep(4)
         viewModel.trainSelectStep = getCounter()
         viewModel.navController?.navigate("${if(isTutorial()) "tutorial" else "real" }TrainSeatSelectionAct")
+    }
+
+    fun moveToTicketCheck(){
+        viewModel.navController?.navigate("${if(isTutorial()) "tutorial" else "real" }TrainTicketCheck")
     }
 
     internal var toast: Toast? = null

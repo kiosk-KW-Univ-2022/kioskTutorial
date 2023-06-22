@@ -191,13 +191,13 @@ fun TrainSelect.TrainList() {
     var listState = rememberLazyListState()
     var corutine = rememberCoroutineScope()
 
-    corutine.launch{
-        var scrollable = when(getCounter()){
-            1-> true
-            else-> false
+    corutine.launch {
+        var scrollable = when (getCounter()) {
+            1 -> true
+            else -> false
         } or !isTutorial()
         if (scrollable) listState.scroll(scrollPriority = MutatePriority.PreventUserInput) {}
-        else listState.scroll(scrollPriority = MutatePriority.PreventUserInput) { awaitCancellation()}
+        else listState.scroll(scrollPriority = MutatePriority.PreventUserInput) { awaitCancellation() }
     }
 
     LazyColumn(
@@ -216,12 +216,11 @@ fun TrainSelect.TrainList() {
 
         itemsIndexed(
             items = trainItemList,
-            itemContent = {
-                index, item ->
-                    TrainSeatItem(item.trainNumber, item.start, item.end)
+            itemContent = { index, item ->
+                TrainSeatItem(item.trainNumber, item.start, item.end)
                 isExists = true
-                if(item.trainNumber == viewModel.trainSelectData.selectedTrain.value.first){
-                    corutine.launch{
+                if (item.trainNumber == viewModel.trainSelectData.selectedTrain.value.first) {
+                    corutine.launch {
                         listState.animateScrollToItem(index)
                     }
                 }
@@ -457,8 +456,7 @@ fun TrainSelect.PayingArea() {
                                 .border(2.dp, Color.Red)
                         ) {
                             moveNext()
-                        }
-                    ,
+                        },
                     color = Color.White,
                     textAlign = TextAlign.Center
                 )
@@ -466,7 +464,18 @@ fun TrainSelect.PayingArea() {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color(0xFFADCEDB)),
+                    .setMode(
+                        4,
+                        defaultModifier = Modifier
+                            .background(Color(0xFFADCEDB)),
+                        additionalModifier = Modifier
+                            .background(Color(0xFFFF6868))
+
+                    ) {
+                        moveToTicketCheck()
+                    }
+                    .padding(20.dp)
+                    ,
                 contentAlignment = Alignment.Center
 
             ) {
@@ -474,8 +483,6 @@ fun TrainSelect.PayingArea() {
                     text = "예매",
                     fontSize = 26.sp,
                     color = Color(0xFF344672),
-                    modifier = Modifier
-                        .padding(20.dp)
                 )
 
             }

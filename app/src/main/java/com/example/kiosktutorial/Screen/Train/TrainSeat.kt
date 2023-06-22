@@ -67,7 +67,7 @@ class TrainSeat(isTutorial:Boolean, val viewModel:TrainDataViewModel, step:Int =
     )
 
     internal fun moveNext(){
-
+        viewModel.trainSection = selectedTrainSection
         viewModel.trainSeatList = selectedSeat;
         viewModel.navController?.popBackStack();
     }

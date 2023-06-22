@@ -18,6 +18,7 @@ import com.example.kiosktutorial.Screen.Train.TrainDataViewModel
 import com.example.kiosktutorial.Screen.Train.TrainMain
 import com.example.kiosktutorial.Screen.Train.TrainSeat
 import com.example.kiosktutorial.Screen.Train.TrainSelect
+import com.example.kiosktutorial.Screen.Train.TrainTicketCheck
 import kotlinx.coroutines.delay
 
 sealed class BackPress {
@@ -103,6 +104,12 @@ fun SetupNavGraph(navController: NavHostController) {
             }
         }
 
+        composable(route = "tutorialTrainTicketCheck"){
+            val ticketCheck = TrainTicketCheck(true, trainTutorialViewModel, 1)
+            ticketCheck.Layout{
+                ticketCheck.MainAct()
+            }
+        }
 
 
 //        lateinit var test: KioskTest
@@ -142,6 +149,12 @@ fun SetupNavGraph(navController: NavHostController) {
             val trainSelect = TrainSeat(false,trainRealViewModel, 1)
             trainSelect.Layout{
                 trainSelect.MainAct()
+            }
+        }
+        composable(route = "realTrainTicketCheck"){
+            val ticketCheck = TrainTicketCheck(false, trainRealViewModel, 1)
+            ticketCheck.Layout{
+                ticketCheck.MainAct()
             }
         }
         composable(route = Screen.KioskTutorial.route) {
